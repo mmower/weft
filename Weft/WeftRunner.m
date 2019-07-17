@@ -47,7 +47,6 @@
   _window = [[WeftWindow alloc] initWithViewController:self.viewController];
   NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:_window];
   windowController.contentViewController = self.viewController;
-  [_window orderFront:self];
   return windowController;
 }
 

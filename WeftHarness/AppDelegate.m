@@ -19,6 +19,8 @@
 
 @property WeftRunner *runner;
 
+@property NSWindowController *windowController;
+
 @end
 
 @implementation AppDelegate
@@ -37,7 +39,8 @@
   @try {
     _runner = [[WeftRunner alloc] initWithSource:[self.sourceField stringValue]];
     _runner.delegate = self;
-    [_runner run];
+    _windowController = [_runner run];
+    [_windowController showWindow:self];
   }
   @catch( NSException *ex ) {
     NSLog( @"%@", ex );
