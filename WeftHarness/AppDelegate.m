@@ -38,7 +38,7 @@
 - (IBAction)doRun:(id)sender {
   @try {
     _runner = [[WeftRunner alloc] initWithSource:[self.sourceField stringValue]];
-    _runner.delegate = self;
+    [_runner setAppDelegate:self];
     _windowController = [_runner run];
     [_windowController showWindow:self];
   }
@@ -54,7 +54,8 @@
   // Insert code here to tear down your application
 }
 
-- (void)weftRunner:(id)runner buttonPushed:(NSDictionary *)attributes {
+- (void)weftApplication:(WeftApplication *)app buttonPushed:(NSButton *)button {
+  NSDictionary *attributes = [app elementAttributes:button];
   NSLog( @"weftButton pushed: %@", attributes );
 }
 

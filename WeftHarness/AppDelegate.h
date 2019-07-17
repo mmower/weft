@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "WeftRunner.h"
+#import "WeftApplication.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate,WeftRunnerDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate,WeftApplicationDelegate>
 
 
 @end

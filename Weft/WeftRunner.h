@@ -11,17 +11,11 @@
 @class WeftRunner;
 @class WeftViewController;
 
+@protocol WeftApplicationDelegate;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol WeftRunnerDelegate <NSObject>
-
-- (void)weftRunner:(WeftRunner *)runner buttonPushed:(NSDictionary *)attributes;
-
-@end
-
 @interface WeftRunner : NSObject <NSWindowDelegate>
-
-@property (weak) id<WeftRunnerDelegate> delegate;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithSource:(NSString *)source NS_DESIGNATED_INITIALIZER;
@@ -31,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSWindowController *)run;
 
 - (IBAction)buttonPushed:(id)sender;
+
+- (void)setAppDelegate:(id<WeftApplicationDelegate>)appDelegate;
 
 @end
 

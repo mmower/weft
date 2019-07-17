@@ -56,12 +56,8 @@
   NSLog( @"elements now %lu", _elements.count );
 }
 
-- (IBAction)buttonPushed:(id)sender {
-  NSLog( @"buttonPushed:%@", sender );
-  if( self.delegate && [self.delegate respondsToSelector:@selector(weftRunner:buttonPushed:)] ) {
-    [self.delegate weftRunner:self
-                 buttonPushed:[self.elements objectForKey:sender]];
-  }
+- (void)setAppDelegate:(id<WeftApplicationDelegate>)appDelegate {
+  _app.delegate = appDelegate;
 }
 
 @end

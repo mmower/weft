@@ -74,7 +74,8 @@ NSInteger kDefaultApplicationHeight = 200;
 }
 
 - (IBAction)buttonPushed:(id)sender {
-  if( self.delegate && [self.delegate respondsToSelector:@selector(weftApplication:buttonPushed:)] ) {
+  NSLog( @"-[WeftApplication buttonPushed:%@]", sender );
+  if( self.delegate ) {
     [self.delegate weftApplication:self
                       buttonPushed:sender];
   }
