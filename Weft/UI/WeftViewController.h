@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class WeftRunner;
+@class WeftApplication;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
 - (instancetype)initWithNibName:(nullable NSNibName)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
-- (instancetype)initWithSource:(NSString *)source runner:(WeftRunner *)runner NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithApplication:(WeftApplication *)app NS_DESIGNATED_INITIALIZER;
 
 @end
 

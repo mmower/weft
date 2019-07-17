@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WeftRunner : NSObject <NSWindowDelegate>
 
-@property WeftViewController *controller;
 @property (weak) id<WeftRunnerDelegate> delegate;
 
 - (instancetype)init NS_UNAVAILABLE;
@@ -29,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerElement:(NSView *)view attributes:(NSDictionary *)attributes;
 
-- (void)run;
+- (NSWindowController *)run;
 
 - (IBAction)buttonPushed:(id)sender;
 

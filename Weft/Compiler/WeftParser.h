@@ -8,21 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class WeftRunner;
+@class WeftApplication;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WeftParser : NSObject <NSXMLParserDelegate>
 
 @property (readonly) NSArray<NSError *> *errors;
-@property (readonly) NSView *rootView;
-@property (readonly) NSDictionary *attributes;
 
-- (instancetype)initWithRunner:(WeftRunner *)runner;
+- (instancetype)initWithApp:(WeftApplication *)app;
 
-@end
-
-@interface WeftMainView : NSView
 @end
 
 NS_ASSUME_NONNULL_END

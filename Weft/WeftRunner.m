@@ -9,10 +9,14 @@
 #import "WeftRunner.h"
 
 #import "WeftWindow.h"
+#import "WeftCompiler.h"
+#import "WeftApplication.h"
 #import "WeftViewController.h"
 
 @interface WeftRunner ()
 
+@property WeftViewController *viewController;
+@property WeftApplication *app;
 @property WeftWindow *window;
 @property NSMapTable *elements;
 
@@ -25,15 +29,26 @@
   if( self ) {
     _elements = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory
                                       valueOptions:NSMapTableStrongMemory];
-    _controller = [[WeftViewController alloc] initWithSource:source runner:self];
+    WeftCompiler *compiler = [[WeftCompiler alloc] initWithSource:source];
+    WeftCompilation *result = [compiler compile];
+    if( result.successful ) {
+      NSLog( @"Compilation successful: app->%@", result.app );
+      _app = result.app;
+    } else {
+      @throw result.exception;
+    }
+    _viewController = [[WeftViewController alloc] initWithApplication:_app];
   }
   return self;
 }
 
-- (void)run {
-  _window = [[WeftWindow alloc] initWithViewController:self.controller];
-  NSLog( @"weftRunner.window = %@", _window );
+- (NSWindowController *)run {
+  NSLog( @"WeftRunner.run" );
+  _window = [[WeftWindow alloc] initWithViewController:self.viewController];
+  NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:_window];
+  windowController.contentViewController = self.viewController;
   [_window orderFront:self];
+  return windowController;
 }
 
 - (void)registerElement:(NSView *)view attributes:(NSDictionary *)attributes {

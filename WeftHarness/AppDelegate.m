@@ -14,6 +14,9 @@
 
 @property (weak) IBOutlet NSWindow *window;
 
+@property (weak) IBOutlet NSTextField *sourceField;
+@property (weak) IBOutlet NSTextField *errorField;
+
 @property WeftRunner *runner;
 
 @end
@@ -21,11 +24,28 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-  _runner = [[WeftRunner alloc] initWithSource:@"<window title='Weft Test Window' width='640' height='480'><hstack insets='20,20,20,20'><button gravity='leading' id='main' clicked='foo' title='Press Me'></button><textfield label='gubbins' width='50' id='f' placeholder='foo'></textfield></hstack></window>"];
-  _runner.delegate = self;
-  [_runner run];
+  [_errorField setEditable:NO];
+  [_sourceField setStringValue:@"<window title='Weft Test Window' width='640' height='480'>\n\
+       <row insets='20,20,20,20'>\n\
+         <button gravity='leading' id='main' clicked='foo' title='Press Me'></button>\n\
+         <textfield gravity='leading' label='Name:' width='50' id='name' placeholder='John. Q. Public'></textfield>\n\
+       </row>\n\
+   </window>"];
 }
 
+- (IBAction)doRun:(id)sender {
+  @try {
+    _runner = [[WeftRunner alloc] initWithSource:[self.sourceField stringValue]];
+    _runner.delegate = self;
+    [_runner run];
+  }
+  @catch( NSException *ex ) {
+    NSLog( @"%@", ex );
+    NSBeep();
+    NSString *error = [NSString stringWithFormat:@"%@\nInfo:\n%@",ex.reason,ex.userInfo];
+    [_errorField setStringValue:error];
+  }
+}
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
   // Insert code here to tear down your application
