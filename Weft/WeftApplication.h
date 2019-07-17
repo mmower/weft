@@ -18,6 +18,9 @@ extern NSInteger kDefaultApplicationHeight;
 @protocol WeftApplicationDelegate <NSObject>
 
 - (void)weftApplication:(WeftApplication *)app
+               complete:(BOOL)ok;
+
+- (void)weftApplication:(WeftApplication *)app
            buttonPushed:(NSButton *)button;
 
 @end

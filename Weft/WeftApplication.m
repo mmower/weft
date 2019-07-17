@@ -11,6 +11,7 @@
 #import "WeftParser.h"
 
 #import "NSView+Weft.h"
+#import "NSDictionary+Weft.h"
 
 @interface WeftApplication ()
 
@@ -76,6 +77,14 @@ NSInteger kDefaultApplicationHeight = 200;
 - (IBAction)buttonPushed:(id)sender {
   NSLog( @"-[WeftApplication buttonPushed:%@]", sender );
   if( self.delegate ) {
+    WeftAttribute *attr = [[self elementAttributes:sender] stringAttribute:@"role"];
+    if( attr.defined ) {
+      if( [attr.stringValue isEqualToString:@"ok"] ) {
+        [self.delegate weftApplication:self complete:YES];
+        return;
+      }
+    }
+
     [self.delegate weftApplication:self
                       buttonPushed:sender];
   }

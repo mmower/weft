@@ -59,5 +59,9 @@
   NSLog( @"weftButton pushed: %@", attributes );
 }
 
+- (void)weftApplication:(WeftApplication *)app complete:(BOOL)ok {
+  [_windowController close];
+}
+
 
 @end

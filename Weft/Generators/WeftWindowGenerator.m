@@ -53,10 +53,39 @@
   app.appView = [[WeftFlippedView alloc] initWithFrame:NSMakeRect(0, 0, app.width, app.height)];
 
   app.currentStack = [[NSStackView alloc] initWithFrame:NSMakeRect(0, 0, app.width, app.height)];
-  app.currentStack.translatesAutoresizingMaskIntoConstraints = NO;
   app.currentStack.orientation = NSUserInterfaceLayoutOrientationVertical;
-
+  app.currentStack.translatesAutoresizingMaskIntoConstraints = NO;
   [app.appView addSubview:app.currentStack];
+
+  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:app.currentStack
+                                                               attribute:NSLayoutAttributeLeft
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:app.appView
+                                                               attribute:NSLayoutAttributeLeft
+                                                              multiplier:1.0
+                                                                constant:0.0]];
+  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:app.currentStack
+                                                               attribute:NSLayoutAttributeTop
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:app.appView
+                                                               attribute:NSLayoutAttributeTop
+                                                              multiplier:1.0
+                                                                constant:0.0]];
+  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:app.currentStack
+                                                               attribute:NSLayoutAttributeRight
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:app.appView
+                                                               attribute:NSLayoutAttributeRight
+                                                              multiplier:1.0
+                                                                constant:0.0]];
+  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:app.currentStack
+                                                               attribute:NSLayoutAttributeBottom
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:app.appView
+                                                               attribute:NSLayoutAttributeBottom
+                                                              multiplier:1.0
+                                                                constant:0.0]];
+
 }
 
 - (void)closeElementApp:(WeftApplication *)app {
