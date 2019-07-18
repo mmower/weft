@@ -8,8 +8,6 @@
 
 #import "WeftLabelGenerator.h"
 
-#import "WeftApplication.h"
-
 #import "NSDictionary+Weft.h"
 
 @implementation WeftLabelGenerator

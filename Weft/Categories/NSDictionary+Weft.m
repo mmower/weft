@@ -101,6 +101,15 @@
   return [[WeftAttribute alloc] initOrientationValue:orientation];
 }
 
+- (WeftAttribute *)csvAttribute:(NSString *)name {
+  NSString *value = [self objectForKey:name];
+  if( !value ) {
+    return [WeftAttribute undefined];
+  } else {
+    return [[WeftAttribute alloc] initCsvValue:[value componentsSeparatedByString:@","]];
+  }
+}
+
 @end
 
 @implementation WeftAttribute
@@ -172,6 +181,15 @@
   if( self ) {
     _defined = YES;
     _orientationValue = value;
+  }
+  return self;
+}
+
+- (instancetype)initCsvValue:(NSArray *)value {
+  self = [super init];
+  if( self ) {
+    _defined = YES;
+    _csvValue = value;
   }
   return self;
 }

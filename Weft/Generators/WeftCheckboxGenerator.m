@@ -10,8 +10,6 @@
 
 #import "WeftCheckboxGenerator.h"
 
-#import "WeftApplication.h"
-
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 

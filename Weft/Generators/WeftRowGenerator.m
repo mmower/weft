@@ -10,8 +10,6 @@
 
 #import "WeftRowGenerator.h"
 
-#import "WeftApplication.h"
-
 #import "NSDictionary+Weft.h"
 
 @implementation WeftRowGenerator

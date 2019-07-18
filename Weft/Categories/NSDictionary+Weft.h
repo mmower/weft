@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSEdgeInsets insetsValue;
 @property (readonly) NSStackViewGravity gravityValue;
 @property (readonly) NSUserInterfaceLayoutOrientation orientationValue;
+@property (readonly) NSArray *csvValue;
 
 + (instancetype)undefined;
 
@@ -29,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initInsetsValue:(NSEdgeInsets)value;
 - (instancetype)initGravityValue:(NSStackViewGravity)value;
 - (instancetype)initOrientationValue:(NSUserInterfaceLayoutOrientation)value;
+- (instancetype)initCsvValue:(NSArray *)value;
 
 @end
 
@@ -40,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WeftAttribute *)insetsAttribute:(NSString *)name;
 - (WeftAttribute *)gravityAttribute:(NSString *)name;
 - (WeftAttribute *)orientiationAttribute:(NSString *)name;
+- (WeftAttribute *)csvAttribute:(NSString *)name;
 
 @end
 

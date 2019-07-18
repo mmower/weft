@@ -8,8 +8,6 @@
 
 #import "WeftWindowGenerator.h"
 
-#import "WeftApplication.h"
-
 #import "WeftFlippedView.h"
 
 #import "NSDictionary+Weft.h"

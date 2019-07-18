@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class WeftApplication;
+#import "WeftApplication.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
