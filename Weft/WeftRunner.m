@@ -18,7 +18,6 @@
 @property WeftViewController *viewController;
 @property WeftApplication *app;
 @property WeftWindow *window;
-@property NSMapTable *elements;
 
 @end
 
@@ -27,8 +26,6 @@
 - (instancetype)initWithSource:(NSString *)source {
   self = [super init];
   if( self ) {
-    _elements = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory
-                                      valueOptions:NSMapTableStrongMemory];
     WeftCompiler *compiler = [[WeftCompiler alloc] initWithSource:source];
     WeftCompilation *result = [compiler compile];
     if( result.successful ) {
@@ -48,12 +45,6 @@
   NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:_window];
   windowController.contentViewController = self.viewController;
   return windowController;
-}
-
-- (void)registerElement:(NSView *)view attributes:(NSDictionary *)attributes {
-  NSLog( @"registerElement:%@ attribute:%@", view, attributes );
-  [_elements setObject:attributes forKey:view];
-  NSLog( @"elements now %lu", _elements.count );
 }
 
 - (void)setAppDelegate:(id<WeftApplicationDelegate>)appDelegate {

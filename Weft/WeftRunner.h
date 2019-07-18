@@ -20,11 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithSource:(NSString *)source NS_DESIGNATED_INITIALIZER;
 
-- (void)registerElement:(NSView *)view attributes:(NSDictionary *)attributes;
-
 - (NSWindowController *)run;
-
-- (IBAction)buttonPushed:(id)sender;
 
 - (void)setAppDelegate:(id<WeftApplicationDelegate>)appDelegate;
 
