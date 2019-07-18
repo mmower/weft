@@ -1,14 +1,14 @@
-<window title='Weft Test Window' width='640' height='150'>
-  <col>
-    <row insets='10,10,10,10'>
+<window title='Weft Test Window' width='640' height='120'>
+  <col insets='20,20,20,20'>
+    <row insets='2,2,2,2'>
       <label gravity='leading' title='Name:'/>
       <textfield gravity='center' id='name' placeholder='John. Q. Public'/>
     </row>
-    <row insets='10,10,10,10'>
+    <row insets='2,2,2,2'>
       <label gravity='leading' title='Password:'/>
       <password gravity='center' id='password'/>
     </row>
-    <row>
+    <row insets='2,2,2,2'>
       <checkbox title='Remember Me' id='remember'/>
       <popupbutton id='length' choices='1 week,2 weeks,1 month' default='2 weeks'/>
       <ok/>

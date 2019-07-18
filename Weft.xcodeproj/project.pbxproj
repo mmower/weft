@@ -62,6 +62,8 @@
 		C9F5F43122E095ED003FD0F5 /* WeftPasswordGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F5F42F22E095ED003FD0F5 /* WeftPasswordGenerator.h */; };
 		C9F5F43222E095ED003FD0F5 /* WeftPasswordGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F5F43022E095ED003FD0F5 /* WeftPasswordGenerator.m */; };
 		C9F5F43422E0BD97003FD0F5 /* example1.weft in Resources */ = {isa = PBXBuildFile; fileRef = C9F5F43322E0BD97003FD0F5 /* example1.weft */; };
+		C9F5F43722E0CE9E003FD0F5 /* WeftComboGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F5F43522E0CE9E003FD0F5 /* WeftComboGenerator.h */; };
+		C9F5F43822E0CE9E003FD0F5 /* WeftComboGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F5F43622E0CE9E003FD0F5 /* WeftComboGenerator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +150,8 @@
 		C9F5F42F22E095ED003FD0F5 /* WeftPasswordGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeftPasswordGenerator.h; sourceTree = "<group>"; };
 		C9F5F43022E095ED003FD0F5 /* WeftPasswordGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftPasswordGenerator.m; sourceTree = "<group>"; };
 		C9F5F43322E0BD97003FD0F5 /* example1.weft */ = {isa = PBXFileReference; lastKnownFileType = text; path = example1.weft; sourceTree = "<group>"; };
+		C9F5F43522E0CE9E003FD0F5 /* WeftComboGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeftComboGenerator.h; sourceTree = "<group>"; };
+		C9F5F43622E0CE9E003FD0F5 /* WeftComboGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftComboGenerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +266,8 @@
 				C9F3452022DF63EB00435DF1 /* WeftTextfieldGenerator.m */,
 				C9F3452322DF650500435DF1 /* WeftWindowGenerator.h */,
 				C9F3452422DF650500435DF1 /* WeftWindowGenerator.m */,
+				C9F5F43522E0CE9E003FD0F5 /* WeftComboGenerator.h */,
+				C9F5F43622E0CE9E003FD0F5 /* WeftComboGenerator.m */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -305,6 +311,7 @@
 				C9F3452122DF63EB00435DF1 /* WeftTextfieldGenerator.h in Headers */,
 				C9F5F42D22E08E50003FD0F5 /* WeftTextboxGenerator.h in Headers */,
 				C9F3450D22DF3B9900435DF1 /* WeftButtonGenerator.h in Headers */,
+				C9F5F43722E0CE9E003FD0F5 /* WeftComboGenerator.h in Headers */,
 				C9F3450922DF3B8900435DF1 /* WeftElementGenerator.h in Headers */,
 				C9844A1722DF35E5002ADAAC /* WeftParser.h in Headers */,
 				C9F3452F22E0571800435DF1 /* WeftCheckboxGenerator.h in Headers */,
@@ -443,6 +450,7 @@
 				C9F5F41622E06C93003FD0F5 /* WeftPopupbuttonGenerator.m in Sources */,
 				C9844A1522DF35E5002ADAAC /* WeftViewController.m in Sources */,
 				C9F5F42222E07B49003FD0F5 /* WeftOkGenerator.m in Sources */,
+				C9F5F43822E0CE9E003FD0F5 /* WeftComboGenerator.m in Sources */,
 				C9F5F42622E07CCA003FD0F5 /* WeftCancelGenerator.m in Sources */,
 				C9F3451A22DF63D000435DF1 /* WeftRowGenerator.m in Sources */,
 				C9F5F43222E095ED003FD0F5 /* WeftPasswordGenerator.m in Sources */,
