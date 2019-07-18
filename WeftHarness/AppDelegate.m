@@ -14,7 +14,7 @@
 
 @property (weak) IBOutlet NSWindow *window;
 
-@property (weak) IBOutlet NSTextField *sourceField;
+@property (weak) IBOutlet NSTextView *sourceView;
 @property (weak) IBOutlet NSTextField *errorField;
 
 @property WeftRunner *runner;
@@ -27,17 +27,18 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   [_errorField setEditable:NO];
-  [_sourceField setStringValue:@"<window title='Weft Test Window' width='640' height='480'>\n\
-       <row insets='20,20,20,20'>\n\
-         <button gravity='leading' id='main' clicked='foo' title='Press Me'></button>\n\
-         <textfield gravity='leading' label='Name:' width='50' id='name' placeholder='John. Q. Public'></textfield>\n\
-       </row>\n\
-   </window>"];
+  [_sourceView setString:@"<window title='Weft Test Window' width='640' height='480'>\n\
+\t<row insets='20,20,20,20'>\n\
+\t\t<checkbox title='Bother' id='bother'/>\n\
+\t\t<button role='ok' id='main' clicked='foo' title='Press Me'/>\n\
+\t\t<textfield label='Name:' id='name' placeholder='John. Q. Public'/>\n\
+\t</row>\n\
+</window>"];
 }
 
 - (IBAction)doRun:(id)sender {
   @try {
-    _runner = [[WeftRunner alloc] initWithSource:[self.sourceField stringValue]];
+    _runner = [[WeftRunner alloc] initWithSource:[self.sourceView string]];
     [_runner setAppDelegate:self];
     _windowController = [_runner run];
     [_windowController showWindow:self];
