@@ -27,15 +27,12 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   [_errorField setEditable:NO];
-  [_sourceView setString:@"<window title='Weft Test Window' width='640' height='480'>\n\
-\t<row insets='20,20,20,20'>\n\
-\t\t<checkbox title='Bother' id='bother'/>\n\
-\t\t<button role='ok' id='main' clicked='foo' title='Press Me'/>\n\
-\t\t<textfield label='Name:' id='name' placeholder='John. Q. Public'/>\n\
-\t\t<popupbutton id='color' choices='red,green,blue' default='green'/>\n\
-\t\t<ok/>\n\
-\t</row>\n\
-</window>"];
+
+  NSString *path = [[NSBundle mainBundle] pathForResource:@"example1" ofType:@"weft"];
+  NSString *code = [NSString stringWithContentsOfFile:path
+                                             encoding:NSUTF8StringEncoding
+                                                error:NULL];
+  [_sourceView setString:code];
 }
 
 - (IBAction)doRun:(id)sender {

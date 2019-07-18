@@ -17,3 +17,46 @@ That Weft allows automatic layout is down to using NSStackView.
       </hstack>
     </window>
 
+
+## Element Guide
+
+### Window
+
+    <window></window>
+    
+    Attributes:
+    * title: Title for the window
+    * width: initial width of the window (this may be changed if the layout ends up wider)
+    * height: initial height of the window (this may be changed if the layout ends up taller)
+    
+### Row
+
+A row organises its contents as a horizontal stack of elements. 
+
+#### Attributes
+
+### Col
+
+#### Attributes
+
+A col organises its contents as a vertical stack of elements.
+
+### Textfield
+
+#### Attributes
+
+### Textbox
+
+### Password
+
+### Button
+
+### Checkbox
+
+### Radio
+
+### Popupbutton
+
+### Datepicker
+
+

@@ -1,0 +1,17 @@
+<window title='Weft Test Window' width='640' height='150'>
+  <col>
+    <row insets='10,10,10,10'>
+      <label gravity='leading' title='Name:'/>
+      <textfield gravity='center' id='name' placeholder='John. Q. Public'/>
+    </row>
+    <row insets='10,10,10,10'>
+      <label gravity='leading' title='Password:'/>
+      <password gravity='center' id='password'/>
+    </row>
+    <row>
+      <checkbox title='Remember Me' id='remember'/>
+      <popupbutton id='length' choices='1 week,2 weeks,1 month' default='2 weeks'/>
+      <ok/>
+    </row>
+  </col>
+</window>
