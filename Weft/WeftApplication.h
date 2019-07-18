@@ -32,6 +32,7 @@ extern NSInteger kDefaultApplicationHeight;
 @property NSString *title;
 @property NSInteger width;
 @property NSInteger height;
+@property BOOL hasOk;
 
 @property id<WeftApplicationDelegate> delegate;
 
@@ -39,6 +40,9 @@ extern NSInteger kDefaultApplicationHeight;
 @property NSView *appView;
 
 @property NSStackView *currentStack;
+
+- (BOOL)isValid;
+- (NSArray<NSError *> *)validationErrors;
 
 - (void)pushStack:(NSStackView *)stackview;
 - (void)popStack;
@@ -52,6 +56,8 @@ extern NSInteger kDefaultApplicationHeight;
 - (NSDictionary *)elementAttributes:(NSView *)element;
 
 - (IBAction)buttonPushed:(id)sender;
+- (IBAction)pressedOk:(id)sender;
+- (IBAction)pressedCancel:(id)sender;
 
 - (NSDictionary *)values;
 

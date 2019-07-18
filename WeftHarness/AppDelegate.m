@@ -33,6 +33,7 @@
 \t\t<button role='ok' id='main' clicked='foo' title='Press Me'/>\n\
 \t\t<textfield label='Name:' id='name' placeholder='John. Q. Public'/>\n\
 \t\t<popupbutton id='color' choices='red,green,blue' default='green'/>\n\
+\t\t<ok/>\n\
 \t</row>\n\
 </window>"];
 }

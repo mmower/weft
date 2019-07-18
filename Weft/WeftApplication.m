@@ -37,8 +37,23 @@ NSInteger kDefaultApplicationHeight = 200;
                                                valueOptions:NSMapTableStrongMemory];
     _valueExtractors = [NSMutableArray array];
     _stackHistory = [NSMutableArray array];
+    _hasOk = NO;
   }
   return self;
+}
+
+- (BOOL)isValid {
+  return _hasOk;
+}
+
+- (NSArray<NSError *> *)validationErrors {
+  if( !_hasOk ) {
+    return @[[NSError errorWithDomain:@"WeftApplication"
+                                 code:1
+                             userInfo:@{@"reason":@"Application has no <ok>"}]];
+  } else {
+    return @[];
+  }
 }
 
 - (NSString *)description {
@@ -77,19 +92,18 @@ NSInteger kDefaultApplicationHeight = 200;
 }
 
 - (IBAction)buttonPushed:(id)sender {
-  NSLog( @"-[WeftApplication buttonPushed:%@]", sender );
   if( self.delegate ) {
-    WeftAttribute *attr = [[self elementAttributes:sender] stringAttribute:@"role"];
-    if( attr.defined ) {
-      if( [attr.stringValue isEqualToString:@"ok"] ) {
-        [self.delegate weftApplication:self complete:YES];
-        return;
-      }
-    }
-
     [self.delegate weftApplication:self
                       buttonPushed:sender];
   }
+}
+
+- (IBAction)pressedOk:(id)sender {
+  [self.delegate weftApplication:self complete:YES];
+}
+
+- (IBAction)pressedCancel:(id)sender {
+  [self.delegate weftApplication:self complete:NO];
 }
 
 - (void)registerExtractor:(WeftValueExtractor)extractor {
@@ -103,6 +117,5 @@ NSInteger kDefaultApplicationHeight = 200;
   }
   return values;
 }
-
 
 @end
