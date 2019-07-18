@@ -10,6 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern const NSInteger kTextFieldHeight;
+extern const NSInteger kTextFieldDefaultWidth;
+
 @interface WeftTextfieldGenerator : WeftElementGenerator
 
 @end

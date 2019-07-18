@@ -1,93 +1,70 @@
 //
-//  WeftTextfieldGenerator.m
+//  WeftPasswordGenerator.m
 //  Weft
 //
-//  Created by Matthew Mower on 17/07/2019.
+//  Created by Matthew Mower on 18/07/2019.
 //  Copyright © 2019 TAON. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "WeftPasswordGenerator.h"
 
 #import "WeftTextfieldGenerator.h"
 
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
-const NSInteger kTextFieldHeight = 22;
-const NSInteger kTextFieldDefaultWidth = 280;
-
-@implementation WeftTextfieldGenerator
+@implementation WeftPasswordGenerator
 
 - (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"textfield"];
+  return [[elementName lowercaseString] isEqualToString:@"password"];
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
-  NSParameterAssert(app);
-  NSParameterAssert(attributes);
-
   WeftAttribute *attr;
 
+  NSString *elementId;
   attr = [attributes stringAttribute:@"id"];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"WeftParserException"
-                                   reason:@"TextField without id"
-                                 userInfo:nil];
-  }
-  NSString *elementId = attr.stringValue;
-
-  attr = [attributes stringAttribute:@"label"];
   if( attr.defined ) {
-    NSTextField *label = [NSTextField labelWithString:attr.stringValue];
-    [app addArrangedSubview:label];
+    elementId = attr.stringValue;
+  } else {
+    @throw [NSException exceptionWithName:@"Password error"
+                                   reason:@"<password> without 'id' attribute"
+                                 userInfo:attributes];
   }
 
-  NSInteger width = kTextFieldDefaultWidth;
+  NSInteger width;
   attr = [attributes integerAttribute:@"width"];
   if( attr.defined ) {
     width = attr.integerValue;
+  } else {
+    width = kTextFieldDefaultWidth;
   }
 
-  NSInteger height = kTextFieldHeight;
+  NSInteger height;
   attr = [attributes integerAttribute:@"height"];
   if( attr.defined ) {
     height = attr.integerValue;
+  } else {
+    height = kTextFieldHeight;
   }
 
-  NSTextField *textField = [[NSTextField alloc] init];
-  textField.translatesAutoresizingMaskIntoConstraints = NO;
-  [textField setElementId:elementId];
-
-  attr = [attributes stringAttribute:@"placeholder"];
-  if( attr.defined ) {
-    [textField setPlaceholderString:attr.stringValue];
-  }
-
-  attr = [attributes stringAttribute:@"tooltip"];
-  if( attr.defined ) {
-    [textField setToolTip:attr.stringValue];
-  }
-
-  attr = [attributes boolAttribute:@"disabled"];
-  if( attr.defined && attr.boolValue ) {
-    [textField setEnabled:NO];
-  }
-
+  NSSecureTextField *secureField = [[NSSecureTextField alloc] init];
+  secureField.translatesAutoresizingMaskIntoConstraints = NO;
   attr = [attributes gravityAttribute:@"gravity"];
   if( attr.defined ) {
-    [app addView:textField inGravity:attr.gravityValue];
+    [app addView:secureField inGravity:attr.gravityValue];
   } else {
-    [app addArrangedSubview:textField];
+    [app addArrangedSubview:secureField];
   }
 
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:textField
+  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:secureField
                                                           attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
                                                            constant:width]];
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:textField
+  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:secureField
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil
@@ -96,9 +73,9 @@ const NSInteger kTextFieldDefaultWidth = 280;
                                                            constant:height]];
 
 
-  [app registerElement:textField attributes:attributes];
+  [app registerElement:secureField attributes:attributes];
   [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
-    [values setObject:textField.stringValue forKey:elementId];    
+    [values setObject:secureField.stringValue forKey:elementId];
   }];
 }
 
