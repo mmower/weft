@@ -45,6 +45,10 @@
 		C9F3452622DF650500435DF1 /* WeftWindowGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3452422DF650500435DF1 /* WeftWindowGenerator.m */; };
 		C9F3452922DF716500435DF1 /* WeftFlippedView.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F3452722DF716500435DF1 /* WeftFlippedView.h */; };
 		C9F3452A22DF716500435DF1 /* WeftFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3452822DF716500435DF1 /* WeftFlippedView.m */; };
+		C9F3452F22E0571800435DF1 /* WeftCheckboxGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F3452D22E0571800435DF1 /* WeftCheckboxGenerator.h */; };
+		C9F3453022E0571800435DF1 /* WeftCheckboxGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3452E22E0571800435DF1 /* WeftCheckboxGenerator.m */; };
+		C9F3453322E05B9800435DF1 /* WeftLabelGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F3453122E05B9800435DF1 /* WeftLabelGenerator.h */; };
+		C9F3453422E05B9800435DF1 /* WeftLabelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3453222E05B9800435DF1 /* WeftLabelGenerator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +118,10 @@
 		C9F3452422DF650500435DF1 /* WeftWindowGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftWindowGenerator.m; sourceTree = "<group>"; };
 		C9F3452722DF716500435DF1 /* WeftFlippedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeftFlippedView.h; sourceTree = "<group>"; };
 		C9F3452822DF716500435DF1 /* WeftFlippedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftFlippedView.m; sourceTree = "<group>"; };
+		C9F3452D22E0571800435DF1 /* WeftCheckboxGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeftCheckboxGenerator.h; sourceTree = "<group>"; };
+		C9F3452E22E0571800435DF1 /* WeftCheckboxGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftCheckboxGenerator.m; sourceTree = "<group>"; };
+		C9F3453122E05B9800435DF1 /* WeftLabelGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeftLabelGenerator.h; sourceTree = "<group>"; };
+		C9F3453222E05B9800435DF1 /* WeftLabelGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftLabelGenerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +219,10 @@
 				C9F3452022DF63EB00435DF1 /* WeftTextfieldGenerator.m */,
 				C9F3452322DF650500435DF1 /* WeftWindowGenerator.h */,
 				C9F3452422DF650500435DF1 /* WeftWindowGenerator.m */,
+				C9F3452D22E0571800435DF1 /* WeftCheckboxGenerator.h */,
+				C9F3452E22E0571800435DF1 /* WeftCheckboxGenerator.m */,
+				C9F3453122E05B9800435DF1 /* WeftLabelGenerator.h */,
+				C9F3453222E05B9800435DF1 /* WeftLabelGenerator.m */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -254,10 +266,12 @@
 				C9F3450D22DF3B9900435DF1 /* WeftButtonGenerator.h in Headers */,
 				C9F3450922DF3B8900435DF1 /* WeftElementGenerator.h in Headers */,
 				C9844A1722DF35E5002ADAAC /* WeftParser.h in Headers */,
+				C9F3452F22E0571800435DF1 /* WeftCheckboxGenerator.h in Headers */,
 				C9844A1A22DF35E5002ADAAC /* WeftViewController.h in Headers */,
 				C9F3451D22DF63DE00435DF1 /* WeftColGenerator.h in Headers */,
 				C9F3451122DF3BC400435DF1 /* WeftApplication.h in Headers */,
 				C9F3451922DF63D000435DF1 /* WeftRowGenerator.h in Headers */,
+				C9F3453322E05B9800435DF1 /* WeftLabelGenerator.h in Headers */,
 				C9F3452922DF716500435DF1 /* WeftFlippedView.h in Headers */,
 				C9F3450422DF371B00435DF1 /* NSDictionary+Weft.h in Headers */,
 				C9F3452522DF650500435DF1 /* WeftWindowGenerator.h in Headers */,
@@ -377,9 +391,11 @@
 				C9F3452A22DF716500435DF1 /* WeftFlippedView.m in Sources */,
 				C9F3450322DF371B00435DF1 /* NSView+Weft.m in Sources */,
 				C9F3450522DF371B00435DF1 /* NSDictionary+Weft.m in Sources */,
+				C9F3453022E0571800435DF1 /* WeftCheckboxGenerator.m in Sources */,
 				C9F3451622DF426800435DF1 /* WeftCompiler.m in Sources */,
 				C9844A1522DF35E5002ADAAC /* WeftViewController.m in Sources */,
 				C9F3451A22DF63D000435DF1 /* WeftRowGenerator.m in Sources */,
+				C9F3453422E05B9800435DF1 /* WeftLabelGenerator.m in Sources */,
 				C9F3452222DF63EB00435DF1 /* WeftTextfieldGenerator.m in Sources */,
 				C9F3452622DF650500435DF1 /* WeftWindowGenerator.m in Sources */,
 				C9844A1422DF35E5002ADAAC /* WeftWindow.m in Sources */,
