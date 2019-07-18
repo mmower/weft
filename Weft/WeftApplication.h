@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^WeftValueExtractor)(NSMutableDictionary *values);
+
 @class WeftApplication;
 
 extern NSInteger kDefaultApplicationWidth;
@@ -45,10 +47,13 @@ extern NSInteger kDefaultApplicationHeight;
 - (void)addView:(NSView *)view inGravity:(NSStackViewGravity)gravity;
 
 - (void)registerElement:(NSView *)view attributes:(NSDictionary *)attributes;
+- (void)registerExtractor:(WeftValueExtractor)extractor;
 - (NSView *)elementWithId:(NSString *)elementId;
 - (NSDictionary *)elementAttributes:(NSView *)element;
 
 - (IBAction)buttonPushed:(id)sender;
+
+- (NSDictionary *)values;
 
 @end
 

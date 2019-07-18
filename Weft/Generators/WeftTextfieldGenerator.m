@@ -77,6 +77,9 @@ static const NSInteger kTextFieldDefaultWidth = 280;
 
   [app addArrangedSubview:textField];
   [app registerElement:textField attributes:attributes];
+  [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
+    [values setObject:textField.stringValue forKey:elementId];    
+  }];
 }
 
 - (void)closeElementApp:(WeftApplication *)app {

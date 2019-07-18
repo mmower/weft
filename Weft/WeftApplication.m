@@ -17,6 +17,7 @@
 
 @property NSMapTable<NSString *,NSView *> *elementsById;
 @property NSMapTable<NSView *,NSDictionary *> *elementAttributes;
+@property NSMutableArray *valueExtractors;
 
 @property NSMutableArray *stackHistory;
 
@@ -34,6 +35,7 @@ NSInteger kDefaultApplicationHeight = 200;
                                           valueOptions:NSMapTableWeakMemory];
     _elementAttributes = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory
                                                valueOptions:NSMapTableStrongMemory];
+    _valueExtractors = [NSMutableArray array];
     _stackHistory = [NSMutableArray array];
   }
   return self;
@@ -88,6 +90,18 @@ NSInteger kDefaultApplicationHeight = 200;
     [self.delegate weftApplication:self
                       buttonPushed:sender];
   }
+}
+
+- (void)registerExtractor:(WeftValueExtractor)extractor {
+  [_valueExtractors addObject:extractor];
+}
+
+- (NSDictionary *)values {
+  NSMutableDictionary *values = [NSMutableDictionary dictionary];
+  for( WeftValueExtractor extractor in _valueExtractors ) {
+    extractor(values);
+  }
+  return values;
 }
 
 

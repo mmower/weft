@@ -61,6 +61,7 @@
 }
 
 - (void)weftApplication:(WeftApplication *)app complete:(BOOL)ok {
+  [_errorField setStringValue:[app.values description]];
   [_windowController close];
 }
 
