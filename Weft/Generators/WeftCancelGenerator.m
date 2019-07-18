@@ -29,13 +29,7 @@
                                         target:app
                                         action:@selector(pressedCancel:)];
 
-  attr = [attributes gravityAttribute:@"gravity"];
-  if( attr.defined ) {
-    [app addView:button inGravity:attr.gravityValue];
-  } else {
-    [app addArrangedSubview:button];
-  }
-
+  [self app:app addView:button gravity:[attributes gravityAttribute:@"gravity"]];
 }
 
 - (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {

@@ -12,6 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class WeftAttribute;
 @class WeftGeneratorResult;
 
 @interface WeftElementGenerator : NSObject
@@ -22,6 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars;
 
 - (BOOL)validForElementName:(NSString *)elementName;
+
+- (void)app:(WeftApplication *)app addView:(NSView *)view gravity:(WeftAttribute *)gravity;
+
+- (void)app:(WeftApplication *)app autoPinWidthOfView:(NSView *)view width:(NSInteger)width;
+- (void)app:(WeftApplication *)app autoPinWidthOfView:(NSView *)view  attributes:(NSDictionary *)attributes;
+
+- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view height:(NSInteger)height;
+- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view attributes:(NSDictionary *)attributes;
 
 @end
 

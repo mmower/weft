@@ -25,6 +25,11 @@ extern NSInteger kDefaultApplicationHeight;
 - (void)weftApplication:(WeftApplication *)app
            buttonPushed:(NSButton *)button;
 
+@optional
+
+- (NSImage *)weftApplication:(WeftApplication *)app
+                provideImage:(NSString *)spec;
+
 @end
 
 @interface WeftApplication : NSObject
@@ -46,6 +51,8 @@ extern NSInteger kDefaultApplicationHeight;
 
 - (void)pushStack:(NSStackView *)stackview;
 - (void)popStack;
+
+- (NSImage *)provideImage:(NSString *)spec;
 
 - (void)addArrangedSubview:(NSView *)view;
 - (void)addView:(NSView *)view inGravity:(NSStackViewGravity)gravity;

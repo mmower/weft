@@ -78,6 +78,14 @@ NSInteger kDefaultApplicationHeight = 200;
   [_currentStack addView:view inGravity:gravity];
 }
 
+- (NSImage *)provideImage:(NSString *)spec {
+  if( self.delegate && [self.delegate respondsToSelector:@selector(weftApplication:provideImage:)] ) {
+    return [self.delegate weftApplication:self provideImage:spec];
+  } else {
+    return nil;
+  }
+}
+
 - (void)registerElement:(NSView *)view attributes:(NSDictionary *)attributes {
   [_elementsById setObject:view forKey:[view elementId]];
   [_elementAttributes setObject:attributes forKey:view];

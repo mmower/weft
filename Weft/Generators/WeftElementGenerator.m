@@ -16,6 +16,9 @@
 #import "WeftRowGenerator.h"
 #import "WeftColGenerator.h"
 
+#import "NSView+Weft.h"
+#import "NSDictionary+Weft.h"
+
 static NSMapTable *generators;
 
 @implementation WeftElementGenerator
@@ -43,6 +46,50 @@ static NSMapTable *generators;
   @throw [NSException exceptionWithName:@"TypeError"
                                  reason:@"Subclass does not define -closeElementApp:"
                                userInfo:@{@"class":self.className}];
+}
+
+- (void)app:(WeftApplication *)app addView:(NSView *)view gravity:(WeftAttribute *)gravity {
+  NSLog( @"Adding view %@ using gravity: %@", [view className], gravity );
+  if( gravity.defined ) {
+    [app addView:view inGravity:gravity.gravityValue];
+  } else {
+    [app addArrangedSubview:view];
+  }
+}
+
+- (void)app:(WeftApplication *)app autoPinWidthOfView:(NSView *)view width:(NSInteger)width {
+  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:view
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:width]];
+}
+
+- (void)app:(WeftApplication *)app autoPinWidthOfView:(NSView *)view attributes:(NSDictionary *)attributes {
+  WeftAttribute *attr = [attributes integerAttribute:@"width"];
+  if( attr.defined ) {
+    [self app:app autoPinWidthOfView:view width:attr.integerValue];
+  }
+}
+
+- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view height:(NSInteger)height {
+  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:view
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:height]];
+}
+
+
+- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view attributes:(NSDictionary *)attributes {
+  WeftAttribute *attr = [attributes integerAttribute:@"height"];
+  if( attr.defined ) {
+    [self app:app autoPinHeightOfView:view height:attr.integerValue];
+  }
 }
 
 @end

@@ -56,12 +56,7 @@
     [button setEnabled:NO];
   }
 
-  attr = [attributes gravityAttribute:@"gravity"];
-  if( !attr.defined ) {
-    [app addArrangedSubview:button];
-  } else {
-    [app addView:button inGravity:attr.gravityValue];
-  }
+  [self app:app addView:button gravity:[attributes gravityAttribute:@"gravity"]];
 
   [app registerElement:button attributes:attributes];
 }

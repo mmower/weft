@@ -46,12 +46,7 @@
     datePicker.dateValue = attr.dateValue;
   }
 
-  attr = [attributes gravityAttribute:@"gravity"];
-  if( attr.defined ) {
-    [app addView:datePicker inGravity:attr.gravityValue];
-  } else {
-    [app addArrangedSubview:datePicker];
-  }
+  [self app:app addView:datePicker gravity:[attributes gravityAttribute:@"gravity"]];
 
   [app registerElement:datePicker attributes:attributes];
   [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {

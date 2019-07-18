@@ -121,6 +121,15 @@
   }
 }
 
+- (WeftAttribute *)urlAttribute:(NSString *)name {
+  NSString *value = [self objectForKey:name];
+  if( !value ) {
+    return [WeftAttribute undefined];
+  } else {
+    return [[WeftAttribute alloc] initUrlValue:[NSURL URLWithString:value]];
+  }
+}
+
 @end
 
 @implementation WeftAttribute
@@ -147,6 +156,7 @@
   if( self ) {
     _defined = YES;
     _stringValue = value;
+    _type = WeftStringAttribute;
   }
   return self;
 }
@@ -156,6 +166,7 @@
   if( self ) {
     _defined = YES;
     _integerValue = value;
+    _type = WeftIntegerAttribute;
   }
   return self;
 }
@@ -165,6 +176,7 @@
   if( self ) {
     _defined = YES;
     _boolValue = value;
+    _type = WeftBoolAttribute;
   }
   return self;
 }
@@ -174,6 +186,7 @@
   if( self ) {
     _defined = YES;
     _insetsValue = value;
+    _type = WeftInsetsAttribute;
   }
   return self;
 }
@@ -183,6 +196,7 @@
   if( self ) {
     _defined = YES;
     _gravityValue = value;
+    _type = WeftGravityAttribute;
   }
   return self;
 }
@@ -192,6 +206,7 @@
   if( self ) {
     _defined = YES;
     _orientationValue = value;
+    _type = WeftOrientationAttribute;
   }
   return self;
 }
@@ -201,6 +216,7 @@
   if( self ) {
     _defined = YES;
     _csvValue = value;
+    _type = WeftCsvAttribute;
   }
   return self;
 }
@@ -210,8 +226,54 @@
   if( self ) {
     _defined = YES;
     _dateValue = value;
+    _type = WeftDateAttribute;
   }
   return self;
+}
+
+- (instancetype)initUrlValue:(NSURL *)value {
+  self = [super init];
+  if( self ) {
+    _defined = YES;
+    _urlValue = value;
+    _type = WeftUrlAttribute;
+  }
+  return self;
+}
+
+- (NSString *)description {
+  if( !_defined ) {
+    return @"[attribute.undefined]";
+  } else {
+    switch( _type ) {
+      case WeftStringAttribute:
+        return [NSString stringWithFormat:@"[attribute.string=%@]",_stringValue];
+      case WeftIntegerAttribute:
+        return [NSString stringWithFormat:@"[attribute.integer=%ld]",_integerValue];
+      case WeftBoolAttribute:
+        return [NSString stringWithFormat:@"[attribute.bool=%@]",[@(_boolValue) stringValue]];
+      case WeftInsetsAttribute:
+        return [NSString stringWithFormat:@"[attribute.insets=%f,%f,%f,%f]",_insetsValue.top,_insetsValue.left,_insetsValue.right,_insetsValue.bottom];
+      case WeftGravityAttribute:
+        switch( _gravityValue ) {
+          case NSStackViewGravityTop:
+            return @"[attribute.gravity=Top|Leading]";
+          case NSStackViewGravityBottom:
+            return @"[attribute.gravity=Bottom|Trailing]";
+          case NSStackViewGravityCenter:
+            return @"[attribute.gravity=Center]";
+        }
+        break;
+      case WeftCsvAttribute:
+        return [NSString stringWithFormat:@"[attribute.csv=%@]",[_csvValue componentsJoinedByString:@","]];
+      case WeftDateAttribute:
+        return [NSString stringWithFormat:@"[attribute.date=%@]",_dateValue];
+      case WeftUrlAttribute:
+        return [NSString stringWithFormat:@"[attribute.url=%@]",_urlValue.absoluteString];
+      case WeftOrientationAttribute:
+        return [NSString stringWithFormat:@"[attribute.orientation=%@",_orientationValue == NSUserInterfaceLayoutOrientationVertical ? @"V" : @"H"];
+    }
+  }
 }
 
 @end

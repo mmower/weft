@@ -33,12 +33,9 @@
   self.textView = [[NSTextView alloc] init];
   self.textView.translatesAutoresizingMaskIntoConstraints = NO;
 
-  attr = [attributes gravityAttribute:@"gravity"];
-  if( attr.defined ) {
-    [app addView:self.textView inGravity:attr.gravityValue];
-  } else {
-    [app addArrangedSubview:self.textView];
-  }
+  [self app:app addView:self.textView gravity:[attributes gravityAttribute:@"gravity"]];
+  [self app:app autoPinWidthOfView:self.textView attributes:attributes];
+  [self app:app autoPinHeightOfView:self.textView attributes:attributes];
 
   [app registerElement:self.textView attributes:attributes];
   [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {

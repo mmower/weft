@@ -31,7 +31,8 @@
     stackView.edgeInsets = attr.insetsValue;
   }
 
-  [app addArrangedSubview:stackView];
+  [self app:app addView:stackView gravity:[attributes gravityAttribute:@"gravity"]];
+  
   [app pushStack:stackView];
 }
 

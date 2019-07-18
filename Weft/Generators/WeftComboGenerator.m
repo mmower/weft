@@ -50,38 +50,13 @@
     [combo selectItemWithObjectValue:attr.stringValue];
   }
 
-  attr = [attributes gravityAttribute:@"gravity"];
-  if( attr.defined ) {
-    [app addView:combo inGravity:attr.gravityValue];
-  } else {
-    [app addArrangedSubview:combo];
-  }
-
-  attr = [attributes integerAttribute:@"width"];
-  if( attr.defined ) {
-    [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:combo
-                                                            attribute:NSLayoutAttributeWidth
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:nil
-                                                            attribute:NSLayoutAttributeNotAnAttribute
-                                                           multiplier:1.0
-                                                             constant:attr.integerValue]];
-  }
-
-  attr = [attributes integerAttribute:@"height"];
-  if( attr.defined ) {
-    [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:combo
-                                                            attribute:NSLayoutAttributeHeight
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:nil
-                                                            attribute:NSLayoutAttributeNotAnAttribute
-                                                           multiplier:1.0
-                                                             constant:attr.integerValue]];
-  }
-
+  [self app:app addView:combo gravity:[attributes gravityAttribute:@"gravity"]];
+  [self app:app autoPinWidthOfView:combo attributes:attributes];
+  [self app:app autoPinHeightOfView:combo attributes:attributes];
+  
   [app registerElement:combo attributes:attributes];
   [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
-    [values setObject:[combo objectValueOfSelectedItem] forKey:elementId];
+    [values setObject:[combo stringValue] forKey:elementId];
   }];
 }
 

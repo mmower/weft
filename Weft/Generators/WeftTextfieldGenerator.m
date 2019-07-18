@@ -36,23 +36,11 @@ const NSInteger kTextFieldDefaultWidth = 280;
   }
   NSString *elementId = attr.stringValue;
 
-  attr = [attributes stringAttribute:@"label"];
-  if( attr.defined ) {
-    NSTextField *label = [NSTextField labelWithString:attr.stringValue];
-    [app addArrangedSubview:label];
-  }
-
-  NSInteger width = kTextFieldDefaultWidth;
-  attr = [attributes integerAttribute:@"width"];
-  if( attr.defined ) {
-    width = attr.integerValue;
-  }
-
-  NSInteger height = kTextFieldHeight;
-  attr = [attributes integerAttribute:@"height"];
-  if( attr.defined ) {
-    height = attr.integerValue;
-  }
+//  attr = [attributes stringAttribute:@"label"];
+//  if( attr.defined ) {
+//    NSTextField *label = [NSTextField labelWithString:attr.stringValue];
+//    [app addArrangedSubview:label];
+//  }
 
   NSTextField *textField = [[NSTextField alloc] init];
   textField.translatesAutoresizingMaskIntoConstraints = NO;
@@ -73,28 +61,9 @@ const NSInteger kTextFieldDefaultWidth = 280;
     [textField setEnabled:NO];
   }
 
-  attr = [attributes gravityAttribute:@"gravity"];
-  if( attr.defined ) {
-    [app addView:textField inGravity:attr.gravityValue];
-  } else {
-    [app addArrangedSubview:textField];
-  }
-
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:textField
-                                                          attribute:NSLayoutAttributeWidth
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:1.0
-                                                           constant:width]];
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:textField
-                                                          attribute:NSLayoutAttributeHeight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:1.0
-                                                           constant:height]];
-
+  [self app:app addView:textField gravity:[attributes gravityAttribute:@"gravity"]];
+  [self app:app autoPinWidthOfView:textField attributes:attributes];
+  [self app:app autoPinHeightOfView:textField attributes:attributes];
 
   [app registerElement:textField attributes:attributes];
   [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {

@@ -32,6 +32,13 @@
                                  userInfo:attributes];
   }
 
+
+
+
+  NSSecureTextField *secureField = [[NSSecureTextField alloc] init];
+  secureField.translatesAutoresizingMaskIntoConstraints = NO;
+
+  [self app:app addView:secureField gravity:[attributes gravityAttribute:@"gravity"]];
   NSInteger width;
   attr = [attributes integerAttribute:@"width"];
   if( attr.defined ) {
@@ -39,6 +46,7 @@
   } else {
     width = kTextFieldDefaultWidth;
   }
+  [self app:app autoPinWidthOfView:secureField width:width];
 
   NSInteger height;
   attr = [attributes integerAttribute:@"height"];
@@ -47,31 +55,7 @@
   } else {
     height = kTextFieldHeight;
   }
-
-  NSSecureTextField *secureField = [[NSSecureTextField alloc] init];
-  secureField.translatesAutoresizingMaskIntoConstraints = NO;
-  attr = [attributes gravityAttribute:@"gravity"];
-  if( attr.defined ) {
-    [app addView:secureField inGravity:attr.gravityValue];
-  } else {
-    [app addArrangedSubview:secureField];
-  }
-
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:secureField
-                                                          attribute:NSLayoutAttributeWidth
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:1.0
-                                                           constant:width]];
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:secureField
-                                                          attribute:NSLayoutAttributeHeight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:1.0
-                                                           constant:height]];
-
+  [self app:app autoPinHeightOfView:secureField height:height];
 
   [app registerElement:secureField attributes:attributes];
   [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {

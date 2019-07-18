@@ -10,9 +10,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum {
+  WeftStringAttribute,
+  WeftIntegerAttribute,
+  WeftBoolAttribute,
+  WeftInsetsAttribute,
+  WeftGravityAttribute,
+  WeftOrientationAttribute,
+  WeftCsvAttribute,
+  WeftDateAttribute,
+  WeftUrlAttribute,
+} WeftAttributeType;
+
 @interface WeftAttribute : NSObject
 
 @property (readonly) BOOL defined;
+@property (readonly) WeftAttributeType type;
 @property (readonly) NSString *stringValue;
 @property (readonly) NSInteger integerValue;
 @property (readonly) BOOL boolValue;
@@ -21,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSUserInterfaceLayoutOrientation orientationValue;
 @property (readonly) NSArray *csvValue;
 @property (readonly) NSDate *dateValue;
+@property (readonly) NSURL *urlValue;
 
 + (instancetype)undefined;
 
@@ -33,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initOrientationValue:(NSUserInterfaceLayoutOrientation)value;
 - (instancetype)initCsvValue:(NSArray *)value;
 - (instancetype)initDateValue:(NSDate *)value;
+- (instancetype)initUrlValue:(NSURL *)value;
 
 @end
 
@@ -46,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WeftAttribute *)orientiationAttribute:(NSString *)name;
 - (WeftAttribute *)csvAttribute:(NSString *)name;
 - (WeftAttribute *)dateAttribute:(NSString *)name format:(NSString *)format;
+- (WeftAttribute *)urlAttribute:(NSString *)name;
 
 @end
 

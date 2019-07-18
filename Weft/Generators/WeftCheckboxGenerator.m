@@ -47,7 +47,8 @@
     button.enabled = !attr.boolValue;
   }
 
-  [app addArrangedSubview:button];
+  [self app:app addView:button gravity:[attributes gravityAttribute:@"gravity"]];
+  
   [app registerElement:button attributes:attributes];
   [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
     [values setObject:@([button state] == NSControlStateValueOn) forKey:elementId];

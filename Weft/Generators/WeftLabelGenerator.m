@@ -28,12 +28,9 @@
 
   NSTextField *label = [NSTextField labelWithString:attr.stringValue];
 
-  attr = [attributes gravityAttribute:@"gravity"];
-  if( attr.defined ) {
-    [app addView:label inGravity:attr.gravityValue];
-  } else {
-    [app addArrangedSubview:label];
-  }
+  [self app:app addView:label gravity:[attributes gravityAttribute:@"gravity"]];
+  [self app:app autoPinWidthOfView:label attributes:attributes];
+  [self app:app autoPinHeightOfView:label attributes:attributes];
 }
 
 - (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {

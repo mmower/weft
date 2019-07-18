@@ -48,12 +48,7 @@
     [popup selectItemWithTitle:attr.stringValue];
   }
 
-  attr = [attributes gravityAttribute:@"gravity"];
-  if( attr.defined ) {
-    [app addView:popup inGravity:attr.gravityValue];
-  } else {
-    [app addArrangedSubview:popup];
-  }
+  [self app:app addView:popup gravity:[attributes gravityAttribute:@"gravity"]];
 
   [app registerElement:popup attributes:attributes];
   [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
