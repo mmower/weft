@@ -35,7 +35,7 @@
   [app pushStack:stackView];
 }
 
-- (void)closeElementApp:(WeftApplication *)app {
+- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
   [app popStack];
 }
 

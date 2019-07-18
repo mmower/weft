@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSStackViewGravity gravityValue;
 @property (readonly) NSUserInterfaceLayoutOrientation orientationValue;
 @property (readonly) NSArray *csvValue;
+@property (readonly) NSDate *dateValue;
 
 + (instancetype)undefined;
 
@@ -31,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initGravityValue:(NSStackViewGravity)value;
 - (instancetype)initOrientationValue:(NSUserInterfaceLayoutOrientation)value;
 - (instancetype)initCsvValue:(NSArray *)value;
+- (instancetype)initDateValue:(NSDate *)value;
 
 @end
 
@@ -43,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WeftAttribute *)gravityAttribute:(NSString *)name;
 - (WeftAttribute *)orientiationAttribute:(NSString *)name;
 - (WeftAttribute *)csvAttribute:(NSString *)name;
+- (WeftAttribute *)dateAttribute:(NSString *)name format:(NSString *)format;
 
 @end
 

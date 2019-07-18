@@ -12,6 +12,10 @@
 
 @implementation WeftLabelGenerator
 
+- (BOOL)validForElementName:(NSString *)elementName {
+  return [[elementName lowercaseString] isEqualToString:@"label"];
+}
+
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
@@ -32,12 +36,8 @@
   }
 }
 
-- (void)closeElementApp:(WeftApplication *)app {
+- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
 
-}
-
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"label"];
 }
 
 @end

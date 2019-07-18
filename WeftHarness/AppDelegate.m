@@ -40,6 +40,9 @@
 
 - (IBAction)doRun:(id)sender {
   @try {
+    if( _windowController ) {
+      [_windowController close];
+    }
     _runner = [[WeftRunner alloc] initWithSource:[self.sourceView string]];
     [_runner setAppDelegate:self];
     _windowController = [_runner run];

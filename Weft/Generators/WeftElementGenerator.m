@@ -39,7 +39,7 @@ static NSMapTable *generators;
                                userInfo:@{@"class":self.className}];
 }
 
-- (void)closeElementApp:(WeftApplication *)app {
+- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
   @throw [NSException exceptionWithName:@"TypeError"
                                  reason:@"Subclass does not define -closeElementApp:"
                                userInfo:@{@"class":self.className}];

@@ -80,7 +80,7 @@ static const NSInteger kTextFieldDefaultWidth = 280;
   }];
 }
 
-- (void)closeElementApp:(WeftApplication *)app {
+- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
 }
 
 @end

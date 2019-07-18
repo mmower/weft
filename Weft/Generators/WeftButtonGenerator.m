@@ -66,8 +66,7 @@
   [app registerElement:button attributes:attributes];
 }
 
-- (void)closeElementApp:(WeftApplication *)app {
-  
+- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
 }
 
 @end

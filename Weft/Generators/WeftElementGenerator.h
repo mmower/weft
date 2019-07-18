@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (WeftElementGenerator *)generator:(NSString *)element;
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes;
-- (void)closeElementApp:(WeftApplication *)app;
+- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars;
 
 - (BOOL)validForElementName:(NSString *)elementName;
 

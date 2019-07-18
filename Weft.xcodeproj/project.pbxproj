@@ -55,6 +55,10 @@
 		C9F5F42222E07B49003FD0F5 /* WeftOkGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F5F42022E07B49003FD0F5 /* WeftOkGenerator.m */; };
 		C9F5F42522E07CCA003FD0F5 /* WeftCancelGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F5F42322E07CCA003FD0F5 /* WeftCancelGenerator.h */; };
 		C9F5F42622E07CCA003FD0F5 /* WeftCancelGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F5F42422E07CCA003FD0F5 /* WeftCancelGenerator.m */; };
+		C9F5F42922E08076003FD0F5 /* WeftDatepickerGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F5F42722E08076003FD0F5 /* WeftDatepickerGenerator.h */; };
+		C9F5F42A22E08076003FD0F5 /* WeftDatepickerGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F5F42822E08076003FD0F5 /* WeftDatepickerGenerator.m */; };
+		C9F5F42D22E08E50003FD0F5 /* WeftTextboxGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F5F42B22E08E50003FD0F5 /* WeftTextboxGenerator.h */; };
+		C9F5F42E22E08E50003FD0F5 /* WeftTextboxGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F5F42C22E08E50003FD0F5 /* WeftTextboxGenerator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +138,10 @@
 		C9F5F42022E07B49003FD0F5 /* WeftOkGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftOkGenerator.m; sourceTree = "<group>"; };
 		C9F5F42322E07CCA003FD0F5 /* WeftCancelGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeftCancelGenerator.h; sourceTree = "<group>"; };
 		C9F5F42422E07CCA003FD0F5 /* WeftCancelGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftCancelGenerator.m; sourceTree = "<group>"; };
+		C9F5F42722E08076003FD0F5 /* WeftDatepickerGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeftDatepickerGenerator.h; sourceTree = "<group>"; };
+		C9F5F42822E08076003FD0F5 /* WeftDatepickerGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftDatepickerGenerator.m; sourceTree = "<group>"; };
+		C9F5F42B22E08E50003FD0F5 /* WeftTextboxGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeftTextboxGenerator.h; sourceTree = "<group>"; };
+		C9F5F42C22E08E50003FD0F5 /* WeftTextboxGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftTextboxGenerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +249,10 @@
 				C9F5F42022E07B49003FD0F5 /* WeftOkGenerator.m */,
 				C9F5F42322E07CCA003FD0F5 /* WeftCancelGenerator.h */,
 				C9F5F42422E07CCA003FD0F5 /* WeftCancelGenerator.m */,
+				C9F5F42722E08076003FD0F5 /* WeftDatepickerGenerator.h */,
+				C9F5F42822E08076003FD0F5 /* WeftDatepickerGenerator.m */,
+				C9F5F42B22E08E50003FD0F5 /* WeftTextboxGenerator.h */,
+				C9F5F42C22E08E50003FD0F5 /* WeftTextboxGenerator.m */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -282,6 +294,7 @@
 				C9844A0322DF35B3002ADAAC /* Weft.h in Headers */,
 				C9F3451522DF426800435DF1 /* WeftCompiler.h in Headers */,
 				C9F3452122DF63EB00435DF1 /* WeftTextfieldGenerator.h in Headers */,
+				C9F5F42D22E08E50003FD0F5 /* WeftTextboxGenerator.h in Headers */,
 				C9F3450D22DF3B9900435DF1 /* WeftButtonGenerator.h in Headers */,
 				C9F3450922DF3B8900435DF1 /* WeftElementGenerator.h in Headers */,
 				C9844A1722DF35E5002ADAAC /* WeftParser.h in Headers */,
@@ -292,6 +305,7 @@
 				C9F3451122DF3BC400435DF1 /* WeftApplication.h in Headers */,
 				C9F5F42522E07CCA003FD0F5 /* WeftCancelGenerator.h in Headers */,
 				C9F3451922DF63D000435DF1 /* WeftRowGenerator.h in Headers */,
+				C9F5F42922E08076003FD0F5 /* WeftDatepickerGenerator.h in Headers */,
 				C9F3453322E05B9800435DF1 /* WeftLabelGenerator.h in Headers */,
 				C9F3452922DF716500435DF1 /* WeftFlippedView.h in Headers */,
 				C9F3450422DF371B00435DF1 /* NSDictionary+Weft.h in Headers */,
@@ -412,6 +426,7 @@
 				C9F3452A22DF716500435DF1 /* WeftFlippedView.m in Sources */,
 				C9F3450322DF371B00435DF1 /* NSView+Weft.m in Sources */,
 				C9F3450522DF371B00435DF1 /* NSDictionary+Weft.m in Sources */,
+				C9F5F42A22E08076003FD0F5 /* WeftDatepickerGenerator.m in Sources */,
 				C9F3453022E0571800435DF1 /* WeftCheckboxGenerator.m in Sources */,
 				C9F3451622DF426800435DF1 /* WeftCompiler.m in Sources */,
 				C9F5F41622E06C93003FD0F5 /* WeftPopupbuttonGenerator.m in Sources */,
@@ -419,6 +434,7 @@
 				C9F5F42222E07B49003FD0F5 /* WeftOkGenerator.m in Sources */,
 				C9F5F42622E07CCA003FD0F5 /* WeftCancelGenerator.m in Sources */,
 				C9F3451A22DF63D000435DF1 /* WeftRowGenerator.m in Sources */,
+				C9F5F42E22E08E50003FD0F5 /* WeftTextboxGenerator.m in Sources */,
 				C9F3453422E05B9800435DF1 /* WeftLabelGenerator.m in Sources */,
 				C9F3452222DF63EB00435DF1 /* WeftTextfieldGenerator.m in Sources */,
 				C9F3452622DF650500435DF1 /* WeftWindowGenerator.m in Sources */,

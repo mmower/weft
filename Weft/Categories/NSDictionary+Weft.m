@@ -110,6 +110,17 @@
   }
 }
 
+- (WeftAttribute *)dateAttribute:(NSString *)name format:(NSString *)format {
+  NSString *value = [self objectForKey:name];
+  if( !value ) {
+    return [WeftAttribute undefined];
+  } else {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = format;
+    return [[WeftAttribute alloc] initDateValue:[formatter dateFromString:value]];
+  }
+}
+
 @end
 
 @implementation WeftAttribute
@@ -190,6 +201,15 @@
   if( self ) {
     _defined = YES;
     _csvValue = value;
+  }
+  return self;
+}
+
+- (instancetype)initDateValue:(NSDate *)value {
+  self = [super init];
+  if( self ) {
+    _defined = YES;
+    _dateValue = value;
   }
   return self;
 }

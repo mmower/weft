@@ -87,7 +87,7 @@ didStartElement:(NSString *)elementName
                                                   @"reason":[NSString stringWithFormat:@"Generator %@ was not expecting to find a closing element: %@",[_generator className],elementName]}]];
   } else {
     @try {
-      [_generator closeElementApp:self.app];
+      [_generator closeElementApp:self.app foundCharacters:self.foundCharacters];
     }
     @catch( NSException *ex ) {
       [_errors addObject:[NSError errorWithDomain:@"WeftParser"
