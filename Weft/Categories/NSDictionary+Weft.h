@@ -16,6 +16,7 @@ typedef enum {
   WeftBoolAttribute,
   WeftInsetsAttribute,
   WeftGravityAttribute,
+  WeftDistributionAttribute,
   WeftOrientationAttribute,
   WeftCsvAttribute,
   WeftDateAttribute,
@@ -31,6 +32,7 @@ typedef enum {
 @property (readonly) BOOL boolValue;
 @property (readonly) NSEdgeInsets insetsValue;
 @property (readonly) NSStackViewGravity gravityValue;
+@property (readonly) NSStackViewDistribution distributionValue;
 @property (readonly) NSUserInterfaceLayoutOrientation orientationValue;
 @property (readonly) NSArray *csvValue;
 @property (readonly) NSDate *dateValue;
@@ -44,6 +46,7 @@ typedef enum {
 - (instancetype)initBoolValue:(BOOL)value;
 - (instancetype)initInsetsValue:(NSEdgeInsets)value;
 - (instancetype)initGravityValue:(NSStackViewGravity)value;
+- (instancetype)initDistributionValue:(NSStackViewDistribution)value;
 - (instancetype)initOrientationValue:(NSUserInterfaceLayoutOrientation)value;
 - (instancetype)initCsvValue:(NSArray *)value;
 - (instancetype)initDateValue:(NSDate *)value;
@@ -58,6 +61,7 @@ typedef enum {
 - (WeftAttribute *)boolAttribute:(NSString *)name;
 - (WeftAttribute *)insetsAttribute:(NSString *)name;
 - (WeftAttribute *)gravityAttribute:(NSString *)name;
+- (WeftAttribute *)distributionAttribute:(NSString *)name;
 - (WeftAttribute *)orientiationAttribute:(NSString *)name;
 - (WeftAttribute *)csvAttribute:(NSString *)name;
 - (WeftAttribute *)dateAttribute:(NSString *)name format:(NSString *)format;

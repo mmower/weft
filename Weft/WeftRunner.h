@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithSource:(NSString *)source NS_DESIGNATED_INITIALIZER;
 
 - (NSWindowController *)run;
+- (void)close;
 
 - (void)setAppDelegate:(id<WeftApplicationDelegate>)appDelegate;
 

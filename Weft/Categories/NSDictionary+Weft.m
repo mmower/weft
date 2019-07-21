@@ -76,10 +76,41 @@
     } else if( [value isEqualToString:@"bottom"] ) {
       gravity = NSStackViewGravityBottom;
     } else {
-      return [[WeftAttribute alloc] initUndefined];
+      @throw [NSException exceptionWithName:@"Configuration Error"
+                                     reason:[NSString stringWithFormat:@"gravity attribute specified with illegal value: '%@'\nValid values are: top, leading, center, trailing, bottom", value]
+                                   userInfo:@{}];
     }
   }
   return [[WeftAttribute alloc] initGravityValue:gravity];
+}
+
+- (WeftAttribute *)distributionAttribute:(NSString *)name {
+  NSString *value = [self objectForKey:name];
+  if( !value ) {
+    return [WeftAttribute undefined];
+  } else {
+    NSStackViewDistribution distribution;
+    value = [value lowercaseString];
+    if( [value isEqualToString:@"equalcentering"] ) {
+      distribution = NSStackViewDistributionEqualCentering;
+    } else if( [value isEqualToString:@"equalspacing"] ) {
+      distribution = NSStackViewDistributionEqualSpacing;
+    } else if( [value isEqualToString:@"fill"] ) {
+      distribution = NSStackViewDistributionFill;
+    } else if( [value isEqualToString:@"fillequally"] ) {
+      distribution = NSStackViewDistributionFillEqually;
+    } else if( [value isEqualToString:@"fillproportionally"] ) {
+      distribution = NSStackViewDistributionFillProportionally;
+    } else if( [value isEqualToString:@"gravityareas"] ) {
+      distribution = NSStackViewDistributionGravityAreas;
+    } else {
+      @throw [NSException exceptionWithName:@"Configuration Error"
+                                     reason:[NSString stringWithFormat:@"distribution attribute specified with illegal value: '%@'\nValid values are: equalcentering,equalspacing,fill,fillequally,fillproportionally,gravityareas", value]
+                                   userInfo:@{}];
+
+    }
+    return [[WeftAttribute alloc] initDistributionValue:distribution];
+  }
 }
 
 - (WeftAttribute *)orientiationAttribute:(NSString *)name {
@@ -201,6 +232,16 @@
   return self;
 }
 
+- (instancetype)initDistributionValue:(NSStackViewDistribution)value {
+  self = [super init];
+  if( self ) {
+    _defined = YES;
+    _distributionValue = value;
+    _type = WeftDistributionAttribute;
+  }
+  return self;
+}
+
 - (instancetype)initOrientationValue:(NSUserInterfaceLayoutOrientation)value {
   self = [super init];
   if( self ) {
@@ -242,6 +283,8 @@
 }
 
 - (NSString *)description {
+  NSString *description;
+
   if( !_defined ) {
     return @"[attribute.undefined]";
   } else {
@@ -271,7 +314,29 @@
       case WeftUrlAttribute:
         return [NSString stringWithFormat:@"[attribute.url=%@]",_urlValue.absoluteString];
       case WeftOrientationAttribute:
-        return [NSString stringWithFormat:@"[attribute.orientation=%@",_orientationValue == NSUserInterfaceLayoutOrientationVertical ? @"V" : @"H"];
+        return [NSString stringWithFormat:@"[attribute.orientation=%@]",_orientationValue == NSUserInterfaceLayoutOrientationVertical ? @"V" : @"H"];
+      case WeftDistributionAttribute:
+        switch( _distributionValue ) {
+          case NSStackViewDistributionEqualCentering:
+            description = @"equalcentering";
+            break;
+          case NSStackViewDistributionEqualSpacing:
+            description = @"equalspacing";
+            break;
+          case NSStackViewDistributionFill:
+            description = @"fill";
+            break;
+          case NSStackViewDistributionFillEqually:
+            description = @"fillequally";
+            break;
+          case NSStackViewDistributionFillProportionally:
+            description = @"fillproportionally";
+            break;
+          case NSStackViewDistributionGravityAreas:
+            description = @"gravityareas";
+            break;
+        }
+        return [NSString stringWithFormat:@"[attribute.distribution=%@]",description];
     }
   }
 }

@@ -1,5 +1,5 @@
 //
-//  WeftColGenerator.m
+//  WeftRowGenerator.m
 //  Weft
 //
 //  Created by Matthew Mower on 17/07/2019.
@@ -8,14 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "WeftColGenerator.h"
+#import "WeftRowGenerator.h"
 
 #import "NSDictionary+Weft.h"
 
-@implementation WeftColGenerator
+@implementation WeftRowGenerator
 
 - (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"col"];
+  return [[elementName lowercaseString] isEqualToString:@"row"];
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
@@ -23,8 +23,9 @@
   NSParameterAssert(attributes);
 
   NSStackView *stackView = [[NSStackView alloc] init];
+  stackView.distribution = NSStackViewDistributionFill;
   stackView.translatesAutoresizingMaskIntoConstraints = NO;
-  stackView.orientation = NSUserInterfaceLayoutOrientationVertical;
+  stackView.orientation = NSUserInterfaceLayoutOrientationHorizontal;
 
   WeftAttribute *attr = [attributes insetsAttribute:@"insets"];
   if( attr.defined ) {
@@ -32,7 +33,6 @@
   }
 
   [self app:app addView:stackView gravity:[attributes gravityAttribute:@"gravity"]];
-  
   [app pushStack:stackView];
 }
 

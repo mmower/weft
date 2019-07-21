@@ -15,6 +15,7 @@
 
 @interface WeftRunner ()
 
+@property NSWindowController *windowController;
 @property WeftViewController *viewController;
 @property WeftApplication *app;
 @property WeftWindow *window;
@@ -42,9 +43,13 @@
 - (NSWindowController *)run {
   NSLog( @"WeftRunner.run" );
   _window = [[WeftWindow alloc] initWithViewController:self.viewController];
-  NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:_window];
-  windowController.contentViewController = self.viewController;
-  return windowController;
+  _windowController = [[NSWindowController alloc] initWithWindow:_window];
+  _windowController.contentViewController = self.viewController;
+  return _windowController;
+}
+
+- (void)close {
+  [_windowController close];
 }
 
 - (void)setAppDelegate:(id<WeftApplicationDelegate>)appDelegate {
