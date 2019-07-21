@@ -50,10 +50,8 @@ static NSMapTable *generators;
 
 - (void)app:(WeftApplication *)app addView:(NSView *)view gravity:(WeftAttribute *)gravity {
   if( gravity.defined ) {
-    NSLog( @"Adding view %@ to gravity: %@", [view className], gravity );
     [app addView:view inGravity:gravity.gravityValue];
   } else {
-    NSLog( @"Adding view %@ to arranged sub views", [view className] );
     [app addArrangedSubview:view];
   }
 }

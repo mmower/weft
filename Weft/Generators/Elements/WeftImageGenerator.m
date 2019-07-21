@@ -27,7 +27,6 @@
 
   attr = [attributes urlAttribute:@"src"];
   if( attr.defined ) {
-    NSLog( @"Loading image from %@", attr.urlValue.absoluteString );
     return [[NSImage alloc] initWithContentsOfURL:attr.urlValue];
   }
 

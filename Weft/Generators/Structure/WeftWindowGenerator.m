@@ -32,7 +32,6 @@
   } else {
     app.title = attr.stringValue;
   }
-  NSLog( @"app.title -> %@", app.title );
 
   attr = [attributes integerAttribute:@"width"];
   if( attr.defined ) {

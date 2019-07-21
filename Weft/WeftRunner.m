@@ -30,7 +30,6 @@
     WeftCompiler *compiler = [[WeftCompiler alloc] initWithSource:source];
     WeftCompilation *result = [compiler compile];
     if( result.successful ) {
-      NSLog( @"Compilation successful: app->%@", result.app );
       _app = result.app;
     } else {
       @throw result.exception;
@@ -41,7 +40,6 @@
 }
 
 - (NSWindowController *)run {
-  NSLog( @"WeftRunner.run" );
   _window = [[WeftWindow alloc] initWithViewController:self.viewController];
   _windowController = [[NSWindowController alloc] initWithWindow:_window];
   _windowController.contentViewController = self.viewController;

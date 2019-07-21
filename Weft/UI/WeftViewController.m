@@ -26,15 +26,12 @@
   self = [super initWithNibName:nil bundle:nil];
   if( self ) {
     _app = app;
-    NSLog( @"WeftViewController:app->%@", _app );
     self.title = _app.title;
   }
   return self;
 }
 
 - (void)loadView {
-  NSLog( @"WeftViewController.loadView" );
-  NSLog( @"Application->%@", _app );
   self.view = _app.appView;
 }
 

@@ -20,7 +20,6 @@
                           styleMask:styleMask
                             backing:NSBackingStoreBuffered
                               defer:NO];
-  NSLog( @"WeftWindow.title = %@", controller.title );
   self.title = controller.title;
   self.contentViewController = controller;
   self.contentView = controller.view;
