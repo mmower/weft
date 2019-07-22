@@ -9,6 +9,8 @@ See the [Element Guide](#element-guide) for description of the Weft XML syntax.
 
 ## Example
 
+For a more complete example see the [WeftHarness](https://github.com/mmower/weft/tree/master/WeftHarness) target in the Xcode project. Clone the project and run WeftHarness for a live demo. 
+
     <window title='Weft Test Window' width='640' height='120'>
       <col insets='20,20,20,20'>
         <row insets='10,10,10,10'>
