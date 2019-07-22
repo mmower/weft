@@ -36,15 +36,14 @@ const NSInteger kTextFieldDefaultWidth = 280;
   }
   NSString *elementId = attr.stringValue;
 
-//  attr = [attributes stringAttribute:@"label"];
-//  if( attr.defined ) {
-//    NSTextField *label = [NSTextField labelWithString:attr.stringValue];
-//    [app addArrangedSubview:label];
-//  }
-
   NSTextField *textField = [[NSTextField alloc] init];
   textField.translatesAutoresizingMaskIntoConstraints = NO;
   [textField setElementId:elementId];
+
+  attr = [attributes stringAttribute:@"default"];
+  if( attr.defined ) {
+    textField.stringValue = attr.stringValue;
+  }
 
   attr = [attributes stringAttribute:@"placeholder"];
   if( attr.defined ) {
