@@ -18,12 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WeftRunner : NSObject <NSWindowDelegate>
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithSource:(NSString *)source NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSource:(NSString *)source delegate:(id<WeftApplicationDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 - (NSWindowController *)run;
 - (void)close;
-
-- (void)setAppDelegate:(id<WeftApplicationDelegate>)appDelegate;
 
 @end
 

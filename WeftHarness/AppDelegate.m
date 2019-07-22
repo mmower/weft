@@ -40,8 +40,8 @@
     if( _windowController ) {
       [_windowController close];
     }
-    _runner = [[WeftRunner alloc] initWithSource:[self.sourceView string]];
-    [_runner setAppDelegate:self];
+    _runner = [[WeftRunner alloc] initWithSource:[self.sourceView string]
+                                        delegate:self];
     _windowController = [_runner run];
     [_windowController showWindow:self];
   }

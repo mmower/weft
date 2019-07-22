@@ -24,17 +24,18 @@
 
 @implementation WeftRunner
 
-- (instancetype)initWithSource:(NSString *)source {
+- (instancetype)initWithSource:(NSString *)source delegate:(id<WeftApplicationDelegate>)delegate {
   self = [super init];
   if( self ) {
     WeftCompiler *compiler = [[WeftCompiler alloc] initWithSource:source];
     WeftCompilation *result = [compiler compile];
     if( result.successful ) {
       _app = result.app;
+      _app.delegate = delegate;
+      _viewController = [[WeftViewController alloc] initWithApplication:_app];
     } else {
       @throw result.exception;
     }
-    _viewController = [[WeftViewController alloc] initWithApplication:_app];
   }
   return self;
 }
@@ -48,10 +49,6 @@
 
 - (void)close {
   [_windowController close];
-}
-
-- (void)setAppDelegate:(id<WeftApplicationDelegate>)appDelegate {
-  _app.delegate = appDelegate;
 }
 
 @end
