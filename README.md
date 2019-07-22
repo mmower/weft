@@ -75,7 +75,7 @@ The lifecycle of `WeftApplication` instances is governed by the `WeftRunner`. Th
 
 #### Methods
 
-##### `- (NSDictionary *)values`
+##### <a name="weftapplication-methods-values">`- (NSDictionary *)values`</a>
 
 The `values` message can be sent to a `WeftApplication` to retrieve the current value of all data elements in the interface. The returned dictionary usese the `id` attributes of these elements as keys referencing appropriate attribute values (e.g. an `NSString` for the value of an `NSTextfield` specified by a `<textfield>` element).
 
@@ -99,7 +99,7 @@ When the user clicks on a button represented by a `<button>` element the `WeftAp
 
 Weft defines an `NSString *` property `elementId` on `NSView`.
 
-#### `- (NSString *)elementId`
+#### <a name="nsview-methods-element-id">`- (NSString *)elementId`</a>
 
 Returns the value that was specified using the `id` attribute that is mandary on data elements in Weft XML. For example `id` is a mandary attribute of the `<textfield>` element. This allows the host application to relate the elements defined in the source to the dynamically generated  `NSView` instances that represent them in the user interface. The host application code should not need to call the associated `-setElementId:` method itself, doing so may cause problems.
 
@@ -142,12 +142,26 @@ A col organises its contents as a vertical stack of elements.
 
 ### <a name="data-elements">Data Elements</a>
 
+Data elements represent the input controls that appear within the UI layout and have values that can be obtained via the [`- values`](#weftapplication-methods-values) method.
+
+#### Mandatory Attributes
+
+The following attributes are mandatory for all data elements:
+
+* `id`: a unique identifier for the element that will be associated with its correspdonding `NSView` instance via the [`-elementId`](#nsview-methods-element-id) method.
+
+#### Optional Attributes
+
+The following attributes are supported for all data elements but are optional:
+
+* `gravity`: when the data element is placed into a `<col>` or `<row>` whose distribution is set to `gravity` then this attribute specifies the gravity area into which the control will be placed. Valid values are `leading`, `center`, and `trailing` for `<row>` elements and `top`, `center`, and `bottom` for `<col>` elements.
+
+
 ### <a name="textfield-element">\<textfield\></a>
 
 A `<textfield>` creates an `NSTextField`  that supports a single line of editable text.
 
 ##### Attributes
-* `id`: a unique identifier for the textfield that can be used later to retrieve its value
 * `default`: default value to user for the textfield
 * `placeholder`: value to be displayed in textfield if there is no value
 * `tooltip`:  value to be displayed as a tooltip
