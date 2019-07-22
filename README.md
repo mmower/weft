@@ -27,11 +27,11 @@ See the [Element Guide](#element-guide) for description of the Weft XML syntax.
       </col>
     </window>
     
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/D50xPhEbEHk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Watch the video](https://img.youtube.com/vi/D50xPhEbEHk/maxresdefault.jpg)](https://youtu.be/D50xPhEbEHk)
 
 ## <a name='getting-started'>Getting Started</a>
 
-### <a name='installation`>Installation</a>
+### <a name='installation'>Installation</a>
 
 Weft is intended to be installed using the [Carthage](https://github.com/Carthage/Carthage) package manager. See the section on [installing frameworks into your application](https://github.com/Carthage/Carthage#getting-started). 
 
