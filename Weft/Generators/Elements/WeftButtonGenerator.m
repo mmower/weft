@@ -13,8 +13,8 @@
 
 @implementation WeftButtonGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"button"];
+- (NSString *)elementName {
+  return @"button";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

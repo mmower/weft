@@ -100,7 +100,7 @@ NSInteger kDefaultApplicationHeight = 200;
 }
 
 - (IBAction)buttonPushed:(id)sender {
-  if( self.delegate ) {
+  if( self.delegate && [self.delegate respondsToSelector:@selector(weftApplication:buttonPushed:)] ) {
     [self.delegate weftApplication:self
                       buttonPushed:sender];
   }
@@ -112,6 +112,13 @@ NSInteger kDefaultApplicationHeight = 200;
 
 - (IBAction)pressedCancel:(id)sender {
   [self.delegate weftApplication:self complete:NO];
+}
+
+- (IBAction)radioSelected:(id)sender {
+  if( self.delegate && [self.delegate respondsToSelector:@selector(weftApplication:radioSelected:)] ){
+    [self.delegate weftApplication:self
+                     radioSelected:sender];
+  }
 }
 
 - (void)registerExtractor:(WeftValueExtractor)extractor {

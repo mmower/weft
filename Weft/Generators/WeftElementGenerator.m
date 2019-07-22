@@ -30,10 +30,14 @@ static NSMapTable *generators;
   return generator;
 }
 
-- (BOOL)validForElementName:(NSString *)elementName {
+- (NSString *)elementName {
   @throw [NSException exceptionWithName:@"TypeError"
-                                 reason:@"Subclass does not define -validForElementName:"
+                                 reason:@"Subclass does not define -elementName"
                                userInfo:@{@"class":self.className}];
+}
+
+- (BOOL)validForElementName:(NSString *)elementName {
+  return [[elementName lowercaseString] isEqualToString:self.elementName];
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

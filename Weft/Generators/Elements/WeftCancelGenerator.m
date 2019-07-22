@@ -12,8 +12,8 @@
 
 @implementation WeftCancelGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"cancel"];
+- (NSString *)elementName {
+  return @"cancel";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

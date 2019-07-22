@@ -13,8 +13,8 @@
 
 @implementation WeftDatepickerGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"datepicker"];
+- (NSString *)elementName {
+  return @"datepicker";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

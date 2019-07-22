@@ -26,6 +26,8 @@
 		C98811E822E4730C00D877B7 /* WeftStackGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C98811E622E4730C00D877B7 /* WeftStackGenerator.h */; };
 		C98811E922E4730C00D877B7 /* WeftStackGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C98811E722E4730C00D877B7 /* WeftStackGenerator.m */; };
 		C98811EB22E4D87C00D877B7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C98811EA22E4D87C00D877B7 /* LICENSE */; };
+		C98811EE22E4DD9700D877B7 /* WeftRadioGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C98811EC22E4DD9700D877B7 /* WeftRadioGenerator.h */; };
+		C98811EF22E4DD9700D877B7 /* WeftRadioGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C98811ED22E4DD9700D877B7 /* WeftRadioGenerator.m */; };
 		C9F3450222DF371B00435DF1 /* NSView+Weft.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F344FE22DF371B00435DF1 /* NSView+Weft.h */; };
 		C9F3450322DF371B00435DF1 /* NSView+Weft.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F344FF22DF371B00435DF1 /* NSView+Weft.m */; };
 		C9F3450422DF371B00435DF1 /* NSDictionary+Weft.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F3450022DF371B00435DF1 /* NSDictionary+Weft.h */; };
@@ -119,6 +121,8 @@
 		C98811E622E4730C00D877B7 /* WeftStackGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeftStackGenerator.h; sourceTree = "<group>"; };
 		C98811E722E4730C00D877B7 /* WeftStackGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftStackGenerator.m; sourceTree = "<group>"; };
 		C98811EA22E4D87C00D877B7 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		C98811EC22E4DD9700D877B7 /* WeftRadioGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeftRadioGenerator.h; sourceTree = "<group>"; };
+		C98811ED22E4DD9700D877B7 /* WeftRadioGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeftRadioGenerator.m; sourceTree = "<group>"; };
 		C9F344FE22DF371B00435DF1 /* NSView+Weft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+Weft.h"; sourceTree = "<group>"; };
 		C9F344FF22DF371B00435DF1 /* NSView+Weft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+Weft.m"; sourceTree = "<group>"; };
 		C9F3450022DF371B00435DF1 /* NSDictionary+Weft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Weft.h"; sourceTree = "<group>"; };
@@ -288,10 +292,10 @@
 				C9F3451C22DF63DE00435DF1 /* WeftColGenerator.m */,
 				C9F3451722DF63D000435DF1 /* WeftRowGenerator.h */,
 				C9F3451822DF63D000435DF1 /* WeftRowGenerator.m */,
-				C9F3452322DF650500435DF1 /* WeftWindowGenerator.h */,
-				C9F3452422DF650500435DF1 /* WeftWindowGenerator.m */,
 				C98811E622E4730C00D877B7 /* WeftStackGenerator.h */,
 				C98811E722E4730C00D877B7 /* WeftStackGenerator.m */,
+				C9F3452322DF650500435DF1 /* WeftWindowGenerator.h */,
+				C9F3452422DF650500435DF1 /* WeftWindowGenerator.m */,
 			);
 			path = Structure;
 			sourceTree = "<group>";
@@ -309,6 +313,8 @@
 				C9F5F43622E0CE9E003FD0F5 /* WeftComboGenerator.m */,
 				C9F5F42722E08076003FD0F5 /* WeftDatepickerGenerator.h */,
 				C9F5F42822E08076003FD0F5 /* WeftDatepickerGenerator.m */,
+				C9F5F43922E0D35E003FD0F5 /* WeftImageGenerator.h */,
+				C9F5F43A22E0D35E003FD0F5 /* WeftImageGenerator.m */,
 				C9F3453122E05B9800435DF1 /* WeftLabelGenerator.h */,
 				C9F3453222E05B9800435DF1 /* WeftLabelGenerator.m */,
 				C9F5F41F22E07B49003FD0F5 /* WeftOkGenerator.h */,
@@ -317,12 +323,12 @@
 				C9F5F43022E095ED003FD0F5 /* WeftPasswordGenerator.m */,
 				C9F5F41322E06C93003FD0F5 /* WeftPopupbuttonGenerator.h */,
 				C9F5F41422E06C93003FD0F5 /* WeftPopupbuttonGenerator.m */,
+				C98811EC22E4DD9700D877B7 /* WeftRadioGenerator.h */,
+				C98811ED22E4DD9700D877B7 /* WeftRadioGenerator.m */,
 				C9F5F42B22E08E50003FD0F5 /* WeftTextboxGenerator.h */,
 				C9F5F42C22E08E50003FD0F5 /* WeftTextboxGenerator.m */,
 				C9F3451F22DF63EB00435DF1 /* WeftTextfieldGenerator.h */,
 				C9F3452022DF63EB00435DF1 /* WeftTextfieldGenerator.m */,
-				C9F5F43922E0D35E003FD0F5 /* WeftImageGenerator.h */,
-				C9F5F43A22E0D35E003FD0F5 /* WeftImageGenerator.m */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -348,6 +354,7 @@
 				C9F3452F22E0571800435DF1 /* WeftCheckboxGenerator.h in Headers */,
 				C9F5F41522E06C93003FD0F5 /* WeftPopupbuttonGenerator.h in Headers */,
 				C9844A1A22DF35E5002ADAAC /* WeftViewController.h in Headers */,
+				C98811EE22E4DD9700D877B7 /* WeftRadioGenerator.h in Headers */,
 				C9F5F43122E095ED003FD0F5 /* WeftPasswordGenerator.h in Headers */,
 				C9F3451D22DF63DE00435DF1 /* WeftColGenerator.h in Headers */,
 				C9F5F43B22E0D35E003FD0F5 /* WeftImageGenerator.h in Headers */,
@@ -490,6 +497,7 @@
 				C9F3451A22DF63D000435DF1 /* WeftRowGenerator.m in Sources */,
 				C9F5F43222E095ED003FD0F5 /* WeftPasswordGenerator.m in Sources */,
 				C9F5F42E22E08E50003FD0F5 /* WeftTextboxGenerator.m in Sources */,
+				C98811EF22E4DD9700D877B7 /* WeftRadioGenerator.m in Sources */,
 				C9F3453422E05B9800435DF1 /* WeftLabelGenerator.m in Sources */,
 				C9F3452222DF63EB00435DF1 /* WeftTextfieldGenerator.m in Sources */,
 				C98811E922E4730C00D877B7 /* WeftStackGenerator.m in Sources */,

@@ -18,8 +18,8 @@ const NSInteger kTextFieldDefaultWidth = 280;
 
 @implementation WeftTextfieldGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"textfield"];
+- (NSString *)elementName {
+  return @"textfield";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

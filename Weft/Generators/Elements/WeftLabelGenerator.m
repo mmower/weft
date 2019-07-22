@@ -12,8 +12,8 @@
 
 @implementation WeftLabelGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"label"];
+- (NSString *)elementName {
+  return @"label";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

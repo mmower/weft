@@ -13,8 +13,8 @@
 
 @implementation WeftImageGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"image"];
+- (NSString *)elementName {
+  return @"image";
 }
 
 - (NSImage *)app:(WeftApplication *)app getImage:(NSDictionary *)attributes {

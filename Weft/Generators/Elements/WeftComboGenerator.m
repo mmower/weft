@@ -13,8 +13,8 @@
 
 @implementation WeftComboGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"combo"];
+- (NSString *)elementName {
+  return @"combo";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

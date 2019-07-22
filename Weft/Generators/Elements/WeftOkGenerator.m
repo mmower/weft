@@ -12,8 +12,8 @@
 
 @implementation WeftOkGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"ok"];
+- (NSString *)elementName {
+  return @"ok";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

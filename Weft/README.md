@@ -10,53 +10,80 @@ That Weft allows automatic layout is down to using NSStackView.
 
 ## Example
 
-    <window title='Weft Test Window' width='640' height='480'>
-      <hstack insets='20,20,20,20'>
-        <textfield label='Name' width='50' id='name' placeholder='Matt Mower'></textfield>
-        <button gravity='leading' id='main' clicked='invokeScript:myapp/set-name' title='Ok'></button>        
-      </hstack>
+    <window title='Weft Test Window' width='640' height='120'>
+      <col insets='20,20,20,20'>
+        <row insets='10,10,10,10'>
+          <label width='65' title='Name:'/>
+          <textfield id='name' placeholder='John. Q. Public'/>
+        </row>
+        <row insets='10,10,10,10'>
+          <label width='65' title='Password:'/>
+          <password id='password'/>
+        </row>
+        <row insets='10,10,10,10'>
+          <checkbox title='Remember Me' id='remember'/>
+          <popupbutton id='length' choices='1 week,2 weeks,1 month' default='2 weeks'/>
+          <ok/>
+        </row>
+      </col>
     </window>
 
 
 ## Element Guide
 
-### Window
+### <window>
 
-    <window></window>
+    <window>…</window>
     
-    Attributes:
+#### Attributes
     * title: Title for the window
     * width: initial width of the window (this may be changed if the layout ends up wider)
     * height: initial height of the window (this may be changed if the layout ends up taller)
     
-### Row
+### <row>
 
-A row organises its contents as a horizontal stack of elements. 
+A row organises its contents horizontally. Internally a row is represented via an `NSStackView` whose `orientation` property is set to `NSUserInterfaceLayoutOrientationHorizontal`.
 
 #### Attributes
+  * `insets` - a series of values used as a margin between the edge of the row and its contents. Specified as `top`, `left`, `bottom`, `right`
+  * `distribution` - controls how contents are distributed across the width of the row. Valid values are `equalcentering`, `equalspacing`, `fill`, `fillequally`, `fillproportionally`, `gravity`
 
-### Col
+### <col>
+
+A `col` organises its contents vertically. Internally a col is represented via an `NSStackView` whose `orientation` property is set to `NSUserInterfaceLayoutOrientationVertical`.
 
 #### Attributes
 
 A col organises its contents as a vertical stack of elements.
 
-### Textfield
+### <textfield>
 
 #### Attributes
 
-### Textbox
+### <textbox>
 
-### Password
+#### Attributes
 
-### Button
+### <password>
 
-### Checkbox
+#### Attributes
 
-### Radio
+### <button>
 
-### Popupbutton
+#### Attributes
 
-### Datepicker
+### <checkbox>
+
+#### Attributes
+
+### <radio>
+
+#### Attributes
+
+### <popupbutton>
+
+#### Attributes
+
+### <datepicker>
 
 

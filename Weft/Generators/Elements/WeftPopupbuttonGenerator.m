@@ -12,8 +12,8 @@
 
 @implementation WeftPopupbuttonGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"popupbutton"];
+- (NSString *)elementName {
+  return @"popupbutton";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

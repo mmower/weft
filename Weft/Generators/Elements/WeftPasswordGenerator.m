@@ -15,8 +15,8 @@
 
 @implementation WeftPasswordGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"password"];
+- (NSString *)elementName {
+  return @"password";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

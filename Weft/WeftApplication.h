@@ -22,10 +22,13 @@ extern NSInteger kDefaultApplicationHeight;
 - (void)weftApplication:(WeftApplication *)app
                complete:(BOOL)ok;
 
+@optional
+
 - (void)weftApplication:(WeftApplication *)app
            buttonPushed:(NSButton *)button;
 
-@optional
+- (void)weftApplication:(WeftApplication *)app
+          radioSelected:(NSButton *)radio;
 
 - (NSImage *)weftApplication:(WeftApplication *)app
                 provideImage:(NSString *)spec;
@@ -63,6 +66,7 @@ extern NSInteger kDefaultApplicationHeight;
 - (NSDictionary *)elementAttributes:(NSView *)element;
 
 - (IBAction)buttonPushed:(id)sender;
+- (IBAction)radioSelected:(id)sender;
 - (IBAction)pressedOk:(id)sender;
 - (IBAction)pressedCancel:(id)sender;
 

@@ -62,6 +62,10 @@
   NSLog( @"weftButton pushed: %@", attributes );
 }
 
+- (void)weftApplication:(WeftApplication *)app radioSelected:(NSButton *)radio {
+  NSLog( @"weftRadio selected: %@", radio );
+}
+
 - (void)weftApplication:(WeftApplication *)app complete:(BOOL)ok {
   [_errorField setStringValue:[app.values description]];
   [_windowController close];

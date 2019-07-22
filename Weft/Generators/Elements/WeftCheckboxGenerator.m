@@ -15,8 +15,8 @@
 
 @implementation WeftCheckboxGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"checkbox"];
+- (NSString *)elementName {
+  return @"checkbox";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

@@ -13,8 +13,8 @@
 
 @implementation WeftTextboxGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"textbox"];
+- (NSString *)elementName {
+  return @"textbox";
 }
 
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {

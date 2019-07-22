@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes;
 - (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars;
 
+- (NSString *)elementName;
 - (BOOL)validForElementName:(NSString *)elementName;
 
 - (void)app:(WeftApplication *)app addView:(NSView *)view gravity:(WeftAttribute *)gravity;
