@@ -10,33 +10,26 @@
 
 #import "WeftColGenerator.h"
 
+#import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
+
+static NSString * const kColElementName = @"col";
 
 @implementation WeftColGenerator
 
 - (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"col"];
+  return [[elementName lowercaseString] isEqualToString:kColElementName];
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
-  NSParameterAssert(app);
-  NSParameterAssert(attributes);
-
+- (void)openElementAttributes:(NSDictionary *)attributes {
   NSStackView *stackView = [super createStackWithOrientation:NSUserInterfaceLayoutOrientationVertical
                                                   attributes:attributes];
-
-  WeftAttribute *attr = [attributes insetsAttribute:@"insets"];
-  if( attr.defined ) {
-    stackView.edgeInsets = attr.insetsValue;
-  }
-
-  [self app:app addView:stackView gravity:[attributes gravityAttribute:@"gravity"]];
-  
-  [app pushStack:stackView];
+  [self addView:stackView];
+  [self.app pushStack:stackView];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
-  [app popStack];
+- (void)closeElementText:(NSString *)text {
+  [self.app popStack];
 }
 
 @end

@@ -8,77 +8,69 @@
 
 #import "WeftImageGenerator.h"
 
+#import "WeftApplication.h"
+
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
+
+static NSString * const kImageElementName = @"image";
 
 @implementation WeftImageGenerator
 
 - (NSString *)elementName {
-  return @"image";
+  return kImageElementName;
 }
 
-- (NSImage *)app:(WeftApplication *)app getImage:(NSDictionary *)attributes {
+- (NSImage *)getImage:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  attr = [attributes stringAttribute:@"name"];
+  attr = [attributes stringAttribute:kNameAttributeName];
   if( attr.defined ) {
     return [NSImage imageNamed:attr.stringValue];
   }
 
-  attr = [attributes urlAttribute:@"src"];
+  attr = [attributes urlAttribute:kSrcAttributeName];
   if( attr.defined ) {
     return [[NSImage alloc] initWithContentsOfURL:attr.urlValue];
   }
 
-  attr = [attributes stringAttribute:@"provider"];
+  attr = [attributes stringAttribute:kProviderAttributeName];
   if( attr.defined ) {
-    return [app provideImage:attr.stringValue];
+    return [self.app provideImage:attr.stringValue];
   }
 
   return nil;
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  NSImage *image = [self app:app getImage:attributes];
+  NSImage *image = [self getImage:attributes];
   if( !image ) {
-    @throw [NSException exceptionWithName:@"Image Error"
+    @throw [NSException exceptionWithName:@"Resource Error"
                                    reason:@"Could not find image for <image>"
                                  userInfo:attributes];
   }
 
   NSImageView *imageView = [NSImageView imageViewWithImage:image];
+  imageView.weftAttributes = attributes;
   imageView.translatesAutoresizingMaskIntoConstraints = NO;
   imageView.imageScaling = NSImageScaleAxesIndependently;
 
-  attr = [attributes gravityAttribute:@"gravity"];
+  [self addView:imageView ];
+
+  attr = [attributes floatAttribute:kWidthAttributeName];
   if( attr.defined ) {
-    [app addView:imageView inGravity:attr.gravityValue];
-  } else {
-    [app addArrangedSubview:imageView];
+    [imageView pinWidth:attr.floatValue];
   }
 
-  NSUInteger width;
-  attr = [attributes integerAttribute:@"width"];
+  attr = [attributes integerAttribute:kHeightAttributeName];
   if( attr.defined ) {
-    width = attr.integerValue;
-  } else {
-    width = image.size.width;
+    [imageView pinHeight:attr.floatValue];
   }
-  [self app:app autoPinWidthOfView:imageView width:width];
-
-  NSUInteger height;
-  attr = [attributes integerAttribute:@"height"];
-  if( attr.defined ) {
-    height = attr.integerValue;
-  } else {
-    height = image.size.height;
-  }
-  [self app:app autoPinHeightOfView:imageView height:height];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)foundChars {
 }
 
 @end

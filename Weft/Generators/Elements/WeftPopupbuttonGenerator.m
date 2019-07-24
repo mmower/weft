@@ -8,21 +8,24 @@
 
 #import "WeftPopupbuttonGenerator.h"
 
+#import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
+
+static NSString * const kPopupElementName = @"popupbutton";
 
 @implementation WeftPopupbuttonGenerator
 
 - (NSString *)elementName {
-  return @"popupbutton";
+  return kPopupElementName;
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   NSString *elementId;
-  attr = [attributes stringAttribute:@"id"];
+  attr = [attributes stringAttribute:kIdAttributeName];
   if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Popup error"
+    @throw [NSException exceptionWithName:@"Configuration error"
                                    reason:@"Popup defined without 'id' attribute"
                                  userInfo:attributes];
   } else {
@@ -30,9 +33,9 @@
   }
 
   NSArray *choices;
-  attr = [attributes csvAttribute:@"choices"];
+  attr = [attributes csvAttribute:kChoicesAttributeName];
   if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Popup error"
+    @throw [NSException exceptionWithName:@"Configuration error"
                                    reason:@"Popup defined without 'choices' attribute"
                                  userInfo:attributes];
   } else {
@@ -41,23 +44,22 @@
 
   NSPopUpButton *popup = [[NSPopUpButton alloc] init];
   popup.translatesAutoresizingMaskIntoConstraints = NO;
+  popup.weftAttributes = attributes;
   [popup addItemsWithTitles:choices];
 
-  attr = [attributes stringAttribute:@"default"];
+  attr = [attributes stringAttribute:kDefaultAttributeName];
   if( attr.defined ) {
     [popup selectItemWithTitle:attr.stringValue];
   }
 
-  [self app:app addView:popup gravity:[attributes gravityAttribute:@"gravity"]];
-
-  [app registerElement:popup attributes:attributes];
-  [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
+  [self addView:popup];
+  [self.app registerElement:popup];
+  [self.app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
     [values setObject:[popup titleOfSelectedItem] forKey:elementId];
   }];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
-
+- (void)closeElementText:(NSString *)text {
 }
 
 @end

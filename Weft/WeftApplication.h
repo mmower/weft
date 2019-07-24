@@ -60,10 +60,9 @@ extern NSInteger kDefaultApplicationHeight;
 - (void)addArrangedSubview:(NSView *)view;
 - (void)addView:(NSView *)view inGravity:(NSStackViewGravity)gravity;
 
-- (void)registerElement:(NSView *)view attributes:(NSDictionary *)attributes;
+- (void)registerElement:(NSView *)view;
 - (void)registerExtractor:(WeftValueExtractor)extractor;
 - (NSView *)elementWithId:(NSString *)elementId;
-- (NSDictionary *)elementAttributes:(NSView *)element;
 
 - (IBAction)buttonPushed:(id)sender;
 - (IBAction)radioSelected:(id)sender;

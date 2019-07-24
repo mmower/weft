@@ -19,11 +19,11 @@
   return @"password";
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   NSString *elementId;
-  attr = [attributes stringAttribute:@"id"];
+  attr = [attributes stringAttribute:kIdAttributeName];
   if( attr.defined ) {
     elementId = attr.stringValue;
   } else {
@@ -37,33 +37,27 @@
 
   NSSecureTextField *secureField = [[NSSecureTextField alloc] init];
   secureField.translatesAutoresizingMaskIntoConstraints = NO;
+  secureField.weftAttributes = attributes;
 
-  [self app:app addView:secureField gravity:[attributes gravityAttribute:@"gravity"]];
-  NSInteger width;
-  attr = [attributes integerAttribute:@"width"];
+  [self addView:secureField];
+
+  attr = [attributes floatAttribute:kWidthAttributeName];
   if( attr.defined ) {
-    width = attr.integerValue;
-  } else {
-    width = kTextFieldDefaultWidth;
+    [secureField pinWidth:attr.floatValue];
   }
-  [self app:app autoPinWidthOfView:secureField width:width];
 
-  NSInteger height;
-  attr = [attributes integerAttribute:@"height"];
+  attr = [attributes floatAttribute:kHeightAttributeName];
   if( attr.defined ) {
-    height = attr.integerValue;
-  } else {
-    height = kTextFieldHeight;
+    [secureField pinHeight:attr.floatValue];
   }
-  [self app:app autoPinHeightOfView:secureField height:height];
 
-  [app registerElement:secureField attributes:attributes];
-  [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
+  [self.app registerElement:secureField];
+  [self.app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
     [values setObject:secureField.stringValue forKey:elementId];
   }];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)text {
 }
 
 @end

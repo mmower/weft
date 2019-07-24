@@ -22,13 +22,10 @@ const NSInteger kTextFieldDefaultWidth = 280;
   return @"textfield";
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
-  NSParameterAssert(app);
-  NSParameterAssert(attributes);
-
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  attr = [attributes stringAttribute:@"id"];
+  attr = [attributes stringAttribute:kIdAttributeName];
   if( !attr.defined ) {
     @throw [NSException exceptionWithName:@"WeftParserException"
                                    reason:@"TextField without id"
@@ -40,37 +37,45 @@ const NSInteger kTextFieldDefaultWidth = 280;
   textField.translatesAutoresizingMaskIntoConstraints = NO;
   [textField setElementId:elementId];
 
-  attr = [attributes stringAttribute:@"default"];
+  attr = [attributes stringAttribute:kDefaultAttributeName];
   if( attr.defined ) {
     textField.stringValue = attr.stringValue;
   }
 
-  attr = [attributes stringAttribute:@"placeholder"];
+  attr = [attributes stringAttribute:kPlaceholderAtributeName];
   if( attr.defined ) {
     [textField setPlaceholderString:attr.stringValue];
   }
 
-  attr = [attributes stringAttribute:@"tooltip"];
+  attr = [attributes stringAttribute:kTooltipAttributeName];
   if( attr.defined ) {
     [textField setToolTip:attr.stringValue];
   }
 
-  attr = [attributes boolAttribute:@"disabled"];
+  attr = [attributes boolAttribute:kDisabledAttributeName];
   if( attr.defined && attr.boolValue ) {
     [textField setEnabled:NO];
   }
 
-  [self app:app addView:textField gravity:[attributes gravityAttribute:@"gravity"]];
-  [self app:app autoPinWidthOfView:textField attributes:attributes];
-  [self app:app autoPinHeightOfView:textField attributes:attributes];
+  [self addView:textField];
 
-  [app registerElement:textField attributes:attributes];
-  [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
+  attr = [attributes floatAttribute:kWidthAttributeName];
+  if( attr.defined ) {
+    [textField pinWidth:attr.floatValue];
+  }
+
+  attr = [attributes floatAttribute:kHeightAttributeName];
+  if( attr.defined ) {
+    [textField pinHeight:attr.floatValue];
+  }
+
+  [self.app registerElement:textField];
+  [self.app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
     [values setObject:textField.stringValue forKey:elementId];    
   }];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)text {
 }
 
 @end

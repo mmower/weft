@@ -10,6 +10,8 @@
 
 #import "WeftRunner.h"
 
+#import "NSView+Weft.h"
+
 @interface AppDelegate ()
 
 @property (weak) IBOutlet NSWindow *window;
@@ -58,8 +60,7 @@
 }
 
 - (void)weftApplication:(WeftApplication *)app buttonPushed:(NSButton *)button {
-  NSDictionary *attributes = [app elementAttributes:button];
-  NSLog( @"weftButton pushed: %@", attributes );
+  NSLog( @"weftButton pushed: %@", button.weftAttributes );
 }
 
 - (void)weftApplication:(WeftApplication *)app radioSelected:(NSButton *)radio {
@@ -70,6 +71,5 @@
   [_errorField setStringValue:[app.values description]];
   [_windowController close];
 }
-
 
 @end

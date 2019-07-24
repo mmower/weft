@@ -10,34 +10,26 @@
 
 #import "WeftRowGenerator.h"
 
+#import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
+
+NSString * const kRowElementName = @"row";
 
 @implementation WeftRowGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"row"];
+- (NSString *)elementName {
+  return kRowElementName;
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
-  NSParameterAssert(app);
-  NSParameterAssert(attributes);
-
-  NSStackView *stackView = [[NSStackView alloc] init];
-  stackView.distribution = NSStackViewDistributionFill;
-  stackView.translatesAutoresizingMaskIntoConstraints = NO;
-  stackView.orientation = NSUserInterfaceLayoutOrientationHorizontal;
-
-  WeftAttribute *attr = [attributes insetsAttribute:@"insets"];
-  if( attr.defined ) {
-    stackView.edgeInsets = attr.insetsValue;
-  }
-
-  [self app:app addView:stackView gravity:[attributes gravityAttribute:@"gravity"]];
-  [app pushStack:stackView];
+- (void)openElementAttributes:(NSDictionary *)attributes {
+  NSStackView *stackView = [self createStackWithOrientation:NSUserInterfaceLayoutOrientationHorizontal
+                                                 attributes:attributes];
+  [self addView:stackView];
+  [self.app pushStack:stackView];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
-  [app popStack];
+- (void)closeElementText:(NSString *)text {
+  [self.app popStack];
 }
 
 @end

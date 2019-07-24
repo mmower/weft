@@ -17,13 +17,17 @@
   return @"button";
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
-  NSParameterAssert(app);
-  NSParameterAssert(attributes);
+- (void)button:(NSButton *)button shouldBeDisabled:(NSDictionary *)attributes {
+  WeftAttribute *attr = [attributes boolAttribute:kDisabledAttributeName];
+  if( attr.defined ) {
+    [button setEnabled:!attr.boolValue];
+  }
+}
 
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  attr = [attributes stringAttribute:@"id"];
+  attr = [attributes stringAttribute:kIdAttributeName];
   if( !attr.defined ) {
     @throw [NSException exceptionWithName:@"WeftParserException"
                                    reason:@"Button without id"
@@ -31,7 +35,7 @@
   }
   NSString *elementId = attr.stringValue;
 
-  attr = [attributes stringAttribute:@"title"];
+  attr = [attributes stringAttribute:kTitleAttributeName];
   if( !attr.defined ) {
     @throw [NSException exceptionWithName:@"WeftParserException"
                                    reason:@"Button without title"
@@ -40,28 +44,21 @@
   NSString *title = attr.stringValue;
 
   NSButton *button = [NSButton buttonWithTitle:title
-                                        target:app
+                                        target:self.app
                                         action:@selector(buttonPushed:)];
+  button.weftAttributes = attributes;
   button.translatesAutoresizingMaskIntoConstraints = NO;
 
   [button setElementId:elementId];
 
-  attr = [attributes stringAttribute:@"tooltip"];
-  if( attr.defined ) {
-    [button setToolTip:attr.stringValue];
-  }
+  [self view:button shouldHaveTooltip:attributes];
+  [self button:button shouldBeDisabled:attributes];
 
-  attr = [attributes boolAttribute:@"disabled"];
-  if( attr.defined && attr.boolValue ) {
-    [button setEnabled:NO];
-  }
-
-  [self app:app addView:button gravity:[attributes gravityAttribute:@"gravity"]];
-
-  [app registerElement:button attributes:attributes];
+  [self addView:button];
+  [self.app registerElement:button];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)foundChars {
 }
 
 @end

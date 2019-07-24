@@ -17,7 +17,7 @@
   return @"combo";
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   NSString *elementId;
@@ -30,18 +30,10 @@
     elementId = attr.stringValue;
   }
 
-  NSArray *choices;
-  attr = [attributes csvAttribute:@"choices"];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Popup error"
-                                   reason:@"Popup defined without 'choices' attribute"
-                                 userInfo:attributes];
-  } else {
-    choices = attr.csvValue;
-  }
-
+  NSArray *choices = [self choices:attributes];
   NSComboBox *combo = [[NSComboBox alloc] init];
   combo.translatesAutoresizingMaskIntoConstraints = NO;
+  combo.weftAttributes = attributes;
   combo.completes = YES;
   [combo addItemsWithObjectValues:choices];
 
@@ -50,18 +42,14 @@
     [combo selectItemWithObjectValue:attr.stringValue];
   }
 
-  [self app:app addView:combo gravity:[attributes gravityAttribute:@"gravity"]];
-  [self app:app autoPinWidthOfView:combo attributes:attributes];
-  [self app:app autoPinHeightOfView:combo attributes:attributes];
-  
-  [app registerElement:combo attributes:attributes];
-  [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
+  [self addView:combo];
+  [self.app registerElement:combo];
+  [self.app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
     [values setObject:[combo stringValue] forKey:elementId];
   }];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)foundChars {
 }
-
 
 @end

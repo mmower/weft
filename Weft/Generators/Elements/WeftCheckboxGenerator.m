@@ -19,11 +19,11 @@
   return @"checkbox";
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   NSString *elementId;
-  attr = [attributes stringAttribute:@"id"];
+  attr = [attributes stringAttribute:kIdAttributeName];
   if( !attr.defined ) {
     @throw [NSException exceptionWithName:@"Checkbox Error"
                                    reason:@"Checkbox without 'id' attribute"
@@ -33,7 +33,7 @@
   }
 
   NSString *title = @"";
-  attr = [attributes stringAttribute:@"title"];
+  attr = [attributes stringAttribute:kTitleAttributeName];
   if( attr.defined ) {
     title = attr.stringValue;
   }
@@ -41,21 +41,22 @@
   NSButton *button = [NSButton checkboxWithTitle:title
                                           target:nil
                                           action:nil];
-  [button setElementId:elementId];
-  attr = [attributes boolAttribute:@"disabled"];
+  button.elementId = elementId;
+  button.weftAttributes = attributes;
+  attr = [attributes boolAttribute:kDisabledAttributeName];
   if( attr.defined ) {
     button.enabled = !attr.boolValue;
   }
 
-  [self app:app addView:button gravity:[attributes gravityAttribute:@"gravity"]];
+  [self addView:button];
   
-  [app registerElement:button attributes:attributes];
-  [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
+  [self.app registerElement:button];
+  [self.app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
     [values setObject:@([button state] == NSControlStateValueOn) forKey:elementId];
   }];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)foundChars {
 }
 
 @end

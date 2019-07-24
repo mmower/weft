@@ -13,6 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSView (Weft)
 
 @property (nonatomic,strong) NSString *elementId;
+@property (nonatomic,strong) NSDictionary *weftAttributes;
+
+- (void)pinWidth:(CGFloat)width;
+- (void)pinHeight:(CGFloat)height;
+
+- (void)pinEdgeToSuperviewEdge:(NSLayoutAttribute)edge;
+- (void)pinEdgeToSuperviewEdge:(NSLayoutAttribute)edge inset:(CGFloat)inset;
 
 @end
 

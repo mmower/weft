@@ -8,6 +8,7 @@
 
 #import "WeftLabelGenerator.h"
 
+#import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
 @implementation WeftLabelGenerator
@@ -16,7 +17,7 @@
   return @"label";
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   attr = [attributes stringAttribute:@"title"];
@@ -27,14 +28,14 @@
   }
 
   NSTextField *label = [NSTextField labelWithString:attr.stringValue];
+  label.weftAttributes = attributes;
 
-  [self app:app addView:label gravity:[attributes gravityAttribute:@"gravity"]];
-  [self app:app autoPinWidthOfView:label attributes:attributes];
-  [self app:app autoPinHeightOfView:label attributes:attributes];
+  [self addView:label];
+//  [self app:app autoPinWidthOfView:label attributes:attributes];
+//  [self app:app autoPinHeightOfView:label attributes:attributes];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
-
+- (void)closeElementText:(NSString *)foundChars {
 }
 
 @end

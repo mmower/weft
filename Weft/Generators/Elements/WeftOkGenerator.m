@@ -8,6 +8,7 @@
 
 #import "WeftOkGenerator.h"
 
+#import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
 @implementation WeftOkGenerator
@@ -16,7 +17,7 @@
   return @"ok";
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   NSString *title = @"Ok";
@@ -26,16 +27,16 @@
   }
 
   NSButton *button = [NSButton buttonWithTitle:title
-                                        target:app
+                                        target:self.app
                                         action:@selector(pressedOk:)];
   button.translatesAutoresizingMaskIntoConstraints = NO;
+  button.weftAttributes = attributes;
+  [self addView:button];
 
-  [self app:app addView:button gravity:[attributes gravityAttribute:@"gravity"]];
-
-  app.hasOk = YES;
+  self.app.hasOk = YES;
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)foundChars {
 }
 
 @end

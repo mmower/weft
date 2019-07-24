@@ -17,11 +17,11 @@
   return @"datepicker";
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   NSString *elementId;
-  attr = [attributes stringAttribute:@"id"];
+  attr = [attributes stringAttribute:kIdAttributeName];
   if( !attr.defined ) {
     @throw [NSException exceptionWithName:@"Date Error"
                                    reason:@"<date> without 'id' attribute"
@@ -31,7 +31,9 @@
   }
 
   NSDatePicker *datePicker = [[NSDatePicker alloc] init];
+  datePicker.weftAttributes = attributes;
   datePicker.translatesAutoresizingMaskIntoConstraints = NO;
+  datePicker.weftAttributes = attributes;
   datePicker.elementId = elementId;
 
   NSString *dateFormat = @"EE, d LLL yyyy HH:mm:ss Z";
@@ -39,22 +41,21 @@
     dateFormat = attr.stringValue;
   }
 
-  attr = [attributes dateAttribute:@"date" format:dateFormat];
+  attr = [attributes dateAttribute:kDateAttributeName format:dateFormat];
   if( !attr.defined ) {
     datePicker.dateValue = [NSDate date];
   } else {
     datePicker.dateValue = attr.dateValue;
   }
 
-  [self app:app addView:datePicker gravity:[attributes gravityAttribute:@"gravity"]];
-
-  [app registerElement:datePicker attributes:attributes];
-  [app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
+  [self addView:datePicker];
+  [self.app registerElement:datePicker];
+  [self.app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
     [values setObject:datePicker.dateValue forKey:elementId];
   }];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)foundChars {
 }
 
 @end

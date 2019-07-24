@@ -13,25 +13,49 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class WeftAttribute;
+@class WeftApplication;
 @class WeftGeneratorResult;
+
+extern NSString * const kIdAttributeName;
+extern NSString * const kGravityAttributeName;
+extern NSString * const kChoicesAttributeName;
+extern NSString * const kInsetsAttributeName;
+extern NSString * const kTitleAttributeName;
+extern NSString * const kDisabledAttributeName;
+extern NSString * const kTooltipAttributeName;
+extern NSString * const kNameAttributeName;
+extern NSString * const kSrcAttributeName;
+extern NSString * const kProviderAttributeName;
+extern NSString * const kWidthAttributeName;
+extern NSString * const kHeightAttributeName;
+extern NSString * const kDefaultAttributeName;
+extern NSString * const kScrollableAttributeName;
+extern NSString * const kEditableAttributeName;
+extern NSString * const kSelectableAttributeName;
+extern NSString * const kPlaceholderAtributeName;
+extern NSString * const kDistributionAttributeName;
+extern NSString * const kDateAttributeName;
 
 @interface WeftElementGenerator : NSObject
 
-+ (WeftElementGenerator *)generator:(NSString *)element;
+@property (readonly) WeftApplication *app;
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes;
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars;
++ (WeftElementGenerator *)app:(WeftApplication *)app element:(NSString *)element;
+
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithApplication:(WeftApplication *)application NS_DESIGNATED_INITIALIZER;
+
+- (void)openElementAttributes:(NSDictionary *)attributes;
+- (void)closeElementText:(NSString *)text;
 
 - (NSString *)elementName;
 - (BOOL)validForElementName:(NSString *)elementName;
 
-- (void)app:(WeftApplication *)app addView:(NSView *)view gravity:(WeftAttribute *)gravity;
+- (NSArray *)choices:(NSDictionary *)attributes;
 
-- (void)app:(WeftApplication *)app autoPinWidthOfView:(NSView *)view width:(NSInteger)width;
-- (void)app:(WeftApplication *)app autoPinWidthOfView:(NSView *)view  attributes:(NSDictionary *)attributes;
+- (void)addView:(NSView *)view;
 
-- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view height:(NSInteger)height;
-- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view attributes:(NSDictionary *)attributes;
+- (void)view:(NSView *)view shouldHaveTooltip:(NSDictionary *)attributes;
 
 @end
 

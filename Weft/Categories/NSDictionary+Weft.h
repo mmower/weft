@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef enum {
   WeftStringAttribute,
   WeftIntegerAttribute,
+  WeftFloatAttribute,
   WeftBoolAttribute,
   WeftInsetsAttribute,
   WeftGravityAttribute,
@@ -29,6 +30,7 @@ typedef enum {
 @property (readonly) WeftAttributeType type;
 @property (readonly) NSString *stringValue;
 @property (readonly) NSInteger integerValue;
+@property (readonly) CGFloat floatValue;
 @property (readonly) BOOL boolValue;
 @property (readonly) NSEdgeInsets insetsValue;
 @property (readonly) NSStackViewGravity gravityValue;
@@ -43,6 +45,7 @@ typedef enum {
 - (instancetype)initUndefined;
 - (instancetype)initStringValue:(NSString *)value;
 - (instancetype)initIntegerValue:(NSInteger)value;
+- (instancetype)initFloatValue:(CGFloat)value;
 - (instancetype)initBoolValue:(BOOL)value;
 - (instancetype)initInsetsValue:(NSEdgeInsets)value;
 - (instancetype)initGravityValue:(NSStackViewGravity)value;
@@ -58,6 +61,7 @@ typedef enum {
 
 - (WeftAttribute *)stringAttribute:(NSString *)name;
 - (WeftAttribute *)integerAttribute:(NSString *)name;
+- (WeftAttribute *)floatAttribute:(NSString *)name;
 - (WeftAttribute *)boolAttribute:(NSString *)name;
 - (WeftAttribute *)insetsAttribute:(NSString *)name;
 - (WeftAttribute *)gravityAttribute:(NSString *)name;

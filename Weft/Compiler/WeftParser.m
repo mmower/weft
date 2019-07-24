@@ -52,7 +52,7 @@ didStartElement:(NSString *)elementName
     [_generators addObject:_generator];
   }
 
-  _generator = [WeftElementGenerator generator:elementName];
+  _generator = [WeftElementGenerator app:self.app element:elementName];
   if( !_generator ) {
     [_errors addObject:[NSError errorWithDomain:@"WeftParser"
                                            code:2
@@ -61,8 +61,7 @@ didStartElement:(NSString *)elementName
                                                   @"cause":[NSString stringWithFormat:@"Cannot find generator for '%@' element",elementName]}]];
   } else {
     @try {
-      [_generator openElementApp:self.app
-                      attributes:attributeDict];
+      [_generator openElementAttributes:attributeDict];
     }
     @catch( NSException *ex ) {
       [_errors addObject:[NSError errorWithDomain:@"WeftParser"
@@ -87,7 +86,7 @@ didStartElement:(NSString *)elementName
                                                   @"reason":[NSString stringWithFormat:@"Generator %@ was not expecting to find a closing element: %@",[_generator className],elementName]}]];
   } else {
     @try {
-      [_generator closeElementApp:self.app foundCharacters:self.foundCharacters];
+      [_generator closeElementText:self.foundCharacters];
     }
     @catch( NSException *ex ) {
       [_errors addObject:[NSError errorWithDomain:@"WeftParser"
@@ -106,7 +105,11 @@ didStartElement:(NSString *)elementName
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-  self.foundCharacters = string;
+  if( string ) {
+    self.foundCharacters = string;
+  } else {
+    self.foundCharacters = @"";
+  }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock {

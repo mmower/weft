@@ -8,6 +8,9 @@
 
 #import "WeftCancelGenerator.h"
 
+#import "WeftApplication.h"
+
+#import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
 @implementation WeftCancelGenerator
@@ -16,23 +19,24 @@
   return @"cancel";
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   NSString *title = @"Cancel";
-  attr = [attributes stringAttribute:@"title"];
+  attr = [attributes stringAttribute:kTitleAttributeName];
   if( attr.defined ) {
     title = attr.stringValue;
   }
 
   NSButton *button = [NSButton buttonWithTitle:title
-                                        target:app
+                                        target:self.app
                                         action:@selector(pressedCancel:)];
-
-  [self app:app addView:button gravity:[attributes gravityAttribute:@"gravity"]];
+  button.translatesAutoresizingMaskIntoConstraints = NO;
+  button.weftAttributes = attributes;
+  [self addView:button];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)foundChars {
 }
 
 @end

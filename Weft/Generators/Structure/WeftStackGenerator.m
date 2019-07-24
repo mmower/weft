@@ -10,6 +10,7 @@
 
 #import "WeftStackGenerator.h"
 
+#import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
 @implementation WeftStackGenerator
@@ -19,9 +20,19 @@
   NSStackView *stackView = [[NSStackView alloc] init];
   stackView.distribution = NSStackViewDistributionFill;
   stackView.translatesAutoresizingMaskIntoConstraints = NO;
+  stackView.weftAttributes = attributes;
   stackView.orientation = orientation;
 
-  WeftAttribute *attr = [attributes insetsAttribute:@"insets"];
+  WeftAttribute *attr;
+
+  attr = [attributes distributionAttribute:kDistributionAttributeName];
+  if( attr.defined ) {
+    stackView.distribution = attr.distributionValue;
+  } else {
+    stackView.distribution = NSStackViewDistributionFillProportionally;
+  }
+
+  attr = [attributes insetsAttribute:kInsetsAttributeName];
   if( attr.defined ) {
     stackView.edgeInsets = attr.insetsValue;
   }

@@ -19,20 +19,48 @@
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
+NSString * const kIdAttributeName = @"id";
+NSString * const kGravityAttributeName = @"gravity";
+NSString * const kChoicesAttributeName = @"choices";
+NSString * const kInsetsAttributeName = @"insets";
+NSString * const kTitleAttributeName = @"title";
+NSString * const kDisabledAttributeName = @"disabled";
+NSString * const kTooltipAttributeName = @"tooltip";
+NSString * const kNameAttributeName = @"name";
+NSString * const kSrcAttributeName = @"src";
+NSString * const kProviderAttributeName = @"provider";
+NSString * const kWidthAttributeName = @"width";
+NSString * const kHeightAttributeName = @"height";
+NSString * const kDefaultAttributeName = @"default";
+NSString * const kScrollableAttributeName = @"scrollable";
+NSString * const kEditableAttributeName = @"editable";
+NSString * const kSelectableAttributeName = @"selectable";
+NSString * const kPlaceholderAtributeName = @"placeholder";
+NSString * const kDistributionAttributeName = @"distribution";
+NSString * const kDateAttributeName = @"date";
+
 static NSMapTable *generators;
 
 @implementation WeftElementGenerator
 
-+ (WeftElementGenerator *)generator:(NSString *)element {
++ (WeftElementGenerator *)app:(WeftApplication *)app element:(NSString *)element {
   NSString *className = [NSString stringWithFormat:@"Weft%@Generator",[element capitalizedString]];
   Class generatorClass = NSClassFromString( className );
-  WeftElementGenerator *generator = [[generatorClass alloc] init];
+  WeftElementGenerator *generator = [[generatorClass alloc] initWithApplication:app];
   return generator;
+}
+
+- (instancetype)initWithApplication:(WeftApplication *)application {
+  self = [super init];
+  if( self ) {
+    _app = application;
+  }
+  return self;
 }
 
 - (NSString *)elementName {
   @throw [NSException exceptionWithName:@"TypeError"
-                                 reason:@"Subclass does not define -elementName"
+                                 reason:[NSString stringWithFormat:@"Subclass %@ does not define -elementName",self.className]
                                userInfo:@{@"class":self.className}];
 }
 
@@ -40,58 +68,82 @@ static NSMapTable *generators;
   return [[elementName lowercaseString] isEqualToString:self.elementName];
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
+- (void)openElementAttributes:(NSDictionary *)attributes {
   @throw [NSException exceptionWithName:@"TypeError"
-                                 reason:@"Subclass does not define -openElementApp:attributes:"
+                                 reason:[NSString stringWithFormat:@"Subclass %@ does not define -openElementAttributes:",self.className]
                                userInfo:@{@"class":self.className}];
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)foundChars {
   @throw [NSException exceptionWithName:@"TypeError"
-                                 reason:@"Subclass does not define -closeElementApp:"
+                                 reason:[NSString stringWithFormat:@"Subclass %@ does not define -closeElementText:",self.className]
                                userInfo:@{@"class":self.className}];
 }
 
-- (void)app:(WeftApplication *)app addView:(NSView *)view gravity:(WeftAttribute *)gravity {
-  if( gravity.defined ) {
-    [app addView:view inGravity:gravity.gravityValue];
+- (NSArray *)choices:(NSDictionary *)attributes {
+  WeftAttribute *attr = [attributes csvAttribute:kChoicesAttributeName];
+  if( !attr.defined ) {
+    @throw [NSException exceptionWithName:@"Config Error"
+                                   reason:[NSString stringWithFormat:@"%@ defined without 'choices' attribute",self.elementName]
+                                 userInfo:attributes];
   } else {
-    [app addArrangedSubview:view];
+    return attr.csvValue;
   }
 }
 
-- (void)app:(WeftApplication *)app autoPinWidthOfView:(NSView *)view width:(NSInteger)width {
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:view
-                                                          attribute:NSLayoutAttributeWidth
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:1.0
-                                                           constant:width]];
-}
-
-- (void)app:(WeftApplication *)app autoPinWidthOfView:(NSView *)view attributes:(NSDictionary *)attributes {
-  WeftAttribute *attr = [attributes integerAttribute:@"width"];
+- (void)addView:(NSView *)view {
+  WeftAttribute *attr = [view.weftAttributes gravityAttribute:kGravityAttributeName];
   if( attr.defined ) {
-    [self app:app autoPinWidthOfView:view width:attr.integerValue];
+    [self.app addView:view inGravity:attr.gravityValue];
+  } else {
+    [self.app addArrangedSubview:view];
   }
 }
 
-- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view height:(NSInteger)height {
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:view
-                                                          attribute:NSLayoutAttributeHeight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:1.0
-                                                           constant:height]];
-}
+//- (void)autoPinWidthOfView:(NSView *)view width:(NSInteger)width {
+//  [self.app.appView addConstraint:[NSLayoutConstraint constraintWithItem:view
+//                                                          attribute:NSLayoutAttributeWidth
+//                                                          relatedBy:NSLayoutRelationEqual
+//                                                             toItem:nil
+//                                                          attribute:NSLayoutAttributeNotAnAttribute
+//                                                         multiplier:1.0
+//                                                           constant:width]];
+//}
+//
+//- (void)app:(WeftApplication *)app autoPinWidthOfView:(NSView *)view attributes:(NSDictionary *)attributes {
+//  WeftAttribute *attr = [attributes integerAttribute:@"width"];
+//  if( attr.defined ) {
+//    [self app:app autoPinWidthOfView:view width:attr.integerValue];
+//  }
+//}
+//
+//- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view height:(NSInteger)height {
+//  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:view
+//                                                          attribute:NSLayoutAttributeHeight
+//                                                          relatedBy:NSLayoutRelationEqual
+//                                                             toItem:nil
+//                                                          attribute:NSLayoutAttributeNotAnAttribute
+//                                                         multiplier:1.0
+//                                                           constant:height]];
+//}
+//
+//
+//- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view attributes:(NSDictionary *)attributes {
+//  WeftAttribute *attr = [attributes integerAttribute:@"height"];
+//  if( attr.defined ) {
+//    [self app:app autoPinHeightOfView:view height:attr.integerValue];
+//  }
+//}
+
+#pragma mark -
+#pragma mark Feature generators
 
 
-- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view attributes:(NSDictionary *)attributes {
-  WeftAttribute *attr = [attributes integerAttribute:@"height"];
+
+- (void)view:(NSView *)view shouldHaveTooltip:(NSDictionary *)attributes {
+  WeftAttribute *attr = [attributes stringAttribute:kTooltipAttributeName];
   if( attr.defined ) {
-    [self app:app autoPinHeightOfView:view height:attr.integerValue];
+    [view setToolTip:attr.stringValue];
   }
 }
 

@@ -15,10 +15,13 @@
 
 @interface WeftApplication ()
 
+// Mapping from elementId -> NSView
 @property NSMapTable<NSString *,NSView *> *elementsById;
-@property NSMapTable<NSView *,NSDictionary *> *elementAttributes;
+
+// Array of closures that add (elementId,value) tuples to a dictionary
 @property NSMutableArray *valueExtractors;
 
+// Stack of NSStackView representing the nested structure of the UI
 @property NSMutableArray *stackHistory;
 
 @end
@@ -33,8 +36,6 @@ NSInteger kDefaultApplicationHeight = 200;
   if( self ) {
     _elementsById = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory
                                           valueOptions:NSMapTableWeakMemory];
-    _elementAttributes = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory
-                                               valueOptions:NSMapTableStrongMemory];
     _valueExtractors = [NSMutableArray array];
     _stackHistory = [NSMutableArray array];
     _hasOk = NO;
@@ -86,17 +87,12 @@ NSInteger kDefaultApplicationHeight = 200;
   }
 }
 
-- (void)registerElement:(NSView *)view attributes:(NSDictionary *)attributes {
+- (void)registerElement:(NSView *)view {
   [_elementsById setObject:view forKey:[view elementId]];
-  [_elementAttributes setObject:attributes forKey:view];
 }
 
 - (NSView *)elementWithId:(NSString *)elementId {
   return [_elementsById objectForKey:elementId];
-}
-
-- (NSDictionary *)elementAttributes:(NSView *)element {
-  return [_elementAttributes objectForKey:element];
 }
 
 - (IBAction)buttonPushed:(id)sender {

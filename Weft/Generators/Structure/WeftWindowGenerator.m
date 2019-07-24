@@ -12,80 +12,78 @@
 
 #import "NSDictionary+Weft.h"
 
+static NSString * const kWindowElementName = @"window";
+
 @implementation WeftWindowGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:@"window"];
+- (NSString *)elementName {
+  return kWindowElementName;
 }
 
-- (void)openElementApp:(WeftApplication *)app attributes:(NSDictionary *)attributes {
-  NSParameterAssert(app);
-  NSParameterAssert(attributes);
-
+- (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  attr = [attributes stringAttribute:@"title"];
+  attr = [attributes stringAttribute:kTitleAttributeName];
   if( !attr.defined ) {
     @throw [NSException exceptionWithName:@"Window Definition Error"
                                    reason:@"Window without 'title' attribute"
                                  userInfo:@{}];
   } else {
-    app.title = attr.stringValue;
+    self.app.title = attr.stringValue;
   }
 
-  attr = [attributes integerAttribute:@"width"];
+  attr = [attributes integerAttribute:kWidthAttributeName];
   if( attr.defined ) {
-    app.width = attr.integerValue;
+    self.app.width = attr.integerValue;
   } else {
-    app.width = kDefaultApplicationWidth;
+    self.app.width = kDefaultApplicationWidth;
   }
 
-  attr = [attributes integerAttribute:@"height"];
+  attr = [attributes integerAttribute:kHeightAttributeName];
   if( attr.defined ) {
-    app.height = attr.integerValue;
+    self.app.height = attr.integerValue;
   } else {
-    app.height = kDefaultApplicationHeight;
+    self.app.height = kDefaultApplicationHeight;
   }
 
-  app.appView = [[WeftFlippedView alloc] initWithFrame:NSMakeRect(0, 0, app.width, app.height)];
+  self.app.appView = [[WeftFlippedView alloc] initWithFrame:NSMakeRect(0, 0, self.app.width, self.app.height)];
+  self.app.currentStack = [[NSStackView alloc] initWithFrame:NSMakeRect(0, 0, self.app.width, self.app.height)];
+  self.app.currentStack.orientation = NSUserInterfaceLayoutOrientationVertical;
+  self.app.currentStack.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.app.appView addSubview:self.app.currentStack];
 
-  app.currentStack = [[NSStackView alloc] initWithFrame:NSMakeRect(0, 0, app.width, app.height)];
-  app.currentStack.orientation = NSUserInterfaceLayoutOrientationVertical;
-  app.currentStack.translatesAutoresizingMaskIntoConstraints = NO;
-  [app.appView addSubview:app.currentStack];
-
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:app.currentStack
+  [self.app.appView addConstraint:[NSLayoutConstraint constraintWithItem:self.app.currentStack
                                                                attribute:NSLayoutAttributeLeft
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:app.appView
+                                                                  toItem:self.app.appView
                                                                attribute:NSLayoutAttributeLeft
                                                               multiplier:1.0
                                                                 constant:0.0]];
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:app.currentStack
+  [self.app.appView addConstraint:[NSLayoutConstraint constraintWithItem:self.app.currentStack
                                                                attribute:NSLayoutAttributeTop
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:app.appView
+                                                                  toItem:self.app.appView
                                                                attribute:NSLayoutAttributeTop
                                                               multiplier:1.0
                                                                 constant:0.0]];
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:app.currentStack
+  [self.app.appView addConstraint:[NSLayoutConstraint constraintWithItem:self.app.currentStack
                                                                attribute:NSLayoutAttributeRight
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:app.appView
+                                                                  toItem:self.app.appView
                                                                attribute:NSLayoutAttributeRight
                                                               multiplier:1.0
                                                                 constant:0.0]];
-  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:app.currentStack
+  [self.app.appView addConstraint:[NSLayoutConstraint constraintWithItem:self.app.currentStack
                                                                attribute:NSLayoutAttributeBottom
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:app.appView
+                                                                  toItem:self.app.appView
                                                                attribute:NSLayoutAttributeBottom
                                                               multiplier:1.0
                                                                 constant:0.0]];
 
 }
 
-- (void)closeElementApp:(WeftApplication *)app foundCharacters:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)text {
 }
 
 @end

@@ -25,7 +25,15 @@
     return [WeftAttribute undefined];
   } else {
     return [[WeftAttribute alloc] initIntegerValue:[value integerValue]];
+  }
+}
 
+- (WeftAttribute *)floatAttribute:(NSString *)name {
+  NSString *value = [self objectForKey:name];
+  if( !value ) {
+    return [WeftAttribute undefined];
+  } else {
+    return [[WeftAttribute alloc] initFloatValue:[value floatValue]];
   }
 }
 
@@ -202,6 +210,16 @@
   return self;
 }
 
+- (instancetype)initFloatValue:(CGFloat)value {
+  self = [super init];
+  if( self ) {
+    _defined = YES;
+    _floatValue = value;
+    _type = WeftFloatAttribute;
+  }
+  return self;
+}
+
 - (instancetype)initBoolValue:(BOOL)value {
   self = [super init];
   if( self ) {
@@ -293,6 +311,8 @@
         return [NSString stringWithFormat:@"[attribute.string=%@]",_stringValue];
       case WeftIntegerAttribute:
         return [NSString stringWithFormat:@"[attribute.integer=%ld]",_integerValue];
+      case WeftFloatAttribute:
+        return [NSString stringWithFormat:@"[attribute.float=%f]",_floatValue];
       case WeftBoolAttribute:
         return [NSString stringWithFormat:@"[attribute.bool=%@]",[@(_boolValue) stringValue]];
       case WeftInsetsAttribute:
