@@ -132,7 +132,7 @@ A `<row>` organises its contents horizontally. Internally a row is represented v
   * `insets` - a series of values used as a margin between the edge of the row and its contents. Specified as `top`, `left`, `bottom`, `right`
   * `distribution` - controls how contents are distributed across the width of the row. Valid values are `equalcentering`, `equalspacing`, `fill`, `fillequally`, `fillproportionally`, `gravity`
 
-### <a name="row-element">\<col\></a>
+#### <a name="row-element">\<col\></a>
 
 A `<col>` organises its contents vertically. Internally a col is represented via an `NSStackView` whose `orientation` property is set to `NSUserInterfaceLayoutOrientationVertical`.
 
@@ -157,7 +157,7 @@ The following attributes are supported for all data elements but are optional:
 * `gravity`: when the data element is placed into a `<col>` or `<row>` whose distribution is set to `gravity` then this attribute specifies the gravity area into which the control will be placed. Valid values are `leading`, `center`, and `trailing` for `<row>` elements and `top`, `center`, and `bottom` for `<col>` elements.
 
 
-### <a name="textfield-element">\<textfield\></a>
+#### <a name="textfield-element">\<textfield\></a>
 
 A `<textfield>` creates an `NSTextField`  that supports a single line of editable text.
 
@@ -167,39 +167,45 @@ A `<textfield>` creates an `NSTextField`  that supports a single line of editabl
 * `tooltip`:  value to be displayed as a tooltip
 * `disabled`: set to `1` to disable this control
 
-### <a name="textbox-element">\<textbox\></a>
+#### <a name="textbox-element">\<textbox\></a>
 
-A `<textbox>` creates an `NSTextView` that supports editing a longer text.
+A `<textbox>` creates an `NSTextView` that supports editing a longer text. The initial content of the textbox should be added between the opening and closing tags.
+
+##### Example
+
+    <textbox id='message'>
+      Here is the text of your message.
+    </textbox>
 
 ##### Attributes
 
-### <a name="password-element">\<password\></a>
+#### <a name="password-element">\<password\></a>
 
 A `<password>` creates an `NSSecureTextField` that allows for editing sensitive values such as passwords and prevents them appearing on screen.
 
 ##### Attributes
 
-### <a name="button-element">\<button\></a>
+#### <a name="button-element">\<button\></a>
 
 A `<button>` element specifies a push-button (`NSButton`) control. 
 
 ##### Attributes
 * `id`: unique identifier for the button. Will be sent to the delegate.
 
-### <a name="ok-element">\<ok\></a>
+#### <a name="ok-element">\<ok\></a>
 
 An `<ok>` element specifies an **Ok** button. It is a special type of button that, when pushed, sends the `WeftApplicationDelegate` a message `- (void)weftApplication:(WeftApplication *)app complete:(BOOL)ok` passing `YES` as the `complete` value.
 
 ##### Attributes
 * `title`: the title to appear on the ok button
 
-### <a name="cancel-element">\<cancel\></a>
+#### <a name="cancel-element">\<cancel\></a>
 
 A `<cancel>` element specifies a **Cancel** button. It is a special type of button that, when pushed, sends the `WeftApplicationDelegate` a message `- (void)weftApplication:(WeftApplication *)app complete:(BOOL)ok` passing `NO` as the `complete` value.
 
 ##### Attributes
 
-### <a name="checkbox-element">\<checkbox\></a>
+#### <a name="checkbox-element">\<checkbox\></a>
 
 A `<checkbox>` element specifies an on/off checkbox control.
 
@@ -210,15 +216,15 @@ A `<checkbox>` element specifies an on/off checkbox control.
 * `disabled`: specify a value of `1` to have the control be disabled
 * `gravity`: if in a `<row>` or `<col>` using the `gravity` distribution specify a value of `leading`, 
 
-### <a name="radio-element">\<radio\></a>
+#### <a name="radio-element">\<radio\></a>
 
 ##### Attributes
 
-### <a name="popupbutton-element">\<popupbutton\></a>
+#### <a name="popupbutton-element">\<popupbutton\></a>
 
 ##### Attributes
 
-### <a name="datepicker-element">\<datepicker\></a>
+#### <a name="datepicker-element">\<datepicker\></a>
 
 ##### Attributes
 
@@ -228,4 +234,4 @@ Philosophically Weft was inspired by [Pashua](https://www.bluem.net/en/projects/
 
 ## License
 
-Weft is released under the MIT license, see the `LICENSE` file for details.
+Weft is released under the MIT license, see the [`LICENSE`](LICENSE) file for details.
