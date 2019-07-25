@@ -37,8 +37,8 @@ static NSString *kCheckboxElementName = @"checkbox";
   }
 
   NSButton *button = [NSButton checkboxWithTitle:title
-                                          target:nil
-                                          action:nil];
+                                          target:self.app
+                                          action:@selector(checkboxToggled:)];
   button.weftElementId = elementId;
   button.weftAttributes = attributes;
   attr = [attributes boolAttribute:kDisabledAttributeName];

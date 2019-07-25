@@ -32,6 +32,9 @@ extern NSInteger kDefaultApplicationHeight;
 - (void)weftApplication:(WeftApplication *)app
           radioSelected:(NSButton *)radio;
 
+- (void)weftApplication:(WeftApplication *)app
+        checkboxToggled:(NSButton *)checkbox;
+
 - (NSImage *)weftApplication:(WeftApplication *)app
                 provideImage:(NSString *)spec;
 
@@ -68,6 +71,7 @@ extern NSInteger kDefaultApplicationHeight;
 
 - (IBAction)buttonPushed:(id)sender;
 - (IBAction)radioSelected:(id)sender;
+- (IBAction)checkboxToggled:(id)sender;
 - (IBAction)pressedOk:(id)sender;
 - (IBAction)pressedCancel:(id)sender;
 

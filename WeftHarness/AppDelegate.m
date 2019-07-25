@@ -67,6 +67,10 @@
   NSLog( @"weftRadio selected: %@", radio );
 }
 
+- (void)weftApplication:(WeftApplication *)app checkboxToggled:(NSButton *)checkbox {
+  NSLog( @"weftCheckbox toggled: %@", checkbox );
+}
+
 - (void)weftApplication:(WeftApplication *)app complete:(BOOL)ok {
   [_errorField setStringValue:[app.values description]];
   [_windowController close];

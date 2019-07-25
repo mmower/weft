@@ -114,9 +114,16 @@ NSInteger kDefaultApplicationHeight = 200;
 }
 
 - (IBAction)radioSelected:(id)sender {
-  if( self.delegate && [self.delegate respondsToSelector:@selector(weftApplication:radioSelected:)] ){
+  if( self.delegate && [self.delegate respondsToSelector:@selector(weftApplication:radioSelected:)] ) {
     [self.delegate weftApplication:self
                      radioSelected:sender];
+  }
+}
+
+- (IBAction)checkboxToggled:(id)sender {
+  if( self.delegate && [self.delegate respondsToSelector:@selector(weftApplication:checkboxToggled:)] ) {
+    [self.delegate weftApplication:self
+                   checkboxToggled:sender];
   }
 }
 
