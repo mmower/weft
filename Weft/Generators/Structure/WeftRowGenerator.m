@@ -21,10 +21,17 @@ NSString * const kRowElementName = @"row";
   return kRowElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return NO;
+}
+
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes  {
   NSStackView *stackView = [self createStackWithOrientation:NSUserInterfaceLayoutOrientationHorizontal
                                                  attributes:attributes];
+  stackView.weftElementId = elementId;
+
   [self addView:stackView];
+
   [self.app pushStack:stackView];
 }
 

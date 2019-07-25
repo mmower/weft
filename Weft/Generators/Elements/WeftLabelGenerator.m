@@ -11,32 +11,35 @@
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
+static NSString * const kLabelElementName = @"label";
+
 @implementation WeftLabelGenerator
 
 - (NSString *)elementName {
-  return @"label";
+  return kLabelElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return NO;
+}
+
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   attr = [attributes stringAttribute:kTitleAttributeName];
   if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Label Error"
-                                   reason:@"Label without 'id' attribute"
+    @throw [NSException exceptionWithName:@"Config Error"
+                                   reason:@"<label> element requires the 'title' attribute"
                                  userInfo:attributes];
   }
 
   NSTextField *label = [NSTextField labelWithString:attr.stringValue];
+  label.weftElementId = elementId;
   label.weftAttributes = attributes;
 
-  attr = [attributes stringAttribute:kIdAttributeName];
-  if( attr.defined ) {
-    label.elementId = attr.stringValue;
-    [self.app registerElement:label];
-  }
 
   [self addView:label];
+  [self.app registerElement:label];
 
   attr = [attributes stringAttribute:@"same-width"];
   if( attr.defined ) {
@@ -58,7 +61,7 @@
   }
 }
 
-- (void)closeElementText:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)text {
 }
 
 @end

@@ -91,7 +91,7 @@ NSInteger kDefaultApplicationHeight = 200;
 }
 
 - (void)registerElement:(NSView *)view {
-  [_elementsById setObject:view forKey:[view elementId]];
+  [_elementsById setObject:view forKey:[view weftElementId]];
 }
 
 - (NSView *)elementWithId:(NSString *)elementId {

@@ -55,17 +55,27 @@ didStartElement:(NSString *)elementName
   _generator = [WeftElementGenerator app:self.app element:elementName];
   if( !_generator ) {
     [_errors addObject:[NSError errorWithDomain:@"WeftParser"
-                                           code:2
+                                           code:WeftErrorNoGeneratorForElement
                                        userInfo:@{@"line":@(parser.lineNumber),
                                                   @"column":@(parser.columnNumber),
                                                   @"cause":[NSString stringWithFormat:@"Cannot find generator for '%@' element",elementName]}]];
   } else {
     @try {
-      [_generator openElementAttributes:attributeDict];
+      WeftAttribute *idAttr = [attributeDict stringAttribute:kIdAttributeName];
+      if( _generator.requiresId && !idAttr.defined ) {
+        [_errors addObject:[NSError errorWithDomain:@"WeftParser"
+                                               code:WeftErrorMissingIdAttribute
+                                           userInfo:@{@"line":@(parser.lineNumber),
+                                                      @"column":@(parser.columnNumber),
+                                                      @"cause":[NSString stringWithFormat:@"%@ element requires 'id' attribute",_generator.elementName]
+                                                      }]];
+      } else {
+        [_generator openElementId:idAttr.stringValue attributes:attributeDict];
+      }
     }
     @catch( NSException *ex ) {
       [_errors addObject:[NSError errorWithDomain:@"WeftParser"
-                                             code:1
+                                             code:WeftErrorExceptionInGenerator
                                          userInfo:@{@"line":@(parser.lineNumber),
                                                     @"column":@(parser.columnNumber),
                                                     @"cause":ex.reason}]];
@@ -80,7 +90,7 @@ didStartElement:(NSString *)elementName
 {
   if( ![_generator validForElementName:elementName] ) {
     [_errors addObject:[NSError errorWithDomain:@"WeftParser"
-                                           code:3
+                                           code:WeftErrorUnexpectedClosingElement
                                        userInfo:@{@"line":@(parser.lineNumber),
                                                   @"column":@(parser.columnNumber),
                                                   @"reason":[NSString stringWithFormat:@"Generator %@ was not expecting to find a closing element: %@",[_generator className],elementName]}]];
@@ -90,7 +100,7 @@ didStartElement:(NSString *)elementName
     }
     @catch( NSException *ex ) {
       [_errors addObject:[NSError errorWithDomain:@"WeftParser"
-                                             code:4
+                                             code:WeftErrorExceptionInGenerator
                                          userInfo:@{@"line":@(parser.lineNumber),
                                                     @"column":@(parser.columnNumber),
                                                     @"reason":ex.reason}]];

@@ -10,6 +10,13 @@
 
 @class WeftApplication;
 
+enum {
+  WeftErrorExceptionInGenerator,
+  WeftErrorNoGeneratorForElement,
+  WeftErrorMissingIdAttribute,
+  WeftErrorUnexpectedClosingElement
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WeftParser : NSObject <NSXMLParserDelegate>

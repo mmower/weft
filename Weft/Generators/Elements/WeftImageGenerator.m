@@ -21,6 +21,10 @@ static NSString * const kImageElementName = @"image";
   return kImageElementName;
 }
 
+- (BOOL)requiresId {
+  return NO;
+}
+
 - (NSImage *)getImage:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
@@ -42,7 +46,8 @@ static NSString * const kImageElementName = @"image";
   return nil;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   NSImage *image = [self getImage:attributes];
@@ -53,6 +58,7 @@ static NSString * const kImageElementName = @"image";
   }
 
   NSImageView *imageView = [NSImageView imageViewWithImage:image];
+  imageView.weftElementId = elementId;
   imageView.weftAttributes = attributes;
   imageView.translatesAutoresizingMaskIntoConstraints = NO;
   imageView.imageScaling = NSImageScaleAxesIndependently;

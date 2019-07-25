@@ -13,32 +13,26 @@
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
+static NSString * const kPasswordElementName = @"password";
+
 @implementation WeftPasswordGenerator
 
 - (NSString *)elementName {
-  return @"password";
+  return kPasswordElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return YES;
+}
+
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  NSString *elementId;
-  attr = [attributes stringAttribute:kIdAttributeName];
-  if( attr.defined ) {
-    elementId = attr.stringValue;
-  } else {
-    @throw [NSException exceptionWithName:@"Password error"
-                                   reason:@"<password> without 'id' attribute"
-                                 userInfo:attributes];
-  }
-
-
-
-
   NSSecureTextField *secureField = [[NSSecureTextField alloc] init];
-  secureField.translatesAutoresizingMaskIntoConstraints = NO;
+  secureField.weftElementId = elementId;
   secureField.weftAttributes = attributes;
 
+  secureField.translatesAutoresizingMaskIntoConstraints = NO;
   [self addView:secureField];
 
   attr = [attributes floatAttribute:kWidthAttributeName];

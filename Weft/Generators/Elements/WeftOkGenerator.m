@@ -11,32 +11,42 @@
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
+static NSString * const kOkElementName = @"ok";
+
 @implementation WeftOkGenerator
 
 - (NSString *)elementName {
-  return @"ok";
+  return kOkElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return NO;
+}
+
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  NSString *title = @"Ok";
-  attr = [attributes stringAttribute:@"title"];
+  NSString *title;
+  attr = [attributes stringAttribute:kTitleAttributeName];
   if( attr.defined ) {
     title = attr.stringValue;
+  } else {
+    title = @"Ok";
   }
 
   NSButton *button = [NSButton buttonWithTitle:title
                                         target:self.app
                                         action:@selector(pressedOk:)];
-  button.translatesAutoresizingMaskIntoConstraints = NO;
+  button.weftElementId = elementId;
   button.weftAttributes = attributes;
+
+  button.translatesAutoresizingMaskIntoConstraints = NO;
   [self addView:button];
 
   self.app.hasOk = YES;
 }
 
-- (void)closeElementText:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)text {
 }
 
 @end

@@ -21,7 +21,11 @@ static NSString * const kWindowElementName = @"window";
   return kWindowElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return NO;
+}
+
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
   attr = [attributes stringAttribute:kTitleAttributeName];

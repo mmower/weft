@@ -13,30 +13,40 @@
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
+static NSString * const kCancelElementName = @"cancel";
+
 @implementation WeftCancelGenerator
 
 - (NSString *)elementName {
-  return @"cancel";
+  return kCancelElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return NO;
+}
+
+- (void)openElementId:(nullable NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  NSString *title = @"Cancel";
+  NSString *title;
   attr = [attributes stringAttribute:kTitleAttributeName];
   if( attr.defined ) {
     title = attr.stringValue;
+  } else {
+    title = @"Cancel";
   }
 
   NSButton *button = [NSButton buttonWithTitle:title
                                         target:self.app
                                         action:@selector(pressedCancel:)];
-  button.translatesAutoresizingMaskIntoConstraints = NO;
+  button.weftElementId = elementId;
   button.weftAttributes = attributes;
+
+  button.translatesAutoresizingMaskIntoConstraints = NO;
   [self addView:button];
 }
 
-- (void)closeElementText:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)text {
 }
 
 @end

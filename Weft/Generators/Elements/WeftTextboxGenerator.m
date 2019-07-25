@@ -19,22 +19,17 @@ static NSString * const kTextboxElementName = @"textbox";
   return kTextboxElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return YES;
+}
+
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  NSString *elementId;
-  attr = [attributes stringAttribute:kIdAttributeName];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Textbox Error"
-                                   reason:@"<textbox> without 'id' attribute"
-                                 userInfo:attributes];
-  } else {
-    elementId = attr.stringValue;
-  }
-
   self.textView = [[NSTextView alloc] init];
-  self.textView.translatesAutoresizingMaskIntoConstraints = NO;
+  self.textView.weftElementId = elementId;
   self.textView.weftAttributes = attributes;
+  self.textView.translatesAutoresizingMaskIntoConstraints = NO;
 
   NSView *view;
   attr = [attributes boolAttribute:kScrollableAttributeName];

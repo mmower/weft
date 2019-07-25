@@ -45,11 +45,12 @@ extern NSString * const kDateAttributeName;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithApplication:(WeftApplication *)application NS_DESIGNATED_INITIALIZER;
 
-- (void)openElementAttributes:(NSDictionary *)attributes;
+- (void)openElementId:(nullable NSString *)elementId attributes:(NSDictionary *)attributes;
 - (void)closeElementText:(NSString *)text;
 
 - (NSString *)elementName;
 - (BOOL)validForElementName:(NSString *)elementName;
+- (BOOL)requiresId;
 
 - (NSArray *)choices:(NSDictionary *)attributes;
 

@@ -11,33 +11,30 @@
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
+static NSString * const kComboElementName = @"combo";
+
 @implementation WeftComboGenerator
 
 - (NSString *)elementName {
-  return @"combo";
+  return kComboElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
-  WeftAttribute *attr;
+- (BOOL)requiresId {
+  return YES;
+}
 
-  NSString *elementId;
-  attr = [attributes stringAttribute:@"id"];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Combo error"
-                                   reason:@"Combo defined without 'id' attribute"
-                                 userInfo:attributes];
-  } else {
-    elementId = attr.stringValue;
-  }
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
+  WeftAttribute *attr;
 
   NSArray *choices = [self choices:attributes];
   NSComboBox *combo = [[NSComboBox alloc] init];
   combo.translatesAutoresizingMaskIntoConstraints = NO;
+  combo.weftElementId = elementId;
   combo.weftAttributes = attributes;
   combo.completes = YES;
   [combo addItemsWithObjectValues:choices];
 
-  attr = [attributes stringAttribute:@"default"];
+  attr = [attributes stringAttribute:kDefaultAttributeName];
   if( attr.defined ) {
     [combo selectItemWithObjectValue:attr.stringValue];
   }
@@ -49,7 +46,7 @@
   }];
 }
 
-- (void)closeElementText:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)text {
 }
 
 @end

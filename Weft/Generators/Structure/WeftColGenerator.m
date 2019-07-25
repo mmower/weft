@@ -17,14 +17,22 @@ static NSString * const kColElementName = @"col";
 
 @implementation WeftColGenerator
 
-- (BOOL)validForElementName:(NSString *)elementName {
-  return [[elementName lowercaseString] isEqualToString:kColElementName];
+- (NSString *)elementName {
+  return kColElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return NO;
+}
+
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   NSStackView *stackView = [super createStackWithOrientation:NSUserInterfaceLayoutOrientationVertical
                                                   attributes:attributes];
+  stackView.weftElementId = elementId;
+  stackView.weftAttributes = attributes;
+
   [self addView:stackView];
+
   [self.app pushStack:stackView];
 }
 

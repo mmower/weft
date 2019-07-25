@@ -15,14 +15,14 @@
 #pragma mark -
 #pragma mark Dynamic properties
 
-@dynamic elementId;
+@dynamic weftElementId;
 
-- (NSString *)elementId {
-  return (NSString *)objc_getAssociatedObject( self, @selector(elementId) );
+- (NSString *)weftElementId {
+  return (NSString *)objc_getAssociatedObject( self, @selector(weftElementId) );
 }
 
-- (void)setElementId:(NSString *)elementId {
-  objc_setAssociatedObject( self, @selector(elementId), elementId, OBJC_ASSOCIATION_RETAIN_NONATOMIC );
+- (void)setWeftElementId:(NSString *)elementId {
+  objc_setAssociatedObject( self, @selector(weftElementId), elementId, OBJC_ASSOCIATION_RETAIN_NONATOMIC );
 }
 
 @dynamic weftAttributes;

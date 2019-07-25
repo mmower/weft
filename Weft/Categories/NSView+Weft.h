@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSView (Weft)
 
-@property (nonatomic,strong) NSString *elementId;
+@property (nonatomic,strong) NSString *weftElementId;
 @property (nonatomic,strong) NSDictionary *weftAttributes;
 
 - (void)pinWidth:(CGFloat)width;

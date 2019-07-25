@@ -19,18 +19,12 @@ static NSString * const kPopupElementName = @"popupbutton";
   return kPopupElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
-  WeftAttribute *attr;
+- (BOOL)requiresId {
+  return YES;
+}
 
-  NSString *elementId;
-  attr = [attributes stringAttribute:kIdAttributeName];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Configuration error"
-                                   reason:@"Popup defined without 'id' attribute"
-                                 userInfo:attributes];
-  } else {
-    elementId = attr.stringValue;
-  }
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
+  WeftAttribute *attr;
 
   NSArray *choices;
   attr = [attributes csvAttribute:kChoicesAttributeName];
@@ -43,8 +37,9 @@ static NSString * const kPopupElementName = @"popupbutton";
   }
 
   NSPopUpButton *popup = [[NSPopUpButton alloc] init];
-  popup.translatesAutoresizingMaskIntoConstraints = NO;
+  popup.weftElementId = elementId;
   popup.weftAttributes = attributes;
+
   [popup addItemsWithTitles:choices];
 
   attr = [attributes stringAttribute:kDefaultAttributeName];
@@ -52,7 +47,9 @@ static NSString * const kPopupElementName = @"popupbutton";
     [popup selectItemWithTitle:attr.stringValue];
   }
 
+  popup.translatesAutoresizingMaskIntoConstraints = NO;
   [self addView:popup];
+
   [self.app registerElement:popup];
   [self.app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
     [values setObject:[popup titleOfSelectedItem] forKey:elementId];

@@ -13,35 +13,33 @@
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
+static NSString *kCheckboxElementName = @"checkbox";
+
 @implementation WeftCheckboxGenerator
 
 - (NSString *)elementName {
-  return @"checkbox";
+  return kCheckboxElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return YES;
+}
+
+- (void)openElementId:(nullable NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  NSString *elementId;
-  attr = [attributes stringAttribute:kIdAttributeName];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Checkbox Error"
-                                   reason:@"Checkbox without 'id' attribute"
-                                 userInfo:attributes];
-  } else {
-    elementId = attr.stringValue;
-  }
-
-  NSString *title = @"";
+  NSString *title;
   attr = [attributes stringAttribute:kTitleAttributeName];
   if( attr.defined ) {
     title = attr.stringValue;
+  } else {
+    title = @"";
   }
 
   NSButton *button = [NSButton checkboxWithTitle:title
                                           target:nil
                                           action:nil];
-  button.elementId = elementId;
+  button.weftElementId = elementId;
   button.weftAttributes = attributes;
   attr = [attributes boolAttribute:kDisabledAttributeName];
   if( attr.defined ) {
@@ -56,7 +54,7 @@
   }];
 }
 
-- (void)closeElementText:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)text {
 }
 
 @end

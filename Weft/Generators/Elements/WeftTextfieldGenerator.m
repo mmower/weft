@@ -16,26 +16,24 @@
 const NSInteger kTextFieldHeight = 22;
 const NSInteger kTextFieldDefaultWidth = 280;
 
+static NSString * const kTextfieldElementName = @"textfield";
+
 @implementation WeftTextfieldGenerator
 
 - (NSString *)elementName {
-  return @"textfield";
+  return kTextfieldElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return YES;
+}
+
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  attr = [attributes stringAttribute:kIdAttributeName];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"WeftParserException"
-                                   reason:@"TextField without id"
-                                 userInfo:nil];
-  }
-  NSString *elementId = attr.stringValue;
-
   NSTextField *textField = [[NSTextField alloc] init];
-  textField.translatesAutoresizingMaskIntoConstraints = NO;
-  [textField setElementId:elementId];
+  textField.weftElementId = elementId;
+  textField.weftAttributes = attributes;
 
   attr = [attributes stringAttribute:kDefaultAttributeName];
   if( attr.defined ) {
@@ -57,6 +55,7 @@ const NSInteger kTextFieldDefaultWidth = 280;
     [textField setEnabled:NO];
   }
 
+  textField.translatesAutoresizingMaskIntoConstraints = NO;
   [self addView:textField];
 
   attr = [attributes floatAttribute:kWidthAttributeName];

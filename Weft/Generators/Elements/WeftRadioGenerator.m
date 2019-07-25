@@ -19,23 +19,17 @@ static NSString * const kRadioElementName = @"radio";
   return kRadioElementName;
 }
 
+- (BOOL)requiresId {
+  return YES;
+}
+
 /*
  * There is an issue here that we have radio buttons defined without an id although they
  * are controls. Of course the issue is that it doesn't make sense to have a series of
  * buttons with the same ID and there is no "Radio" control to which we can add the id.
  */
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
-
-  NSString *elementId;
-  attr = [attributes stringAttribute:kIdAttributeName];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Config Error"
-                                   reason:@"<radio> defined without 'id' attribute"
-                                 userInfo:attributes];
-  } else {
-    elementId = attr.stringValue;
-  }
 
   NSString *defaultValue;
   attr = [attributes stringAttribute:kDefaultAttributeName];
@@ -50,12 +44,15 @@ static NSString * const kRadioElementName = @"radio";
     NSButton *button = [NSButton radioButtonWithTitle:choice
                                                target:self.app
                                                action:@selector(radioSelected:)];
-    button.translatesAutoresizingMaskIntoConstraints = NO;
     button.weftAttributes = attributes;
+
+    button.translatesAutoresizingMaskIntoConstraints = NO;
     [self addView:button];
+
     if( [choice isEqualToString:defaultValue] ) {
       [button setState:NSControlStateValueOn];
     }
+
     [buttons addObject:button];
   }
 

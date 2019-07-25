@@ -58,6 +58,9 @@ static NSMapTable *generators;
   return self;
 }
 
+#pragma mark -
+#pragma mark Element Validation
+
 - (NSString *)elementName {
   @throw [NSException exceptionWithName:@"TypeError"
                                  reason:[NSString stringWithFormat:@"Subclass %@ does not define -elementName",self.className]
@@ -68,28 +71,30 @@ static NSMapTable *generators;
   return [[elementName lowercaseString] isEqualToString:self.elementName];
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
   @throw [NSException exceptionWithName:@"TypeError"
-                                 reason:[NSString stringWithFormat:@"Subclass %@ does not define -openElementAttributes:",self.className]
+                                 reason:[NSString stringWithFormat:@"Subclass %@ does not define -requiresId",self.className]
                                userInfo:@{@"class":self.className}];
 }
 
-- (void)closeElementText:(NSString *)foundChars {
+#pragma mark -
+#pragma mark Methods to subclass in generators
+
+- (void)openElementId:(nullable NSString *)elementId attributes:(NSDictionary *)attributes {
+  @throw [NSException exceptionWithName:@"TypeError"
+                                 reason:[NSString stringWithFormat:@"Subclass %@ does not define -openElementId:attributes:",self.className]
+                               userInfo:@{@"class":self.className}];
+}
+
+- (void)closeElementText:(NSString *)text {
   @throw [NSException exceptionWithName:@"TypeError"
                                  reason:[NSString stringWithFormat:@"Subclass %@ does not define -closeElementText:",self.className]
                                userInfo:@{@"class":self.className}];
 }
 
-- (NSArray *)choices:(NSDictionary *)attributes {
-  WeftAttribute *attr = [attributes csvAttribute:kChoicesAttributeName];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Config Error"
-                                   reason:[NSString stringWithFormat:@"%@ defined without 'choices' attribute",self.elementName]
-                                 userInfo:attributes];
-  } else {
-    return attr.csvValue;
-  }
-}
+#pragma mark -
+#pragma mark View management
+
 
 - (NSView *)rootView {
   return self.app.appView;
@@ -108,45 +113,19 @@ static NSMapTable *generators;
   }
 }
 
-//- (void)autoPinWidthOfView:(NSView *)view width:(NSInteger)width {
-//  [self.app.appView addConstraint:[NSLayoutConstraint constraintWithItem:view
-//                                                          attribute:NSLayoutAttributeWidth
-//                                                          relatedBy:NSLayoutRelationEqual
-//                                                             toItem:nil
-//                                                          attribute:NSLayoutAttributeNotAnAttribute
-//                                                         multiplier:1.0
-//                                                           constant:width]];
-//}
-//
-//- (void)app:(WeftApplication *)app autoPinWidthOfView:(NSView *)view attributes:(NSDictionary *)attributes {
-//  WeftAttribute *attr = [attributes integerAttribute:@"width"];
-//  if( attr.defined ) {
-//    [self app:app autoPinWidthOfView:view width:attr.integerValue];
-//  }
-//}
-//
-//- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view height:(NSInteger)height {
-//  [app.appView addConstraint:[NSLayoutConstraint constraintWithItem:view
-//                                                          attribute:NSLayoutAttributeHeight
-//                                                          relatedBy:NSLayoutRelationEqual
-//                                                             toItem:nil
-//                                                          attribute:NSLayoutAttributeNotAnAttribute
-//                                                         multiplier:1.0
-//                                                           constant:height]];
-//}
-//
-//
-//- (void)app:(WeftApplication *)app autoPinHeightOfView:(NSView *)view attributes:(NSDictionary *)attributes {
-//  WeftAttribute *attr = [attributes integerAttribute:@"height"];
-//  if( attr.defined ) {
-//    [self app:app autoPinHeightOfView:view height:attr.integerValue];
-//  }
-//}
-
 #pragma mark -
-#pragma mark Feature generators
+#pragma mark Feature extractors/generators
 
-
+- (NSArray *)choices:(NSDictionary *)attributes {
+  WeftAttribute *attr = [attributes csvAttribute:kChoicesAttributeName];
+  if( !attr.defined ) {
+    @throw [NSException exceptionWithName:@"Config Error"
+                                   reason:[NSString stringWithFormat:@"%@ defined without 'choices' attribute",self.elementName]
+                                 userInfo:attributes];
+  } else {
+    return attr.csvValue;
+  }
+}
 
 - (void)view:(NSView *)view shouldHaveTooltip:(NSDictionary *)attributes {
   WeftAttribute *attr = [attributes stringAttribute:kTooltipAttributeName];

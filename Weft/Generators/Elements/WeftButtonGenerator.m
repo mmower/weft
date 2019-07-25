@@ -11,10 +11,16 @@
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
+static NSString * const kButtonElementName = @"button";
+
 @implementation WeftButtonGenerator
 
 - (NSString *)elementName {
-  return @"button";
+  return kButtonElementName;
+}
+
+- (BOOL)requiresId {
+  return NO;
 }
 
 - (void)button:(NSButton *)button shouldBeDisabled:(NSDictionary *)attributes {
@@ -24,16 +30,8 @@
   }
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
-
-  attr = [attributes stringAttribute:kIdAttributeName];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"WeftParserException"
-                                   reason:@"Button without id"
-                                 userInfo:nil];
-  }
-  NSString *elementId = attr.stringValue;
 
   attr = [attributes stringAttribute:kTitleAttributeName];
   if( !attr.defined ) {
@@ -46,19 +44,18 @@
   NSButton *button = [NSButton buttonWithTitle:title
                                         target:self.app
                                         action:@selector(buttonPushed:)];
+  button.weftElementId = elementId;
   button.weftAttributes = attributes;
-  button.translatesAutoresizingMaskIntoConstraints = NO;
-
-  [button setElementId:elementId];
 
   [self view:button shouldHaveTooltip:attributes];
   [self button:button shouldBeDisabled:attributes];
 
+  button.translatesAutoresizingMaskIntoConstraints = NO;
   [self addView:button];
   [self.app registerElement:button];
 }
 
-- (void)closeElementText:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)text {
 }
 
 @end

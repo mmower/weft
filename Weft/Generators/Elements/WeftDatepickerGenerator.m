@@ -11,34 +11,31 @@
 #import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
+static NSString * const kDatepickerElementName = @"datepicker";
+
 @implementation WeftDatepickerGenerator
 
 - (NSString *)elementName {
-  return @"datepicker";
+  return kDatepickerElementName;
 }
 
-- (void)openElementAttributes:(NSDictionary *)attributes {
+- (BOOL)requiresId {
+  return YES;
+}
+
+- (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  NSString *elementId;
-  attr = [attributes stringAttribute:kIdAttributeName];
-  if( !attr.defined ) {
-    @throw [NSException exceptionWithName:@"Date Error"
-                                   reason:@"<date> without 'id' attribute"
-                                 userInfo:attributes];
-  } else {
-    elementId = attr.stringValue;
-  }
-
   NSDatePicker *datePicker = [[NSDatePicker alloc] init];
+  datePicker.weftElementId = elementId;
   datePicker.weftAttributes = attributes;
   datePicker.translatesAutoresizingMaskIntoConstraints = NO;
-  datePicker.weftAttributes = attributes;
-  datePicker.elementId = elementId;
 
-  NSString *dateFormat = @"EE, d LLL yyyy HH:mm:ss Z";
+  NSString *dateFormat;
   if( attr.defined ) {
     dateFormat = attr.stringValue;
+  } else {
+    dateFormat = @"EE, d LLL yyyy HH:mm:ss Z";
   }
 
   attr = [attributes dateAttribute:kDateAttributeName format:dateFormat];
@@ -55,7 +52,7 @@
   }];
 }
 
-- (void)closeElementText:(NSString *)foundChars {
+- (void)closeElementText:(NSString *)text {
 }
 
 @end
