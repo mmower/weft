@@ -35,6 +35,9 @@ extern NSString * const kSelectableAttributeName;
 extern NSString * const kPlaceholderAtributeName;
 extern NSString * const kDistributionAttributeName;
 extern NSString * const kDateAttributeName;
+extern NSString * const kSameWidthAttributeName;
+extern NSString * const kSameHeightAttributeName;
+extern NSString * const kSpacingAttributeName;
 
 @interface WeftElementGenerator : NSObject
 
@@ -57,6 +60,8 @@ extern NSString * const kDateAttributeName;
 - (void)addView:(NSView *)view;
 
 - (void)view:(NSView *)view shouldHaveTooltip:(NSDictionary *)attributes;
+
+- (void)applyViewConstraints:(NSView *)view;
 
 - (NSView *)rootView;
 - (NSStackView *)currentStack;

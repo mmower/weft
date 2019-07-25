@@ -8,9 +8,11 @@
 
 #import "WeftElementGenerator.h"
 
+#import "WeftStackGenerator.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WeftRadioGenerator : WeftElementGenerator
+@interface WeftRadioGenerator : WeftStackGenerator
 
 @end
 

@@ -38,6 +38,9 @@ NSString * const kSelectableAttributeName = @"selectable";
 NSString * const kPlaceholderAtributeName = @"placeholder";
 NSString * const kDistributionAttributeName = @"distribution";
 NSString * const kDateAttributeName = @"date";
+NSString * const kSameWidthAttributeName = @"same-width";
+NSString * const kSameHeightAttributeName = @"same-height";
+NSString * const kSpacingAttributeName = @"spacing";
 
 static NSMapTable *generators;
 
@@ -111,10 +114,17 @@ static NSMapTable *generators;
   } else {
     [self.app addArrangedSubview:view];
   }
+
+  [self applyViewConstraints:view];
 }
 
 #pragma mark -
 #pragma mark Feature extractors/generators
+
+- (void)applyViewConstraints:(NSView *)view {
+  [self applyToView:view sameWidthAttribute:[view.weftAttributes stringAttribute:kSameWidthAttributeName]];
+  [self applyToView:view sameHeightAttribute:[view.weftAttributes stringAttribute:kSameHeightAttributeName]];
+}
 
 - (NSArray *)choices:(NSDictionary *)attributes {
   WeftAttribute *attr = [attributes csvAttribute:kChoicesAttributeName];
@@ -131,6 +141,46 @@ static NSMapTable *generators;
   WeftAttribute *attr = [attributes stringAttribute:kTooltipAttributeName];
   if( attr.defined ) {
     [view setToolTip:attr.stringValue];
+  }
+}
+
+- (void)applyToView:(NSView *)view sameWidthAttribute:(WeftAttribute *)attr {
+  if( attr.defined ) {
+    [self.app deferConstraint:^{
+      NSView *otherView = [self.app elementWithId:attr.stringValue];
+      if( !otherView ) {
+        @throw [NSException exceptionWithName:@"Layout Error"
+                                       reason:[NSString stringWithFormat:@"Unable to find an item with id: %@",attr.stringValue]
+                                     userInfo:nil];
+      }
+      [[view ancestorSharedWithView:otherView] addConstraint:[NSLayoutConstraint constraintWithItem:view
+                                                                                          attribute:NSLayoutAttributeWidth
+                                                                                          relatedBy:NSLayoutRelationEqual
+                                                                                             toItem:otherView
+                                                                                          attribute:NSLayoutAttributeWidth
+                                                                                         multiplier:1.0
+                                                                                           constant:0.0]];
+    }];
+  }
+}
+
+- (void)applyToView:(NSView *)view sameHeightAttribute:(WeftAttribute *)attr {
+  if( attr.defined ) {
+    [self.app deferConstraint:^{
+      NSView *otherView = [self.app elementWithId:attr.stringValue];
+      if( !otherView ) {
+        @throw [NSException exceptionWithName:@"Layout Error"
+                                       reason:[NSString stringWithFormat:@"Unable find an element with id: %@",attr.stringValue]
+                                     userInfo:nil];
+      }
+      [[view ancestorSharedWithView:otherView] addConstraint:[NSLayoutConstraint constraintWithItem:view
+                                                                                          attribute:NSLayoutAttributeHeight
+                                                                                          relatedBy:NSLayoutRelationEqual
+                                                                                             toItem:otherView
+                                                                                          attribute:NSLayoutAttributeWidth
+                                                                                         multiplier:1.0
+                                                                                           constant:0.0]];
+    }];
   }
 }
 

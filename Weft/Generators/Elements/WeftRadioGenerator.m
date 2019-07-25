@@ -23,11 +23,6 @@ static NSString * const kRadioElementName = @"radio";
   return YES;
 }
 
-/*
- * There is an issue here that we have radio buttons defined without an id although they
- * are controls. Of course the issue is that it doesn't make sense to have a series of
- * buttons with the same ID and there is no "Radio" control to which we can add the id.
- */
 - (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
@@ -39,15 +34,16 @@ static NSString * const kRadioElementName = @"radio";
 
   NSArray *choices = [self choices:attributes];
 
+  NSStackView *elementView = [self createStackWithOrientation:NSUserInterfaceLayoutOrientationHorizontal attributes:attributes];
+  elementView.weftElementId = elementId;
+
   NSMutableArray *buttons = [NSMutableArray arrayWithCapacity:choices.count];
   for( NSString *choice in choices ) {
     NSButton *button = [NSButton radioButtonWithTitle:choice
                                                target:self.app
                                                action:@selector(radioSelected:)];
-    button.weftAttributes = attributes;
-
     button.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addView:button];
+    [elementView addArrangedSubview:button];
 
     if( [choice isEqualToString:defaultValue] ) {
       [button setState:NSControlStateValueOn];
@@ -55,6 +51,8 @@ static NSString * const kRadioElementName = @"radio";
 
     [buttons addObject:button];
   }
+
+  [self addView:elementView];
 
   [self.app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
     for( NSButton *button in buttons ) {

@@ -25,11 +25,16 @@
 
   WeftAttribute *attr;
 
+  attr = [attributes floatAttribute:kSpacingAttributeName];
+  if( attr.defined ) {
+    stackView.spacing = attr.floatValue;
+  }
+
   attr = [attributes distributionAttribute:kDistributionAttributeName];
   if( attr.defined ) {
     stackView.distribution = attr.distributionValue;
   } else {
-    stackView.distribution = NSStackViewDistributionFillProportionally;
+    stackView.distribution = NSStackViewDistributionFill;
   }
 
   attr = [attributes insetsAttribute:kInsetsAttributeName];
