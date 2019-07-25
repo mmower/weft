@@ -40,6 +40,11 @@ NSString * const kDistributionAttributeName = @"distribution";
 NSString * const kDateAttributeName = @"date";
 NSString * const kSameWidthAttributeName = @"same-width";
 NSString * const kSameHeightAttributeName = @"same-height";
+NSString * const kPinToSuperViewAttributeName = @"pin-superview";
+NSString * const kPinToSuperViewLeadingAttributeName = @"pin-superview-leading";
+NSString * const kPinToSuperViewTrailingAttributeName = @"pin-superview-trailing";
+NSString * const kPinToSuperViewTopAttributeName = @"pin-superview-top";
+NSString * const kPinToSuperViewBottomAttributeName = @"pin-superview-bottom";
 NSString * const kSpacingAttributeName = @"spacing";
 
 static NSMapTable *generators;
@@ -124,6 +129,11 @@ static NSMapTable *generators;
 - (void)applyViewConstraints:(NSView *)view {
   [self applyToView:view sameWidthAttribute:[view.weftAttributes stringAttribute:kSameWidthAttributeName]];
   [self applyToView:view sameHeightAttribute:[view.weftAttributes stringAttribute:kSameHeightAttributeName]];
+  [self applyToView:view pinToSuperViewEdgesAttribute:[view.weftAttributes boolAttribute:kPinToSuperViewAttributeName]];
+  [self applyToView:view pinToSuperviewLeadingEdgeAttribute:[view.weftAttributes boolAttribute:kPinToSuperViewLeadingAttributeName]];
+  [self applyToView:view pinToSuperviewTopEdgeAttribute:[view.weftAttributes boolAttribute:kPinToSuperViewTopAttributeName]];
+  [self applyToView:view pinToSuperviewTrailingEdgeAttribute:[view.weftAttributes boolAttribute:kPinToSuperViewTrailingAttributeName]];
+  [self applyToView:view pinToSuperviewBottomEdgeAttribute:[view.weftAttributes boolAttribute:kPinToSuperViewBottomAttributeName]];
 }
 
 - (NSArray *)choices:(NSDictionary *)attributes {
@@ -141,6 +151,36 @@ static NSMapTable *generators;
   WeftAttribute *attr = [attributes stringAttribute:kTooltipAttributeName];
   if( attr.defined ) {
     [view setToolTip:attr.stringValue];
+  }
+}
+
+- (void)applyToView:(NSView *)view pinToSuperviewLeadingEdgeAttribute:(WeftAttribute *)attr {
+  if( attr.defined ) {
+    [view pinEdgeToSuperviewEdge:NSLayoutAttributeLeading];
+  }
+}
+
+- (void)applyToView:(NSView *)view pinToSuperviewTopEdgeAttribute:(WeftAttribute *)attr {
+  if( attr.defined ) {
+    [view pinEdgeToSuperviewEdge:NSLayoutAttributeTop];
+  }
+}
+
+- (void)applyToView:(NSView *)view pinToSuperviewTrailingEdgeAttribute:(WeftAttribute *)attr {
+  if( attr.defined ) {
+    [view pinEdgeToSuperviewEdge:NSLayoutAttributeTrailing];
+  }
+}
+
+- (void)applyToView:(NSView *)view pinToSuperviewBottomEdgeAttribute:(WeftAttribute *)attr {
+  if( attr.defined ) {
+    [view pinEdgeToSuperviewEdge:NSLayoutAttributeBottom];
+  }
+}
+
+- (void)applyToView:(NSView *)view pinToSuperViewEdgesAttribute:(WeftAttribute *)attr {
+  if( attr.defined ) {
+    [view pinEdgesToSuperviewEdges];
   }
 }
 

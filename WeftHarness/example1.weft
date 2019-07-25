@@ -1,17 +1,15 @@
-<window title='Weft Test Window' width='640' height='120'>
-  <col insets='20,20,20,20'>
-    <row insets='10,10,10,10'>
-      <label title='Name:' same-width='password-label'/>
-      <textfield id='name' placeholder='John. Q. Public'/>
-    </row>
-    <row insets='10,10,10,10'>
-      <label id='password-label' title='Password:'/>
-      <password id='password'/>
-    </row>
-    <row insets='10,10,10,10'>
-      <checkbox title='Remember Me' id='remember'/>
-      <popupbutton id='length' choices='1 week,2 weeks,1 month' default='2 weeks'/>
-      <ok/>
-    </row>
-  </col>
+<window title='Weft Test Window' width='480' height='90' insets='10,10,10,10'>
+  <row>
+    <label title='Name:' same-width='password-label'/>
+    <textfield id='name' placeholder='John. Q. Public'/>
+  </row>
+  <row>
+    <label id='password-label' title='Password:'/>
+    <password id='password'/>
+  </row>
+  <row insets='0,10,0,10' pin-superview-leading='1' distribution='fillproportionally'>
+    <checkbox title='Remember Me' id='remember'/>
+    <popupbutton id='length' choices='1 week,2 weeks,1 month' default='2 weeks'/>
+    <ok/>
+  </row>
 </window>

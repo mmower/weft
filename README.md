@@ -11,25 +11,23 @@ See the [Element Guide](#element-guide) for description of the Weft XML syntax.
 
 For a more complete example see the [WeftHarness](https://github.com/mmower/weft/tree/master/WeftHarness) target in the Xcode project. Clone the project and run WeftHarness for a live demo. 
 
-    <window title='Weft Test Window' width='640' height='120'>
-      <col insets='20,20,20,20'>
-        <row insets='10,10,10,10'>
-          <label width='65' title='Name:'/>
-          <textfield id='name' placeholder='John. Q. Public'/>
-        </row>
-        <row insets='10,10,10,10'>
-          <label width='65' title='Password:'/>
-          <password id='password'/>
-        </row>
-        <row insets='10,10,10,10'>
-          <checkbox title='Remember Me' id='remember'/>
-          <popupbutton id='length' choices='1 week,2 weeks,1 month' default='2 weeks'/>
-          <ok/>
-        </row>
-      </col>
+    <window title='Weft Test Window' width='480' height='90' insets='10,10,10,10'>
+      <row>
+        <label title='Name:' same-width='password-label'/>
+        <textfield id='name' placeholder='John. Q. Public'/>
+      </row>
+      <row>
+        <label id='password-label' title='Password:'/>
+        <password id='password'/>
+      </row>
+      <row insets='0,10,0,10' pin-superview-leading='1' distribution='fillproportionally'>
+        <checkbox title='Remember Me' id='remember'/>
+        <popupbutton id='length' choices='1 week,2 weeks,1 month' default='2 weeks'/>
+        <ok/>
+      </row>
     </window>
     
-[![Watch the video](https://img.youtube.com/vi/D50xPhEbEHk/maxresdefault.jpg)](https://youtu.be/D50xPhEbEHk)
+[![Watch the video](https://img.youtube.com/vi/otrVXmkXs90/maxresdefault.jpg)](https://youtu.be/otrVXmkXs90)
 
 ## <a name='getting-started'>Getting Started</a>
 
@@ -123,6 +121,7 @@ A `<window>` element specifies the top-level window and contains all other eleme
     * title: Title for the window
     * width: initial width of the window (this may be changed if the layout ends up wider)
     * height: initial height of the window (this may be changed if the layout ends up taller)
+    * insets: a comma-separated set of values for the top,left,bottom,right margin of the window
     
 #### <a name="row-element">\<row\></a>
 
@@ -130,6 +129,7 @@ A `<row>` organises its contents horizontally. Internally a row is represented v
 
 ##### Attributes
   * `insets` - a series of values used as a margin between the edge of the row and its contents. Specified as `top`, `left`, `bottom`, `right`
+  * `spacing` - number of points of spacing between elements
   * `distribution` - controls how contents are distributed across the width of the row. Valid values are `equalcentering`, `equalspacing`, `fill`, `fillequally`, `fillproportionally`, `gravity`
 
 #### <a name="row-element">\<col\></a>
@@ -138,7 +138,7 @@ A `<col>` organises its contents vertically. Internally a col is represented via
 
 ##### Attributes
 
-A col organises its contents as a vertical stack of elements.
+See [row](#row-element)
 
 ### <a name="data-elements">Data Elements</a>
 
@@ -155,7 +155,13 @@ The following attributes are mandatory for all data elements:
 The following attributes are supported for all data elements but are optional:
 
 * `gravity`: when the data element is placed into a `<col>` or `<row>` whose distribution is set to `gravity` then this attribute specifies the gravity area into which the control will be placed. Valid values are `leading`, `center`, and `trailing` for `<row>` elements and `top`, `center`, and `bottom` for `<col>` elements.
-
+* `same-width`:
+* `same-height`:
+* `pin-superview`: 
+* `pin-superview-leading`:
+* `pin-superview-top`:
+* `pin-superview-trailing`:
+* `pin-superview-bottom`:
 
 #### <a name="textfield-element">\<textfield\></a>
 

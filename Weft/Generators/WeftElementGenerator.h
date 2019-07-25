@@ -37,6 +37,12 @@ extern NSString * const kDistributionAttributeName;
 extern NSString * const kDateAttributeName;
 extern NSString * const kSameWidthAttributeName;
 extern NSString * const kSameHeightAttributeName;
+extern NSString * const kPinToSuperViewAttributeName;
+extern NSString * const kPinToSuperViewLeadingAttributeName;
+extern NSString * const kPinToSuperViewTrailingAttributeName;
+extern NSString * const kPinToSuperViewTopAttributeName;
+extern NSString * const kPinToSuperViewBottomAttributeName;
+
 extern NSString * const kSpacingAttributeName;
 
 @interface WeftElementGenerator : NSObject

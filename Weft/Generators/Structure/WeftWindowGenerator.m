@@ -52,9 +52,11 @@ static NSString * const kWindowElementName = @"window";
   }
 
   self.app.appView = [[WeftFlippedView alloc] initWithFrame:NSMakeRect(0, 0, self.app.width, self.app.height)];
-  self.app.currentStack = [[NSStackView alloc] init];
-  self.app.currentStack.orientation = NSUserInterfaceLayoutOrientationVertical;
-  self.app.currentStack.translatesAutoresizingMaskIntoConstraints = NO;
+
+  NSStackView *stack = [self createStackWithOrientation:NSUserInterfaceLayoutOrientationVertical
+                                             attributes:attributes];
+
+  self.app.currentStack = stack;
   [self.app.appView addSubview:self.app.currentStack];
 
   [[self currentStack] pinEdgesToSuperviewEdges];
