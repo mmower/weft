@@ -91,6 +91,14 @@ static NSMapTable *generators;
   }
 }
 
+- (NSView *)rootView {
+  return self.app.appView;
+}
+
+- (NSStackView *)currentStack {
+  return self.app.currentStack;
+}
+
 - (void)addView:(NSView *)view {
   WeftAttribute *attr = [view.weftAttributes gravityAttribute:kGravityAttributeName];
   if( attr.defined ) {

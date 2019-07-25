@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^WeftValueExtractor)(NSMutableDictionary *values);
 
+typedef void(^WeftConstraintGenerator)(void);
+
 @class WeftApplication;
 
 extern NSInteger kDefaultApplicationWidth;
@@ -68,6 +70,9 @@ extern NSInteger kDefaultApplicationHeight;
 - (IBAction)radioSelected:(id)sender;
 - (IBAction)pressedOk:(id)sender;
 - (IBAction)pressedCancel:(id)sender;
+
+- (void)deferConstraint:(WeftConstraintGenerator)generator;
+- (void)applyDeferedConstraints;
 
 - (NSDictionary *)values;
 

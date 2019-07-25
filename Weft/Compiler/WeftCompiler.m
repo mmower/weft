@@ -39,10 +39,13 @@
   if( success ) {
     if( weftParser.errors.count > 0 ) {
       return [[WeftCompilation alloc] initFailure:weftParser.errors];
-    } else if( ![self.app isValid] ) {
-      return [[WeftCompilation alloc] initFailure:self.app.validationErrors];
     } else {
-      return [[WeftCompilation alloc] initSuccess:self.app];
+      [self.app applyDeferedConstraints];
+      if( ![self.app isValid] ) {
+        return [[WeftCompilation alloc] initFailure:self.app.validationErrors];
+      } else {
+        return [[WeftCompilation alloc] initSuccess:self.app];
+      }
     }
   } else {
     return [[WeftCompilation alloc] initFailure:@[[NSError errorWithDomain:@"WeftCompiler"

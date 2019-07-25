@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)pinEdgeToSuperviewEdge:(NSLayoutAttribute)edge;
 - (void)pinEdgeToSuperviewEdge:(NSLayoutAttribute)edge inset:(CGFloat)inset;
+- (void)pinEdgesToSuperviewEdges;
 
 @end
 

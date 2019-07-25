@@ -72,4 +72,11 @@
                                                               constant:inset]];
 }
 
+- (void)pinEdgesToSuperviewEdges {
+  [self pinEdgeToSuperviewEdge:NSLayoutAttributeLeading];
+  [self pinEdgeToSuperviewEdge:NSLayoutAttributeTop];
+  [self pinEdgeToSuperviewEdge:NSLayoutAttributeTrailing];
+  [self pinEdgeToSuperviewEdge:NSLayoutAttributeBottom];
+}
+
 @end

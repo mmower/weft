@@ -20,7 +20,7 @@
 - (void)openElementAttributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
-  attr = [attributes stringAttribute:@"title"];
+  attr = [attributes stringAttribute:kTitleAttributeName];
   if( !attr.defined ) {
     @throw [NSException exceptionWithName:@"Label Error"
                                    reason:@"Label without 'id' attribute"
@@ -30,9 +30,32 @@
   NSTextField *label = [NSTextField labelWithString:attr.stringValue];
   label.weftAttributes = attributes;
 
+  attr = [attributes stringAttribute:kIdAttributeName];
+  if( attr.defined ) {
+    label.elementId = attr.stringValue;
+    [self.app registerElement:label];
+  }
+
   [self addView:label];
-//  [self app:app autoPinWidthOfView:label attributes:attributes];
-//  [self app:app autoPinHeightOfView:label attributes:attributes];
+
+  attr = [attributes stringAttribute:@"same-width"];
+  if( attr.defined ) {
+    [self.app deferConstraint:^{
+      NSView *item = [self.app elementWithId:attr.stringValue];
+      if( !item ) {
+        @throw [NSException exceptionWithName:@"Layout Error"
+                                       reason:[NSString stringWithFormat:@"Unable to find an item with id: %@",attr.stringValue]
+                                     userInfo:nil];
+      }
+      [[label ancestorSharedWithView:item] addConstraint:[NSLayoutConstraint constraintWithItem:label
+                                                                                      attribute:NSLayoutAttributeWidth
+                                                                                      relatedBy:NSLayoutRelationEqual
+                                                                                         toItem:item
+                                                                                      attribute:NSLayoutAttributeWidth
+                                                                                     multiplier:1.0
+                                                                                       constant:0.0]];
+    }];
+  }
 }
 
 - (void)closeElementText:(NSString *)foundChars {

@@ -57,6 +57,9 @@ extern NSString * const kDateAttributeName;
 
 - (void)view:(NSView *)view shouldHaveTooltip:(NSDictionary *)attributes;
 
+- (NSView *)rootView;
+- (NSStackView *)currentStack;
+
 @end
 
 NS_ASSUME_NONNULL_END

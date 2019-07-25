@@ -10,6 +10,7 @@
 
 #import "WeftFlippedView.h"
 
+#import "NSView+Weft.h"
 #import "NSDictionary+Weft.h"
 
 static NSString * const kWindowElementName = @"window";
@@ -47,40 +48,12 @@ static NSString * const kWindowElementName = @"window";
   }
 
   self.app.appView = [[WeftFlippedView alloc] initWithFrame:NSMakeRect(0, 0, self.app.width, self.app.height)];
-  self.app.currentStack = [[NSStackView alloc] initWithFrame:NSMakeRect(0, 0, self.app.width, self.app.height)];
+  self.app.currentStack = [[NSStackView alloc] init];
   self.app.currentStack.orientation = NSUserInterfaceLayoutOrientationVertical;
   self.app.currentStack.translatesAutoresizingMaskIntoConstraints = NO;
   [self.app.appView addSubview:self.app.currentStack];
 
-  [self.app.appView addConstraint:[NSLayoutConstraint constraintWithItem:self.app.currentStack
-                                                               attribute:NSLayoutAttributeLeft
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.app.appView
-                                                               attribute:NSLayoutAttributeLeft
-                                                              multiplier:1.0
-                                                                constant:0.0]];
-  [self.app.appView addConstraint:[NSLayoutConstraint constraintWithItem:self.app.currentStack
-                                                               attribute:NSLayoutAttributeTop
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.app.appView
-                                                               attribute:NSLayoutAttributeTop
-                                                              multiplier:1.0
-                                                                constant:0.0]];
-  [self.app.appView addConstraint:[NSLayoutConstraint constraintWithItem:self.app.currentStack
-                                                               attribute:NSLayoutAttributeRight
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.app.appView
-                                                               attribute:NSLayoutAttributeRight
-                                                              multiplier:1.0
-                                                                constant:0.0]];
-  [self.app.appView addConstraint:[NSLayoutConstraint constraintWithItem:self.app.currentStack
-                                                               attribute:NSLayoutAttributeBottom
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.app.appView
-                                                               attribute:NSLayoutAttributeBottom
-                                                              multiplier:1.0
-                                                                constant:0.0]];
-
+  [[self currentStack] pinEdgesToSuperviewEdges];
 }
 
 - (void)closeElementText:(NSString *)text {

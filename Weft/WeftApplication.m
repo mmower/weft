@@ -24,6 +24,8 @@
 // Stack of NSStackView representing the nested structure of the UI
 @property NSMutableArray *stackHistory;
 
+@property NSMutableArray *deferredConstraintGenerators;
+
 @end
 
 NSInteger kDefaultApplicationWidth = 500;
@@ -38,6 +40,7 @@ NSInteger kDefaultApplicationHeight = 200;
                                           valueOptions:NSMapTableWeakMemory];
     _valueExtractors = [NSMutableArray array];
     _stackHistory = [NSMutableArray array];
+    _deferredConstraintGenerators = [NSMutableArray array];
     _hasOk = NO;
   }
   return self;
@@ -120,6 +123,24 @@ NSInteger kDefaultApplicationHeight = 200;
 - (void)registerExtractor:(WeftValueExtractor)extractor {
   [_valueExtractors addObject:extractor];
 }
+
+#pragma mark -
+#pragma mark Deffered constraints are applied after the view tree is complete
+
+
+- (void)deferConstraint:(WeftConstraintGenerator)generator {
+  [_deferredConstraintGenerators addObject:generator];
+}
+
+- (void)applyDeferedConstraints {
+  for( WeftConstraintGenerator generator in _deferredConstraintGenerators ) {
+    generator();
+  }
+}
+
+#pragma mark -
+#pragma mark Clients use this to get values from form elements
+
 
 - (NSDictionary *)values {
   NSMutableDictionary *values = [NSMutableDictionary dictionary];
