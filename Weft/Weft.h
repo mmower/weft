@@ -16,4 +16,5 @@ FOUNDATION_EXPORT const unsigned char WeftVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <Weft/PublicHeader.h>
 
-
+#import "Weft/WeftApplication.h"
+#import "Weft/WeftRunner.h"
