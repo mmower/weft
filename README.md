@@ -81,6 +81,8 @@ The `values` message can be sent to a `WeftApplication` to retrieve the current 
 
 `WeftApplicationDelegate` defines 1 mandatory and 3 optional methods for allowing the host and `WeftApplication` to interact.
 
+Note that if the delegate also supports the `NSTextFieldDelegate` protocol then it will be registered as the delegate for any `NSTextField` objects generated.
+
 #### Mandatory methods
 
 ##### `- (void)weftApplication:(WeftApplication *)app complete:(BOOL)ok`
@@ -91,7 +93,15 @@ When the user clicks on the button represented by an `<ok>` or `<cancel>` elemen
 
 ##### `- (void)weftApplication:(WeftApplication *)app buttonPushed:(NSButton *)button`
 
-When the user clicks on a button represented by a `<button>` element the `WeftApplication` sends this message to its delegate. 
+When the user clicks on a button represented by a `<button>` element the `WeftApplication` sends this message to its delegate.
+
+##### `- (void)weftApplication:(WeftApplication *)app radioSelected:(NSButton *)radio`
+
+When the user selects a different radio button represented by `<radio>` element the `WeftApplication` sends this message to its delegate. 
+
+##### `- (void)weftApplication:(WeftApplication *)app checkboxToggled:(NSButton *)checkbox`
+
+When the user selects or deselects a checkbox represented by the `<checkbox>` element the `WeftApplication` sends this message to its delegate.
 
 ### NSView+Weft (`category`)
 

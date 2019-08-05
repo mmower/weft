@@ -18,3 +18,4 @@ FOUNDATION_EXPORT const unsigned char WeftVersionString[];
 
 #import "Weft/WeftApplication.h"
 #import "Weft/WeftRunner.h"
+#import "Weft/NSView+Weft.h"

@@ -28,7 +28,7 @@
 		C98811EB22E4D87C00D877B7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C98811EA22E4D87C00D877B7 /* LICENSE */; };
 		C98811EE22E4DD9700D877B7 /* WeftRadioGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = C98811EC22E4DD9700D877B7 /* WeftRadioGenerator.h */; };
 		C98811EF22E4DD9700D877B7 /* WeftRadioGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C98811ED22E4DD9700D877B7 /* WeftRadioGenerator.m */; };
-		C9F3450222DF371B00435DF1 /* NSView+Weft.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F344FE22DF371B00435DF1 /* NSView+Weft.h */; };
+		C9F3450222DF371B00435DF1 /* NSView+Weft.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F344FE22DF371B00435DF1 /* NSView+Weft.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9F3450322DF371B00435DF1 /* NSView+Weft.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F344FF22DF371B00435DF1 /* NSView+Weft.m */; };
 		C9F3450422DF371B00435DF1 /* NSDictionary+Weft.h in Headers */ = {isa = PBXBuildFile; fileRef = C9F3450022DF371B00435DF1 /* NSDictionary+Weft.h */; };
 		C9F3450522DF371B00435DF1 /* NSDictionary+Weft.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3450122DF371B00435DF1 /* NSDictionary+Weft.m */; };
