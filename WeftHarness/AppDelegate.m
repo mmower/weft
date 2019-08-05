@@ -42,6 +42,8 @@
     if( _windowController ) {
       [_windowController close];
     }
+    [_errorField setStringValue:@""];
+
     _runner = [[WeftRunner alloc] initWithSource:[self.sourceView string]
                                         delegate:self];
     _windowController = [_runner run];
