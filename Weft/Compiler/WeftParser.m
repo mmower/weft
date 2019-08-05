@@ -24,7 +24,6 @@
 
 @property WeftElementGenerator *generator;
 
-
 @property WeftApplication *app;
 
 @end

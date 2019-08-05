@@ -27,11 +27,11 @@
 - (instancetype)initWithSource:(NSString *)source delegate:(id<WeftApplicationDelegate>)delegate {
   self = [super init];
   if( self ) {
-    WeftCompiler *compiler = [[WeftCompiler alloc] initWithSource:source];
+    WeftCompiler *compiler = [[WeftCompiler alloc] initWithSource:source delegate:delegate];
     WeftCompilation *result = [compiler compile];
     if( result.successful ) {
       _app = result.app;
-      _app.delegate = delegate;
+      NSLog( @"app.delegate = %@", _app.delegate );
       _viewController = [[WeftViewController alloc] initWithApplication:_app];
     } else {
       @throw result.exception;

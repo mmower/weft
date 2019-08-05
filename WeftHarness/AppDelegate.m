@@ -76,4 +76,9 @@
   [_windowController close];
 }
 
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor {
+  NSLog( @"textField:%@ shouldEndEditing:%@", control, fieldEditor );
+  return YES;
+}
+
 @end

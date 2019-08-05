@@ -64,6 +64,10 @@ NSInteger kDefaultApplicationHeight = 200;
   return [NSString stringWithFormat:@"<WeftApplication:width=%ld:height=%ld:title='%@'>",self.width,self.height,self.title];
 }
 
+#pragma mark -
+#pragma mark Management of the stack of NStackView instances that represent the working UI
+
+
 - (void)pushStack:(NSStackView *)stackview {
   [_stackHistory addObject:_currentStack];
   _currentStack = stackview;
@@ -74,6 +78,10 @@ NSInteger kDefaultApplicationHeight = 200;
   [_stackHistory removeLastObject];
 }
 
+#pragma mark -
+#pragma mark Methods to add views to the current NSStackView depending on whether it uses gravity distribution or not
+
+
 - (void)addArrangedSubview:(NSView *)view {
   [_currentStack addArrangedSubview:view];
 }
@@ -81,6 +89,9 @@ NSInteger kDefaultApplicationHeight = 200;
 - (void)addView:(NSView *)view inGravity:(NSStackViewGravity)gravity {
   [_currentStack addView:view inGravity:gravity];
 }
+
+#pragma mark -
+#pragma mark Image Provider
 
 - (NSImage *)provideImage:(NSString *)spec {
   if( self.delegate && [self.delegate respondsToSelector:@selector(weftApplication:provideImage:)] ) {
@@ -90,6 +101,9 @@ NSInteger kDefaultApplicationHeight = 200;
   }
 }
 
+#pragma mark -
+#pragma mark Registering data providing elements
+
 - (void)registerElement:(NSView *)view {
   [_elementsById setObject:view forKey:[view weftElementId]];
 }
@@ -97,6 +111,9 @@ NSInteger kDefaultApplicationHeight = 200;
 - (NSView *)elementWithId:(NSString *)elementId {
   return [_elementsById objectForKey:elementId];
 }
+
+#pragma mark -
+#pragma mark Actions implementations for buttons
 
 - (IBAction)buttonPushed:(id)sender {
   if( self.delegate && [self.delegate respondsToSelector:@selector(weftApplication:buttonPushed:)] ) {
@@ -127,10 +144,6 @@ NSInteger kDefaultApplicationHeight = 200;
   }
 }
 
-- (void)registerExtractor:(WeftValueExtractor)extractor {
-  [_valueExtractors addObject:extractor];
-}
-
 #pragma mark -
 #pragma mark Deffered constraints are applied after the view tree is complete
 
@@ -148,6 +161,9 @@ NSInteger kDefaultApplicationHeight = 200;
 #pragma mark -
 #pragma mark Clients use this to get values from form elements
 
+- (void)registerExtractor:(WeftValueExtractor)extractor {
+  [_valueExtractors addObject:extractor];
+}
 
 - (NSDictionary *)values {
   NSMutableDictionary *values = [NSMutableDictionary dictionary];

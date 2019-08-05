@@ -10,7 +10,7 @@
 
 #import "WeftApplication.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate,WeftApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate,WeftApplicationDelegate,NSTextFieldDelegate>
 
 
 @end

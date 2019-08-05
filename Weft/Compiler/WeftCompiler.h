@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class WeftApplication;
+@protocol WeftApplicationDelegate;
 
 @interface WeftCompilation : NSObject
 
@@ -29,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WeftCompiler : NSObject
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithSource:(NSString *)source NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSource:(NSString *)source
+                      delegate:(id<WeftApplicationDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 - (WeftCompilation *)compile;
 

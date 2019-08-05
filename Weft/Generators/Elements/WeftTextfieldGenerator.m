@@ -35,6 +35,10 @@ static NSString * const kTextfieldElementName = @"textfield";
   textField.weftElementId = elementId;
   textField.weftAttributes = attributes;
 
+  if( [self.app.delegate conformsToProtocol:@protocol(NSTextFieldDelegate)] ) {
+    textField.delegate = (id<NSTextFieldDelegate>)self.app.delegate;
+  }
+
   attr = [attributes stringAttribute:kDefaultAttributeName];
   if( attr.defined ) {
     textField.stringValue = attr.stringValue;
