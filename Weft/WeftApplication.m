@@ -173,4 +173,16 @@ NSInteger kDefaultApplicationHeight = 200;
   return values;
 }
 
+#pragma mark -
+#pragma mark Interactive setters
+
+- (NSControl *)controlWithId:(NSString *)weftId {
+  id element = [self elementWithId:weftId];
+  if( element && [element isKindOfClass:[NSControl class]] ) {
+    return (NSControl *)element;
+  } else {
+    return nil;
+  }
+}
+
 @end

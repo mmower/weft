@@ -71,6 +71,7 @@
 
 - (void)weftApplication:(WeftApplication *)app checkboxToggled:(NSButton *)checkbox {
   NSLog( @"weftCheckbox toggled: %@", checkbox );
+  [[app controlWithId:@"name"] setStringValue:@"Checkbox toggled"];
 }
 
 - (void)weftApplication:(WeftApplication *)app complete:(BOOL)ok {

@@ -16,28 +16,29 @@
 @interface WeftRunner ()
 
 @property NSWindowController *windowController;
-@property WeftViewController *viewController;
-@property WeftApplication *app;
 @property WeftWindow *window;
 
 @end
 
 @implementation WeftRunner
 
-- (instancetype)initWithSource:(NSString *)source delegate:(id<WeftApplicationDelegate>)delegate {
+- (instancetype)initWithSource:(NSString *)source delegate:(nullable id<WeftApplicationDelegate>)delegate {
   self = [super init];
   if( self ) {
     WeftCompiler *compiler = [[WeftCompiler alloc] initWithSource:source delegate:delegate];
     WeftCompilation *result = [compiler compile];
     if( result.successful ) {
       _app = result.app;
-      NSLog( @"app.delegate = %@", _app.delegate );
       _viewController = [[WeftViewController alloc] initWithApplication:_app];
     } else {
       @throw result.exception;
     }
   }
   return self;
+}
+
+- (NSView *)view {
+  return _viewController.view;
 }
 
 - (NSWindowController *)run {

@@ -52,7 +52,6 @@ extern NSInteger kDefaultApplicationHeight;
 
 @property id<WeftApplicationDelegate> delegate;
 
-@property NSWindow *window;
 @property NSView *appView;
 
 @property NSStackView *currentStack;
@@ -77,6 +76,8 @@ extern NSInteger kDefaultApplicationHeight;
 - (IBAction)checkboxToggled:(id)sender;
 - (IBAction)pressedOk:(id)sender;
 - (IBAction)pressedCancel:(id)sender;
+
+- (NSControl *)controlWithId:(NSString *)weftId;
 
 - (void)deferConstraint:(WeftConstraintGenerator)generator;
 - (void)applyDeferedConstraints;

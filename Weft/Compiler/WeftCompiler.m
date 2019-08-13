@@ -21,12 +21,14 @@
 
 @implementation WeftCompiler
 
-- (instancetype)initWithSource:(NSString *)source delegate:(id<WeftApplicationDelegate>)delegate {
+- (instancetype)initWithSource:(NSString *)source delegate:(nullable id<WeftApplicationDelegate>)delegate {
   self = [super init];
   if( self ) {
     _source = source;
     _app = [[WeftApplication alloc] init];
-    _app.delegate = delegate;
+    if( delegate ) {
+      _app.delegate = delegate;
+    }
   }
   return self;
 }

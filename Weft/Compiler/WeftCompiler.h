@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithSource:(NSString *)source
-                      delegate:(id<WeftApplicationDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+                      delegate:(nullable id<WeftApplicationDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 - (WeftCompilation *)compile;
 
