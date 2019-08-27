@@ -26,29 +26,16 @@ static NSString * const kTextboxElementName = @"textbox";
 - (void)openElementId:(NSString *)elementId attributes:(NSDictionary *)attributes {
   WeftAttribute *attr;
 
+  attr = [attributes boolAttribute:kScrollableAttributeName];
+  BOOL scrollable = attr.defined && attr.boolValue;
+
   self.textView = [[NSTextView alloc] init];
   self.textView.weftElementId = elementId;
   self.textView.weftAttributes = attributes;
-  self.textView.translatesAutoresizingMaskIntoConstraints = NO;
-
-  NSView *view;
-  attr = [attributes boolAttribute:kScrollableAttributeName];
-  if( attr.defined ) {
-    if( attr.boolValue ) {
-      NSScrollView *scrollView = [[NSScrollView alloc] init];
-      scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-      scrollView.documentView = self.textView;
-      scrollView.hasHorizontalScroller = YES;
-      scrollView.hasVerticalScroller = YES;
-      view = scrollView;
-
-      [_textView pinEdgeToSuperviewEdge:NSLayoutAttributeLeading];
-      [_textView pinEdgeToSuperviewEdge:NSLayoutAttributeTop];
-      [_textView pinEdgeToSuperviewEdge:NSLayoutAttributeTrailing];
-      [_textView pinEdgeToSuperviewEdge:NSLayoutAttributeBottom];
-    } else {
-      view = self.textView;
-    }
+  if( !scrollable ) {
+    self.textView.translatesAutoresizingMaskIntoConstraints = NO;
+  } else {
+    self.textView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
   }
 
   attr = [attributes boolAttribute:kEditableAttributeName];
@@ -61,11 +48,26 @@ static NSString * const kTextboxElementName = @"textbox";
     self.textView.selectable = attr.boolValue;
   }
 
+  NSView *view;
+  attr = [attributes boolAttribute:kScrollableAttributeName];
+  if( scrollable ) {
+    NSScrollView *scrollView = [[NSScrollView alloc] init];
+    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    scrollView.hasHorizontalScroller = YES;
+    scrollView.hasVerticalScroller = YES;
+    [scrollView setDocumentView:self.textView];
+    view = scrollView;
+
+    [self.textView setVerticallyResizable:YES];
+    [self.textView setHorizontallyResizable:YES];
+//    [self.textView setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+//    [[self.textView textContainer] setWidthTracksTextView:YES];
+//    [self.textView pinEdgesToSuperviewEdges];
+  } else {
+    view = self.textView;
+  }
+
   [self addView:view];
-
-//  [self app:app autoPinWidthOfView:view attributes:attributes];
-//  [self app:app autoPinHeightOfView:view attributes:attributes];
-
   [self.app registerElement:self.textView];
   [self.app registerExtractor:^(NSMutableDictionary * _Nonnull values) {
     [values setObject:self.textView.string forKey:elementId];
