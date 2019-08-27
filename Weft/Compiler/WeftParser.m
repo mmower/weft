@@ -71,6 +71,8 @@ didStartElement:(NSString *)elementName
       } else {
         [_generator openElementId:idAttr.stringValue attributes:attributeDict];
       }
+
+      self.foundCharacters = @"";
     }
     @catch( NSException *ex ) {
       [_errors addObject:[NSError errorWithDomain:@"WeftParser"
