@@ -11,7 +11,7 @@
 		C9844A1322DF35E5002ADAAC /* WeftWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = C9844A0922DF35E5002ADAAC /* WeftWindow.h */; };
 		C9844A1422DF35E5002ADAAC /* WeftWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C9844A0A22DF35E5002ADAAC /* WeftWindow.m */; };
 		C9844A1522DF35E5002ADAAC /* WeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9844A0B22DF35E5002ADAAC /* WeftViewController.m */; };
-		C9844A1722DF35E5002ADAAC /* WeftParser.h in Headers */ = {isa = PBXBuildFile; fileRef = C9844A0D22DF35E5002ADAAC /* WeftParser.h */; };
+		C9844A1722DF35E5002ADAAC /* WeftParser.h in Headers */ = {isa = PBXBuildFile; fileRef = C9844A0D22DF35E5002ADAAC /* WeftParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9844A1822DF35E5002ADAAC /* WeftParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C9844A0E22DF35E5002ADAAC /* WeftParser.m */; };
 		C9844A1922DF35E5002ADAAC /* WeftRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = C9844A0F22DF35E5002ADAAC /* WeftRunner.m */; };
 		C9844A1A22DF35E5002ADAAC /* WeftViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C9844A1022DF35E5002ADAAC /* WeftViewController.h */; };

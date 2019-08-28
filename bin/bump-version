@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-VERSION=`git-rev-count`
-VERSION=$((VERSION+1))
-/usr/libexec/PlistBuddy -c "Set CFBundleVersion ${VERSION}" Weft/Info.plist
+OLD_VERSION=`git-rev-count`
+NEW_VERSION=$((OLD_VERSION+1))
+echo "Changing version from ${OLD_VERSION} to ${NEW_VERSION}"
+/usr/libexec/PlistBuddy -c "Set CFBundleVersion ${NEW_VERSION}" Weft/Info.plist
