@@ -94,7 +94,7 @@ didStartElement:(NSString *)elementName
                                            code:WeftErrorUnexpectedClosingElement
                                        userInfo:@{@"line":@(parser.lineNumber),
                                                   @"column":@(parser.columnNumber),
-                                                  @"reason":[NSString stringWithFormat:@"Generator %@ was not expecting to find a closing element: %@",[_generator className],elementName]}]];
+                                                  @"cause":[NSString stringWithFormat:@"Generator %@ was not expecting to find a closing element: %@",[_generator className],elementName]}]];
   } else {
     @try {
       [_generator closeElementText:self.foundCharacters];
@@ -104,7 +104,7 @@ didStartElement:(NSString *)elementName
                                              code:WeftErrorExceptionInGenerator
                                          userInfo:@{@"line":@(parser.lineNumber),
                                                     @"column":@(parser.columnNumber),
-                                                    @"reason":ex.reason}]];
+                                                    @"cause":ex.reason}]];
     }
     @finally {
       if( _generators.count > 0 ) {
