@@ -57,7 +57,8 @@ didStartElement:(NSString *)elementName
                                            code:WeftErrorNoGeneratorForElement
                                        userInfo:@{@"line":@(parser.lineNumber),
                                                   @"column":@(parser.columnNumber),
-                                                  @"cause":[NSString stringWithFormat:@"Cannot find generator for '%@' element",elementName]}]];
+                                                  @"cause":[NSString stringWithFormat:@"Unknown opening <%@> element found",elementName]}]];
+    [parser abortParsing];
   } else {
     @try {
       WeftAttribute *idAttr = [attributeDict stringAttribute:kIdAttributeName];
@@ -66,7 +67,7 @@ didStartElement:(NSString *)elementName
                                                code:WeftErrorMissingIdAttribute
                                            userInfo:@{@"line":@(parser.lineNumber),
                                                       @"column":@(parser.columnNumber),
-                                                      @"cause":[NSString stringWithFormat:@"%@ element requires 'id' attribute",_generator.elementName]
+                                                      @"cause":[NSString stringWithFormat:@"<%@> element does not specify 'id' attribute",_generator.elementName]
                                                       }]];
       } else {
         [_generator openElementId:idAttr.stringValue attributes:attributeDict];
@@ -94,10 +95,13 @@ didStartElement:(NSString *)elementName
                                            code:WeftErrorUnexpectedClosingElement
                                        userInfo:@{@"line":@(parser.lineNumber),
                                                   @"column":@(parser.columnNumber),
-                                                  @"cause":[NSString stringWithFormat:@"Generator %@ was not expecting to find a closing element: %@",[_generator className],elementName]}]];
+                                                  @"cause":[NSString stringWithFormat:@"While parsing <%@> an unexpected closing </%@> was found.", [_generator elementName]
+                                                            ,elementName]}]];
   } else {
     @try {
-      [_generator closeElementText:self.foundCharacters];
+      if( _generator ) {
+        [_generator closeElementText:self.foundCharacters];
+      }
     }
     @catch( NSException *ex ) {
       [_errors addObject:[NSError errorWithDomain:@"WeftParser"
@@ -127,6 +131,13 @@ didStartElement:(NSString *)elementName
   self.foundCharacters = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
 }
 
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+  NSError *error = [NSError errorWithDomain:@"WeftParser"
+                                       code:WeftErrorExceptionInGenerator
+                                   userInfo:@{@"line":parseError.userInfo[@"NSXMLParserErrorLineNumber"],
+                                              @"column":parseError.userInfo[@"NSXMLParserErrorColumn"],
+                                              @"cause":parseError.userInfo[@"NSXMLParserErrorMessage"]}];
+  [_errors addObject:error];
+}
 
 @end
-

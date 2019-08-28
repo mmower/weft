@@ -51,9 +51,13 @@
       }
     }
   } else {
-    return [[WeftCompilation alloc] initFailure:@[[NSError errorWithDomain:@"WeftCompiler"
-                                                                      code:1
-                                                                  userInfo:@{@"error":[xmlParser parserError]}]]];
+    // Typically we are going to arrive here because of -[NSXMLParser abortParsing]
+    // being called by the WeftParser
+    if( weftParser.errors && weftParser.errors.count > 0 ) {
+      return [[WeftCompilation alloc] initFailure:weftParser.errors];
+    } else {
+      return [[WeftCompilation alloc] initFailure:@[xmlParser.parserError]];
+    }
   }
 }
 
